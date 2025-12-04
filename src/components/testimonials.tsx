@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 const testimonials = [
   {
-    name: "Ethan Walker",
+    name: "Ayaan Bhat",
     role: "Founder",
     company: "UrbanEdge Interiors",
     image: "https://api.dicebear.com/7.x/adventurer/png?size=160&seed=Ethan",
@@ -12,7 +12,7 @@ const testimonials = [
     text: "Honestly, I was skeptical at first. But within 2 months of working with Grovv Studios, our Instagram engagement tripled and we started getting actual leads from social media. The team just gets it - they understand what works in the Indian market. Best decision we made for our interior design business.",
   },
   {
-    name: "Olivia Monroe",
+    name: "Sneha Mehta",
     role: "CEO",
     company: "FitLife Wellness Co.",
     image: "https://api.dicebear.com/7.x/adventurer/png?size=160&seed=Olivia",
@@ -28,7 +28,7 @@ const testimonials = [
     text: "The AI calling agent they built for us is insane. It handles our first-level customer queries 24/7 and actually sounds natural. We've cut our support costs by 60% while improving response times. My only regret is not finding Grovv Studios sooner!",
   },
   {
-    name: "Sarah Bennett",
+    name: "Sarah",
     role: "Co-Founder",
     company: "BloomBox Gifting",
     image: "https://api.dicebear.com/7.x/adventurer/png?size=160&seed=Sarah",
@@ -36,7 +36,7 @@ const testimonials = [
     text: "We needed a complete rebrand and these folks delivered beyond expectations. From logo to packaging to our entire digital presence - everything feels cohesive and premium now. Our average order value increased by 40% after the rebrand. Worth every rupee and more.",
   },
   {
-    name: "Logan Reid",
+    name: "Ryan Mir",
     role: "Managing Partner",
     company: "GreenLeaf Organics",
     image: "https://api.dicebear.com/7.x/adventurer/png?size=160&seed=Logan",
