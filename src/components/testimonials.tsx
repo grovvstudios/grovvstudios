@@ -36,7 +36,7 @@ const testimonials = [
     text: "We needed a complete rebrand and these folks delivered beyond expectations. From logo to packaging to our entire digital presence - everything feels cohesive and premium now. Our average order value increased by 40% after the rebrand. Worth every rupee and more.",
   },
   {
-    name: "Ryan Mir",
+    name: "Rayan Mir",
     role: "Managing Partner",
     company: "GreenLeaf Organics",
     image: "https://api.dicebear.com/7.x/adventurer/png?size=160&seed=Logan",
