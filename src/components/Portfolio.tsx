@@ -25,7 +25,7 @@ const services = [
     icon: Video,
     title: "Video Production",
     price: "₹7,000",
-    originalPrice: 10000,
+    originalPrice: ₹10,000,
     period: "/ video",
     tagline: "Viral content that sells",
     description: "Reels & Shorts that stop the scroll. Fast turnaround, unlimited revisions, trending effects.",
@@ -37,7 +37,7 @@ const services = [
       "2 free revisions",
       "Additional charges apply for travel and Additional Services"
     ],
-    badge: null,
+    badge: "Limited Offer",
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
   },
   {
