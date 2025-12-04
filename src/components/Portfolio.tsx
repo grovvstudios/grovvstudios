@@ -25,7 +25,7 @@ const services = [
     icon: Video,
     title: "Video Production",
     price: "₹7,000",
-    originalPrice: ₹10,000,
+    originalPrice: "₹9,000",
     period: "/ video",
     tagline: "Viral content that sells",
     description: "Reels & Shorts that stop the scroll. Fast turnaround, unlimited revisions, trending effects.",
