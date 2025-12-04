@@ -8,7 +8,7 @@ export function Hero() {
 
       {/* MAIN HERO CONTAINER */}
       <div className="relative z-10 max-w-5xl mx-auto px-0 py-0 flex flex-col items-center text-center">
-        {/* Badge */}
+        {/* Badge - Good for click-through rates */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -26,12 +26,14 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* Heading */}
+        {/* Heading - SEO OPTIMIZED */}
+        {/* Added aria-label to tell Google exactly what you do */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="mb-6 hero-wordmark whitespace-nowrap relative inline-block max-w-full"
+          aria-label="Grovv Studios - Video Editing, AI Automation & Marketing Agency"
           style={{
             fontSize: "clamp(1.8rem, 6vw, 4.5rem)", // small enough for mobile, big on desktop
             fontWeight: 700,
@@ -43,18 +45,21 @@ export function Hero() {
           <span className="grovv-wordmark-shine" />
         </motion.h1>
 
-        {/* Subheading */}
-        <motion.p
+        {/* Subheading - SEO OPTIMIZED */}
+        {/* Changed from <p> to <h2> for better structure */}
+        {/* Added specific keywords: Video Editing, AI Automation, Social Media */}
+        <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="mb-12 mx-auto max-w-2xl text-gray-600"
-          style={{ fontSize: "1.25rem", lineHeight: "1.8" }}
+          style={{ fontSize: "1.25rem", lineHeight: "1.8", fontWeight: 400 }}
         >
-          We craft extraordinary digital experiences that elevate brands and
-          captivate audiences. From concept to creation, we bring your vision
-          to life.
-        </motion.p>
+          We assist brands with professional <strong className="font-semibold text-gray-800">Video Editing</strong>,{" "}
+          <strong className="font-semibold text-gray-800">AI Automation</strong>, and{" "}
+          <strong className="font-semibold text-gray-800">Social Media Growth</strong>. 
+          From concept to creation, we bring your vision to life.
+        </motion.h2>
 
         {/* CTA buttons */}
         <motion.div
@@ -83,7 +88,7 @@ export function Hero() {
 
           <button
             onClick={() => {
-              const workSection = document.getElementById("work");
+              const workSection = document.getElementById("portfolio"); // Fixed ID to match App.tsx
               workSection?.scrollIntoView({ behavior: "smooth" });
             }}
             className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105"
