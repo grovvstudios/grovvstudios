@@ -24,8 +24,8 @@ const services = [
   {
     icon: Video,
     title: "Video Production",
-    price: "₹3,000",
-    originalPrice: null,
+    price: "₹7,000",
+    originalPrice: 10000,
     period: "/ video",
     tagline: "Viral content that sells",
     description: "Reels & Shorts that stop the scroll. Fast turnaround, unlimited revisions, trending effects.",
@@ -34,7 +34,8 @@ const services = [
       "Professional editing",
       "Trending transitions & effects",
       "48-72 hour delivery",
-      "Unlimited revisions"
+      "2 free revisions"
+      "Additional charges apply for travel and Additional Services"
     ],
     badge: null,
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
@@ -42,7 +43,7 @@ const services = [
   {
     icon: Film,
     title: "Video Editing",
-    price: "₹500",
+    price: "₹600",
     originalPrice: "₹800",
     period: "/ minute",
     tagline: "Professional polish, affordable price",
@@ -51,29 +52,11 @@ const services = [
       "Color correction & grading",
       "Audio enhancement",
       "Cuts, transitions & effects",
-      "Motion graphics available",
+      "Motion graphics available(additional charges apply)",
       "Quick turnaround"
     ],
     badge: "Limited Offer",
     gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-  },
-  {
-    icon: MapPin,
-    title: "Google My Business",
-    price: "₹6,000",
-    originalPrice: "₹10,000",
-    period: "/ month",
-    tagline: "Dominate local search",
-    description: "Show up when customers search. Complete GMB management, review handling, local SEO.",
-    features: [
-      "Profile optimization",
-      "Regular posts & updates",
-      "Review management",
-      "Local SEO optimization",
-      "Performance tracking"
-    ],
-    badge: "40% Off",
-    gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
   },
   {
     icon: Search,
