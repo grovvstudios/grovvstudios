@@ -34,7 +34,7 @@ const services = [
       "Professional editing",
       "Trending transitions & effects",
       "48-72 hour delivery",
-      "2 free revisions"
+      "2 free revisions",
       "Additional charges apply for travel and Additional Services"
     ],
     badge: null,
