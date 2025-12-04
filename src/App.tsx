@@ -109,30 +109,46 @@ export default function App() {
 
       <div className="relative z-10">
         <Navbar />
-    <main id="main">
-  <Hero />
+        
+        {/* CHANGE 1: Use <main> correctly (you already did this, which is great!) */}
+        <main id="main">
+          
+          {/* Hero is fine here, but the H1 tag is INSIDE the Hero component */}
+          <Hero />
 
-  <div className="section-divider" />
+          <div className="section-divider" />
 
-  <div id="testimonials">
-    <Testimonials />
-  </div>
+          {/* CHANGE 2: Use <section> instead of <div> */}
+          <section id="testimonials">
+            <Testimonials />
+          </section>
 
-  <div className="section-divider" />
+          <div className="section-divider" />
 
-  <Process />
-  <div className="section-divider" />
+          {/* CHANGE 3: Wrap Process in a section */}
+          <section id="process">
+            <Process />
+          </section>
+          
+          <div className="section-divider" />
 
-  <Portfolio />
-  <div className="section-divider" />
+          {/* CHANGE 4: Wrap Portfolio in a section */}
+          <section id="portfolio">
+            <Portfolio />
+          </section>
 
-  <Contact />
-  <div className="section-divider" />
-</main>
+          <div className="section-divider" />
+
+          {/* CHANGE 5: Wrap Contact in a section */}
+          <section id="contact">
+            <Contact />
+          </section>
+
+          <div className="section-divider" />
+        </main>
 
         <Footer />
       </div>
     </div>
   );
 }
-
