@@ -52,8 +52,8 @@ const services = [
       "Color correction & grading",
       "Audio enhancement",
       "Cuts, transitions & effects",
-      "Motion graphics available(additional charges apply)",
-      "Quick turnaround"
+      "Motion graphics available (additional charges apply)",
+      "1 Free revision"
     ],
     badge: "Limited Offer",
     gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
