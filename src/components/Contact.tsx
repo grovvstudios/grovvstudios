@@ -144,27 +144,32 @@ export function Contact() {
                 />
               </div>
 
-              <div>
-                <label className="block mb-2 text-gray-700">Service Interested In</label>
-                <select 
-                  name="projectType"
-                  value={formData.projectType}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:outline-none focus:border-[#667eea] transition-colors"
-                >
-                  <option value="">Select a service...</option>
-                  <option value="Social Media Management">Social Media Management</option>
-                  <option value="Video Production">Video Production</option>
-                  <option value="Video Editing">Video Editing</option>
-                  <option value="Google My Business">Google My Business Optimization</option>
-                  <option value="SEO Optimization">SEO Optimization</option>
-                  <option value="AI Workflow Automation">AI Workflow & Calling Agents</option>
-                  <option value="Website Development">Website Development</option>
-                  <option value="Personal & Brand Branding">Personal & Brand Branding</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
+             <div>
+    <label className="block mb-2 text-gray-700">Service Interested In</label>
+    <select 
+      name="projectType"
+      value={formData.projectType}
+      onChange={handleChange}
+      required
+      className="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:outline-none focus:border-[#667eea] transition-colors"
+    >
+      <option value="">Select a service...</option>
+      
+      {/* --- NEW OPTION ADDED BELOW --- */}
+      <option value="Consultation">1-on-1 Consultation</option>
+      {/* ----------------------------- */}
+
+      <option value="Social Media Management">Social Media Management</option>
+      <option value="Video Production">Video Production</option>
+      <option value="Video Editing">Video Editing</option>
+      <option value="Google My Business">Google My Business Optimization</option>
+      <option value="SEO Optimization">SEO Optimization</option>
+      <option value="AI Workflow Automation">AI Workflow & Calling Agents</option>
+      <option value="Website Development">Website Development</option>
+      <option value="Personal & Brand Branding">Personal & Brand Branding</option>
+      <option value="Other">Other</option>
+    </select>
+</div>
 
               <div>
                 <label className="block mb-2 text-gray-700">Message</label>
