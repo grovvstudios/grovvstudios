@@ -132,4 +132,37 @@ function YouTubeCard({ video, index }: { video: any, index: number }) {
           backgroundPosition: 'center',
         }}
       >
-        <div className="
+        <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+            <Loader2 className="w-8 h-8 text-white animate-spin" />
+        </div>
+      </div>
+
+      {/* 2. YouTube Iframe */}
+      {isLoaded && (
+        <iframe
+            ref={iframeRef}
+            className="w-full h-full object-cover pointer-events-none scale-[1.35]"
+            src={`https://www.youtube.com/embed/${video.videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${video.videoId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
+            title={video.title}
+            allow="autoplay; encrypted-media; gyroscope; picture-in-picture"
+            referrerPolicy="strict-origin-when-cross-origin"
+            frameBorder="0"
+        />
+      )}
+
+      {/* 3. Interaction & Overlay Layers */}
+      <div className="absolute inset-0 z-10 cursor-pointer" />
+      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+      {/* Volume Icon */}
+      <div className="absolute top-6 right-6 z-30 bg-black/30 backdrop-blur-md p-3 rounded-full text-white transition-all duration-300 border border-white/10">
+        {isHovered ? <Volume2 size={24} /> : <VolumeX size={24} />}
+      </div>
+
+      {/* Title */}
+      <div className="absolute bottom-8 left-6 right-6 z-30 text-white translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+          <h3 className="text-xl font-bold leading-tight">{video.title}</h3>
+      </div>
+    </motion.div>
+  );
+}
