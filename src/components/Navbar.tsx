@@ -1,83 +1,114 @@
-import { useEffect, useState } from "react";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
-import { Navbar } from "./components/Navbar";
-import { Hero } from "./components/Hero";
-import Testimonials from "./components/testimonials";
-import { Process } from "./components/Process";
-import { Portfolio } from "./components/Portfolio";
-import { VideoShowcase } from "./components/VideoShowcase"; // Ensure this is imported
-import { Contact } from "./components/Contact";
-import { Footer } from "./components/Footer";
+export function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
 
-function ParallaxDots() {
-  const [scrollY, setScrollY] = useState(0);
+  // The names you want in the menu
+  const navItems = ["Work", "Services", "Process", "Testimonials", "Contact"];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const p1 = scrollY * -0.10;
-  const p2 = scrollY * -0.05;
-  const p3 = scrollY * -0.08;
-  const p4 = scrollY * -0.04;
-  const p5 = scrollY * -0.07;
+  const getNavLink = (item: string) => {
+    // Exact mapping to the IDs we set up in App.tsx
+    switch (item) {
+      case "Work": return "#work";          // Goes to VideoShowcase
+      case "Services": return "#services";  // Goes to Portfolio component
+      case "Process": return "#process";    // Goes to Process component
+      case "Testimonials": return "#testimonials";
+      case "Contact": return "#contact";
+      default: return "#";
+    }
+  };
 
   return (
-    <div className="fixed inset-0 pointer-events-none -z-10">
-      <div style={{ position: "absolute", top: 80 + p1, left: 50, width: 180, height: 180, borderRadius: "50%", background: "rgba(147,197,253,0.5)", filter: "blur(70px)" }} />
-      <div style={{ position: "absolute", top: 260 + p2, right: 120, width: 150, height: 150, borderRadius: "50%", background: "rgba(167,139,250,0.4)", filter: "blur(75px)" }} />
-      <div style={{ position: "absolute", top: 520 + p3, left: "50%", transform: "translateX(-50%)", width: 220, height: 220, borderRadius: "50%", background: "rgba(191,219,254,0.45)", filter: "blur(80px)" }} />
-      <div style={{ position: "absolute", bottom: 180 + p4, left: 30, width: 160, height: 160, borderRadius: "50%", background: "rgba(129,140,248,0.45)", filter: "blur(70px)" }} />
-      <div style={{ position: "absolute", bottom: 80 + p5, right: 100, width: 190, height: 190, borderRadius: "50%", background: "rgba(244,114,182,0.4)", filter: "blur(85px)" }} />
-    </div>
-  );
-}
+    <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="px-6 py-4 rounded-2xl backdrop-blur-md"
+          style={{
+            background: "rgba(255, 255, 255, 0.8)",
+            border: "1px solid rgba(102, 126, 234, 0.2)",
+            boxShadow: "0 10px 40px rgba(102, 126, 234, 0.1)",
+          }}
+        >
+          <div className="flex items-center justify-between px-[-4px] py-[-37px] mx-[13px] my-[0px]">
+            {/* Logo */}
+            <div 
+              className="text-lg md:text-2xl"
+              style={{ 
+                fontWeight: "700",
+                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              VV
+            </div>
 
-export default function App() {
-  return (
-    <div className="min-h-screen relative overflow-hidden">
-      <ParallaxDots />
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center gap-8">
+              {navItems.map((item) => (
+                <a
+                  key={item}
+                  href={getNavLink(item)}
+                  className="text-gray-700 hover:text-[#667eea] transition-colors duration-300"
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
 
-      <div className="relative z-10">
-        <Navbar />
-        <main id="main">
-          <Hero />
-          <div className="section-divider" />
-
-          {/* 1. Services Section (Using Portfolio Component) */}
-          <div id="services"> 
-            <Portfolio />
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
-          <div className="section-divider" />
 
-          {/* 2. Process Section */}
-          <div id="process">
-            <Process />
-          </div>
-          <div className="section-divider" />
-
-          {/* 3. Work Section (Your New Videos) */}
-          {/* Note: The ID is inside the component, but we can wrap it to be safe if needed. 
-              Currently VideoShowcase has id="work" inside it. */}
-          <VideoShowcase /> 
-          <div className="section-divider" />
-
-          {/* 4. Testimonials Section */}
-          <div id="testimonials">
-            <Testimonials />
-          </div>
-          <div className="section-divider" />
-
-          {/* 5. Contact Section */}
-          <Contact />
-          <div className="section-divider" />
-        </main>
-        <Footer />
+          {/* Mobile Menu */}
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="md:hidden overflow-hidden"
+              >
+                <div className="pt-4 pb-2 space-y-2">
+                  {navItems.map((item) => (
+                    <a
+                      key={item}
+                      href={getNavLink(item)}
+                      className="block py-2 text-gray-700 hover:text-[#667eea] transition-colors"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item}
+                    </a>
+                  ))}
+                  <a href="#contact">
+                    <button
+                      className="w-full mt-4 px-6 py-2 rounded-xl text-white transition-all duration-300"
+                      style={{
+                        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                      }}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      Get Started
+                    </button>
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </div>
-    </div>
+    </nav>
   );
 }
