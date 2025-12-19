@@ -59,7 +59,7 @@ export function VideoShowcase() {
         </motion.div>
 
         {/* CONTAINER */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-10">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-15">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
           ))}
