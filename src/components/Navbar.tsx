@@ -5,17 +5,17 @@ import { motion, AnimatePresence } from "motion/react";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Define the menu items
-  const navItems = ["Services", "Process", "Work", "Testimonials", "Contact"];
+  // Menu Items
+  const navItems = ["Work", "Services", "Process", "Testimonials", "Contact"];
 
-  // Map each item to its corresponding ID
+  // THE MAP: Connecting names to App.tsx IDs
   const getNavLink = (item: string) => {
     switch (item) {
-      case "Services":     return "#services";     // Scrolls to Portfolio/Services section
-      case "Process":      return "#process";      // Scrolls to Process section
-      case "Work":         return "#work";         // Scrolls to VideoShowcase section
-      case "Testimonials": return "#testimonials"; // Scrolls to Testimonials section
-      case "Contact":      return "#contact";      // Scrolls to Contact section
+      case "Work":         return "#work";         // Maps to <section id="work">
+      case "Services":     return "#services";     // Maps to <section id="services">
+      case "Process":      return "#process";      // Maps to <section id="process">
+      case "Testimonials": return "#testimonials"; // Maps to <section id="testimonials">
+      case "Contact":      return "#contact";      // Maps to <section id="contact">
       default:             return "#";
     }
   };
