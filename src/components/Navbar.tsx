@@ -5,19 +5,15 @@ import { motion, AnimatePresence } from "motion/react";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const navItems = ["Services", "Process", "Work", "Contact"];
+  // 1. Reorganized Menu Items: Added "Work" at the start
+  const navItems = ["Work", "Services", "Process", "Testimonials", "Contact"];
 
   const getNavLink = (item: string) => {
-    // Map navigation items to correct sections
-    if (item === "Services") return "#work"; // Portfolio has the services
-    if (item === "Work") return "#testimonials"; // Services has the testimonials  
+    // 2. Map items to specific Section IDs
+    if (item === "Work") return "#work"; // Links to your new Video Section
+    if (item === "Services") return "#portfolio"; // Assuming your Portfolio is your services
+    if (item === "Testimonials") return "#testimonials";
     return `#${item.toLowerCase()}`;
-  };
-
-  const getNavLabel = (item: string) => {
-    // Change "Work" label to "Testimonials"
-    if (item === "Work") return "Testimonials";
-    return item;
   };
 
   return (
@@ -57,11 +53,9 @@ export function Navbar() {
                   href={getNavLink(item)}
                   className="text-gray-700 hover:text-[#667eea] transition-colors duration-300"
                 >
-                  {getNavLabel(item)}
+                  {item}
                 </a>
               ))}
-
-              
             </div>
 
             {/* Mobile Menu Button */}
@@ -91,7 +85,7 @@ export function Navbar() {
                       className="block py-2 text-gray-700 hover:text-[#667eea] transition-colors"
                       onClick={() => setIsOpen(false)}
                     >
-                      {getNavLabel(item)}
+                      {item}
                     </a>
                   ))}
                   <a href="#contact">
