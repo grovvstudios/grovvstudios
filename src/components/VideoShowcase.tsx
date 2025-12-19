@@ -61,7 +61,7 @@ export function VideoShowcase() {
             - 'min-h-[400px]' gives enough room for the hover growth without shifting layout
             - 'flex-wrap' ensures they don't break on tiny screens
         */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-6 min-h-[400px]">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-2 min-h-[200px]">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
           ))}
