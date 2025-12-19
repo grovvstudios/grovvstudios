@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import Testimonials from "./components/testimonials";
 import { Process } from "./components/Process";
 import { Portfolio } from "./components/Portfolio";
-import { VideoShowcase } from "./components/VideoShowcase"; 
+import { VideoShowcase } from "./components/VideoShowcase"; // <--- 1. IMPORT ADDED
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 
@@ -46,43 +45,39 @@ export default function App() {
         <Navbar />
         <main id="main">
           
-          {/* 1. HERO */}
-          <section id="hero" className="relative">
+          <section id="hero">
             <Hero />
           </section>
           
           <div className="section-divider" />
 
-          {/* 2. TESTIMONIALS */}
-          <section id="testimonials" className="relative scroll-mt-24">
+          <section id="testimonials" className="scroll-mt-24">
             <Testimonials />
           </section>
 
           <div className="section-divider" />
 
-          {/* 3. PROCESS */}
-          <section id="process" className="relative scroll-mt-24">
+          <section id="process" className="scroll-mt-24">
             <Process />
           </section>
 
           <div className="section-divider" />
 
-          {/* 4. SERVICES (Portfolio) */}
-          <section id="services" className="relative scroll-mt-24">
+          {/* This is your Portfolio/Services section */}
+          <section id="services" className="scroll-mt-24">
             <Portfolio />
           </section>
 
           <div className="section-divider" />
 
-          {/* 5. WORK (Videos) - Added 'scroll-mt-24' to account for navbar height */}
-          <section id="work" className="relative scroll-mt-24">
+          {/* 2. VIDEO SECTION ADDED HERE */}
+          <section id="work" className="scroll-mt-24">
             <VideoShowcase /> 
           </section>
 
           <div className="section-divider" />
 
-          {/* 6. CONTACT */}
-          <section id="contact" className="relative scroll-mt-24">
+          <section id="contact" className="scroll-mt-24">
             <Contact />
           </section>
 
