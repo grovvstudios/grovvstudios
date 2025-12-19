@@ -18,7 +18,7 @@ const VIDEOS = [
   },
   {
     id: 3,
-    title: "Product Showcase",
+    title: "Personal Branding",
     videoId: "UL8AZq3BAXo",
     thumbnail: "https://img.youtube.com/vi/UL8AZq3BAXo/maxresdefault.jpg"
   }
