@@ -46,30 +46,30 @@ export default function App() {
         <Navbar />
         <main id="main">
           {/* 1. HERO */}
-          <Hero />
+          <section id="hero">
+            <Hero />
+          </section>
           <div className="section-divider" />
 
-          {/* 2. TESTIMONIALS (Restored to original spot) */}
+          {/* 2. TESTIMONIALS */}
           <section id="testimonials">
             <Testimonials />
           </section>
           <div className="section-divider" />
 
-          {/* 3. PROCESS (Restored to original spot) */}
+          {/* 3. PROCESS */}
           <section id="process">
             <Process />
           </section>
           <div className="section-divider" />
 
-          {/* 4. SERVICES / PORTFOLIO (Restored to original spot) */}
-          {/* We give this id="services" so the Services link finds it */}
+          {/* 4. SERVICES (Portfolio) */}
           <section id="services">
             <Portfolio />
           </section>
           <div className="section-divider" />
 
-          {/* 5. WORK (Your New Video Section) */}
-          {/* We placed this right before Contact as a final showcase */}
+          {/* 5. WORK (Videos) */}
           <section id="work">
             <VideoShowcase /> 
           </section>
