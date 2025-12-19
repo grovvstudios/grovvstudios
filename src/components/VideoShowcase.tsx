@@ -72,3 +72,83 @@ export function VideoShowcase() {
 
 function LocalVideoCard({ video, index }: { video: any, index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+      viewport={{ once: true }}
+      className="
+        relative rounded-[1.5rem] overflow-hidden shadow-xl
+        transition-all duration-500 ease-out
+        
+        /* NEW SIZE: Smaller and more compact */
+        w-[240px] h-[426px] flex-shrink-0 bg-black border border-indigo-100
+
+        /* PARENT HOVER STATE */
+        group-hover:blur-[2px] 
+        group-hover:scale-[0.90]
+        group-hover:opacity-60
+        group-hover:grayscale-[0.5]
+
+        /* SELF HOVER STATE */
+        hover:!blur-none 
+        hover:!scale-[1.15] 
+        hover:!opacity-100 
+        hover:!grayscale-0
+        hover:z-50
+        hover:shadow-[0_20px_50px_rgba(102,126,234,0.4)]
+      "
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <video
+        ref={videoRef}
+        src={video.src}
+        className="w-full h-full object-cover"
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
+
+      {/* Overlay Gradient */}
+      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+      {/* Volume Icon (Smaller now: size 20) */}
+      <div className={`
+        absolute top-4 right-4 z-30 
+        bg-black/30 backdrop-blur-md p-2 rounded-full text-white 
+        transition-all duration-300 border border-white/10
+        ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}
+      `}>
+        {isHovered ? <Volume2 size={20} /> : <VolumeX size={20} />}
+      </div>
+
+      {/* Title (Smaller text: text-lg) */}
+      <div className={`
+        absolute bottom-6 left-5 right-5 z-30 text-white 
+        transition-all duration-500
+        ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
+      `}>
+          <h3 className="text-lg font-bold leading-tight">{video.title}</h3>
+      </div>
+    </motion.div>
+  );
+}
