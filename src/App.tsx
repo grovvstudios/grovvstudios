@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+
+// 1. MAKE SURE THESE IMPORTS ARE CORRECT
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import Testimonials from "./components/testimonials";
 import { Process } from "./components/Process";
 import { Portfolio } from "./components/Portfolio";
-import { VideoShowcase } from "./components/VideoShowcase"; // <--- 1. IMPORT ADDED
+import { VideoShowcase } from "./components/VideoShowcase"; // <--- CRITICAL IMPORT
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 
@@ -51,32 +53,35 @@ export default function App() {
           
           <div className="section-divider" />
 
+          {/* TESTIMONIALS */}
           <section id="testimonials" className="scroll-mt-24">
             <Testimonials />
           </section>
 
           <div className="section-divider" />
 
+          {/* PROCESS */}
           <section id="process" className="scroll-mt-24">
             <Process />
           </section>
 
           <div className="section-divider" />
 
-          {/* This is your Portfolio/Services section */}
+          {/* SERVICES / PORTFOLIO */}
           <section id="services" className="scroll-mt-24">
             <Portfolio />
           </section>
 
           <div className="section-divider" />
 
-          {/* 2. VIDEO SECTION ADDED HERE */}
+          {/* WORK / VIDEOS */}
           <section id="work" className="scroll-mt-24">
             <VideoShowcase /> 
           </section>
 
           <div className="section-divider" />
 
+          {/* CONTACT */}
           <section id="contact" className="scroll-mt-24">
             <Contact />
           </section>
