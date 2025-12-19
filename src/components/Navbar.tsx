@@ -5,18 +5,18 @@ import { motion, AnimatePresence } from "motion/react";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // The names you want in the menu
+  // Define the menu items
   const navItems = ["Work", "Services", "Process", "Testimonials", "Contact"];
 
+  // Map each item to its corresponding ID
   const getNavLink = (item: string) => {
-    // Exact mapping to the IDs we set up in App.tsx
     switch (item) {
-      case "Work": return "#work";          // Goes to VideoShowcase
-      case "Services": return "#services";  // Goes to Portfolio component
-      case "Process": return "#process";    // Goes to Process component
-      case "Testimonials": return "#testimonials";
-      case "Contact": return "#contact";
-      default: return "#";
+      case "Work":         return "#work";         // Scrolls to <section id="work">
+      case "Services":     return "#services";     // Scrolls to <section id="services">
+      case "Process":      return "#process";      // Scrolls to <section id="process">
+      case "Testimonials": return "#testimonials"; // Scrolls to <section id="testimonials">
+      case "Contact":      return "#contact";      // Scrolls to <section id="contact">
+      default:             return "#";
     }
   };
 
