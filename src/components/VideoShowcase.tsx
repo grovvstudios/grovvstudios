@@ -22,7 +22,8 @@ const VIDEOS = [
 
 export function VideoShowcase() {
   return (
-    <section className="py-24 px-4 relative overflow-hidden bg-white">
+    // CHANGED: overflow-visible ensures shadows are not cut off
+    <section className="py-24 px-4 relative overflow-visible bg-white">
        {/* Background Decoration */}
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
         style={{
@@ -58,7 +59,7 @@ export function VideoShowcase() {
         </motion.div>
 
         {/* CONTAINER */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-8">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-10">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
           ))}
@@ -96,21 +97,24 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         relative rounded-2xl overflow-hidden
         flex-shrink-0 
         bg-black border border-indigo-100/50 
-        shadow-xl transition-all duration-300 ease-out z-0
+        transition-all duration-300 ease-out z-0
 
-        /* HOVER EFFECTS */
+        /* HOVER EFFECTS (Scale only, shadow is handled inline below) */
         hover:scale-105 
         hover:z-50
         hover:border-indigo-300
-        hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)]
       "
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      // 🔥 UPDATED SIZE: LARGER & BALANCED 🔥
+      // 🔥 FORCED STYLES: This guarantees Size AND Shadow 🔥
       style={{
-        width: "280px",    // Increased from 220px -> 280px
-        height: "500px",   // Increased from 380px -> 500px
-        maxWidth: "90vw"   // Keeps it safe on mobile
+        width: "280px",
+        height: "500px",
+        maxWidth: "90vw",
+        // Dynamic Shadow: Darker and larger when hovered
+        boxShadow: isHovered 
+          ? "0 30px 60px -10px rgba(0, 0, 0, 0.6)"  // Strong Hover Shadow
+          : "0 10px 30px -5px rgba(0, 0, 0, 0.3)"   // Visible Resting Shadow
       }}
     >
       <video
