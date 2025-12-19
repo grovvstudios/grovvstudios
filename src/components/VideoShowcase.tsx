@@ -22,8 +22,8 @@ const VIDEOS = [
 
 export function VideoShowcase() {
   return (
-    // ADDED id="work" HERE 👇
-    <section id="work" className="py-24 px-4 relative overflow-visible bg-white">
+    // REMOVED id="work" from here. It is now handled in App.tsx
+    <section className="py-24 px-4 relative overflow-visible bg-white">
        {/* Background Decoration */}
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
         style={{
