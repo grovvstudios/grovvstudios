@@ -24,7 +24,7 @@ export function VideoShowcase() {
   return (
     <section className="py-20 px-4 relative overflow-hidden bg-white">
        {/* Background Decoration */}
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full opacity-10 pointer-events-none"
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
         style={{
           background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
           filter: "blur(100px)",
@@ -57,11 +57,8 @@ export function VideoShowcase() {
           </p>
         </motion.div>
 
-        {/* CONTAINER:
-            - 'min-h-[400px]' gives enough room for the hover growth without shifting layout
-            - 'flex-wrap' ensures they don't break on tiny screens
-        */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-2 min-h-[200px]">
+        {/* CONTAINER: Flexbox that centers items */}
+        <div className="flex flex-col md:flex-row justify-center items-center gap-6">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
           ))}
@@ -96,11 +93,7 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       transition={{ duration: 0.6, delay: index * 0.2 }}
       viewport={{ once: true }}
       className="
-        relative rounded-xl overflow-hidden
-        
-        /* FIXED COMPACT SIZE: 150px width x 305px height */
-        w-[150px] h-[305px]
-        
+        relative rounded-2xl overflow-hidden
         flex-shrink-0 
         bg-black border border-indigo-100/50 
         shadow-lg transition-all duration-300 ease-out z-0
@@ -113,6 +106,12 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       "
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      // 🔥 THIS IS THE FIX: STRICT INLINE STYLES 🔥
+      style={{
+        width: "220px",    // Force width to 220px
+        height: "380px",   // Force height to 380px
+        maxWidth: "90vw"   // Ensure it never overflows mobile screens
+      }}
     >
       <video
         ref={videoRef}
