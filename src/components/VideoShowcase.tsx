@@ -6,20 +6,17 @@ const VIDEOS = [
   {
     id: 1,
     title: "Brand Campaign",
-    // Matches the file name in public/videos/
-    src: "/videos/brand-campaign.mp4", 
+    src: "/brand-campaign.mp4", // Make sure these match your files in public
   },
   {
     id: 2,
     title: "Social Media Reel",
-    // Matches the file name in public/videos/
-    src: "/videos/social-reel.mp4",
+    src: "/social-reel.mp4",
   },
   {
     id: 3,
     title: "Product Showcase",
-    // Matches the file name in public/videos/
-    src: "/videos/product-showcase.mp4",
+    src: "/product-showcase.mp4",
   }
 ];
 
@@ -56,12 +53,14 @@ export function VideoShowcase() {
             Featured Shorts
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontSize: "1.125rem" }}>
-            Hover to unmute. Experience our latest vertical content.
+            Hover to expand and unmute.
           </p>
         </motion.div>
 
-        {/* Grid Container */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-8">
+        {/* THE MAGIC "GROUP" CLASS IS HERE:
+          When we hover this container, 'group-hover' triggers on all children.
+        */}
+        <div className="flex flex-col md:flex-row justify-center items-center gap-8 group">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
           ))}
@@ -79,8 +78,6 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
     setIsHovered(true);
     if (videoRef.current) {
       videoRef.current.muted = false;
-      // Optional: Reset to start if you want it to "restart" on hover
-      // videoRef.current.currentTime = 0; 
     }
   };
 
@@ -97,39 +94,59 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.2 }}
       viewport={{ once: true }}
-      className="relative group rounded-[2rem] overflow-hidden shadow-2xl"
+      className="
+        relative rounded-[2rem] overflow-hidden shadow-2xl
+        transition-all duration-500 ease-out
+        
+        /* DEFAULT STATE */
+        w-[300px] h-[533px] flex-shrink-0 bg-black border border-indigo-100
+
+        /* PARENT HOVER STATE (When user hovers ANY video, all do this): */
+        group-hover:blur-[2px] 
+        group-hover:scale-[0.85]
+        group-hover:opacity-60
+        group-hover:grayscale-[0.5]
+
+        /* SELF HOVER STATE (Overrides the parent hover for THIS specific video): */
+        hover:!blur-none 
+        hover:!scale-[1.1] 
+        hover:!opacity-100 
+        hover:!grayscale-0
+        hover:z-50
+        hover:shadow-[0_20px_80px_rgba(102,126,234,0.4)]
+      "
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      style={{
-        // FIXED SIZE: Ensures 9:16 vertical look
-        width: "300px",
-        height: "533px", 
-        background: "#000",
-        border: "1px solid rgba(102, 126, 234, 0.2)",
-        flexShrink: 0, 
-      }}
     >
       <video
         ref={videoRef}
         src={video.src}
         className="w-full h-full object-cover"
-        // CRITICAL ATTRIBUTES FOR AUTOPLAY
         autoPlay
         muted
         loop
-        playsInline // Required for iOS/Mobile
+        playsInline
       />
 
       {/* Overlay Gradient */}
       <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       {/* Volume Icon */}
-      <div className="absolute top-6 right-6 z-30 bg-black/30 backdrop-blur-md p-3 rounded-full text-white transition-all duration-300 border border-white/10">
+      <div className={`
+        absolute top-6 right-6 z-30 
+        bg-black/30 backdrop-blur-md p-3 rounded-full text-white 
+        transition-all duration-300 border border-white/10
+        ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}
+      `}>
         {isHovered ? <Volume2 size={24} /> : <VolumeX size={24} />}
       </div>
 
       {/* Title */}
-      <div className="absolute bottom-8 left-6 right-6 z-30 text-white translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+      <div className={`
+        absolute bottom-8 left-6 right-6 z-30 text-white 
+        transition-all duration-500
+        ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
+      `}>
           <h3 className="text-xl font-bold leading-tight">{video.title}</h3>
       </div>
     </motion.div>
