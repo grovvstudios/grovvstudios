@@ -22,7 +22,6 @@ const VIDEOS = [
 
 export function VideoShowcase() {
   return (
-    // CHANGED: overflow-visible ensures shadows are not cut off
     <section className="py-24 px-4 relative overflow-visible bg-white">
        {/* Background Decoration */}
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
@@ -40,26 +39,29 @@ export function VideoShowcase() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          {/* PSYCHOLOGICAL HOOK HEADLINE */}
           <h2 
             className="mb-4"
             style={{ 
-              fontSize: "clamp(2.5rem, 5vw, 3.5rem)", 
-              fontWeight: "700",
+              fontSize: "clamp(2.5rem, 5vw, 4rem)", 
+              fontWeight: "800", // Made extra bold
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
+              letterSpacing: "-0.02em" // Tight tracking for modern feel
             }}
           >
-            Featured Shorts
+            Stop The Scroll.
           </h2>
-          <p className="text-gray-600 max-w-xl mx-auto" style={{ fontSize: "1.125rem" }}>
-            Hover to expand and unmute.
+          <p className="text-gray-600 max-w-xl mx-auto" style={{ fontSize: "1.25rem", lineHeight: "1.6" }}>
+            In an ocean of noise, we create the signals that matter. <br className="hidden md:block"/>
+            <span className="font-semibold text-[#667eea]">Hover to experience the difference.</span>
           </p>
         </motion.div>
 
-        {/* CONTAINER */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-15">
+        {/* CONTAINER: Increased gap to gap-12 (48px) for better separation */}
+        <div className="flex flex-col md:flex-row justify-center items-center gap-12">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
           ))}
@@ -99,28 +101,28 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         bg-black border border-indigo-100/50 
         transition-all duration-300 ease-out z-0
 
-        /* HOVER EFFECTS (Scale only, shadow is handled inline below) */
+        /* HOVER EFFECTS */
         hover:scale-105 
         hover:z-50
         hover:border-indigo-300
       "
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      // 🔥 FORCED STYLES: This guarantees Size AND Shadow 🔥
       style={{
         width: "280px",
         height: "500px",
         maxWidth: "90vw",
-        // Dynamic Shadow: Darker and larger when hovered
+        // Dynamic Shadow
         boxShadow: isHovered 
-          ? "0 30px 60px -10px rgba(0, 0, 0, 0.6)"  // Strong Hover Shadow
-          : "0 10px 30px -5px rgba(0, 0, 0, 0.3)"   // Visible Resting Shadow
+          ? "0 30px 60px -10px rgba(0, 0, 0, 0.6)" 
+          : "0 10px 30px -5px rgba(0, 0, 0, 0.3)"
       }}
     >
       <video
         ref={videoRef}
         src={video.src}
-        className="w-full h-full object-cover"
+        // ADDED 'block' HERE TO FIX THE WHITE LINE
+        className="w-full h-full object-cover block" 
         autoPlay
         muted
         loop
