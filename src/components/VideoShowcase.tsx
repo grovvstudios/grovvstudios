@@ -6,17 +6,20 @@ const VIDEOS = [
   {
     id: 1,
     title: "Brand Campaign",
-    src: "/brand-campaign.mp4",
+    // FIXED: Added "/videos/" prefix back
+    src: "/videos/brand-campaign.mp4", 
   },
   {
     id: 2,
     title: "Social Media Reel",
-    src: "/social-reel.mp4",
+    // FIXED: Added "/videos/" prefix back
+    src: "/videos/social-reel.mp4",
   },
   {
     id: 3,
     title: "Product Showcase",
-    src: "/product-showcase.mp4",
+    // FIXED: Added "/videos/" prefix back
+    src: "/videos/product-showcase.mp4",
   }
 ];
 
@@ -57,9 +60,7 @@ export function VideoShowcase() {
           </p>
         </motion.div>
 
-        {/* CONTAINER 
-            Fixed height ensures the section doesn't jitter when elements grow.
-        */}
+        {/* CONTAINER */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-8 h-[500px]">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
@@ -97,17 +98,15 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       className="
         relative rounded-2xl overflow-hidden
         
-        /* DEFAULT STATE: Stable, no blur, medium size (250px) */
+        /* DEFAULT STATE: 250px width */
         w-[250px] h-[444px] flex-shrink-0 
         bg-black border border-indigo-100/50 
         shadow-lg transition-all duration-300 ease-out z-0
 
-        /* HOVER STATE: Only THIS card changes */
+        /* HOVER STATE: Scale up + Deep Shadow + Z-Index 50 */
         hover:scale-110 
         hover:z-50
         hover:border-indigo-300
-        
-        /* THE 'SEPARATION' SHADOW: Deep and dark to make it float */
         hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5),0_0_20px_rgba(102,126,234,0.3)]
       "
       onMouseEnter={handleMouseEnter}
