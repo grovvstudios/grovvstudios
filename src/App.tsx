@@ -5,7 +5,7 @@ import { Hero } from "./components/Hero";
 import Testimonials from "./components/testimonials";
 import { Process } from "./components/Process";
 import { Portfolio } from "./components/Portfolio";
-import { VideoShowcase } from "./components/VideoShowcase"; // Ensure this is imported
+import { VideoShowcase } from "./components/VideoShowcase"; 
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 
@@ -45,36 +45,37 @@ export default function App() {
       <div className="relative z-10">
         <Navbar />
         <main id="main">
-          {/* 1. HERO SECTION */}
+          {/* 1. HERO */}
           <Hero />
           <div className="section-divider" />
 
-          {/* 2. WORK SECTION (Your Videos) */}
-          {/* We wrap it in id="work" so the navbar can find it */}
-          <section id="work">
-             <VideoShowcase /> 
-          </section>
-          <div className="section-divider" />
-
-          {/* 3. SERVICES SECTION (Portfolio) */}
-          <section id="services">
-            <Portfolio />
-          </section>
-          <div className="section-divider" />
-
-          {/* 4. PROCESS SECTION */}
-          <section id="process">
-            <Process />
-          </section>
-          <div className="section-divider" />
-
-          {/* 5. TESTIMONIALS SECTION */}
+          {/* 2. TESTIMONIALS (Restored to original spot) */}
           <section id="testimonials">
             <Testimonials />
           </section>
           <div className="section-divider" />
 
-          {/* 6. CONTACT SECTION */}
+          {/* 3. PROCESS (Restored to original spot) */}
+          <section id="process">
+            <Process />
+          </section>
+          <div className="section-divider" />
+
+          {/* 4. SERVICES / PORTFOLIO (Restored to original spot) */}
+          {/* We give this id="services" so the Services link finds it */}
+          <section id="services">
+            <Portfolio />
+          </section>
+          <div className="section-divider" />
+
+          {/* 5. WORK (Your New Video Section) */}
+          {/* We placed this right before Contact as a final showcase */}
+          <section id="work">
+            <VideoShowcase /> 
+          </section>
+          <div className="section-divider" />
+
+          {/* 6. CONTACT */}
           <section id="contact">
             <Contact />
           </section>
