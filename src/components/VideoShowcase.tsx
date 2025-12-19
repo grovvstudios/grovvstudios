@@ -22,7 +22,7 @@ const VIDEOS = [
 
 export function VideoShowcase() {
   return (
-    <section className="py-20 px-4 relative overflow-hidden bg-white">
+    <section className="py-24 px-4 relative overflow-hidden bg-white">
        {/* Background Decoration */}
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
         style={{
@@ -37,12 +37,12 @@ export function VideoShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
           <h2 
-            className="mb-3"
+            className="mb-4"
             style={{ 
-              fontSize: "clamp(2rem, 4vw, 3rem)", 
+              fontSize: "clamp(2.5rem, 5vw, 3.5rem)", 
               fontWeight: "700",
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
@@ -52,13 +52,13 @@ export function VideoShowcase() {
           >
             Featured Shorts
           </h2>
-          <p className="text-gray-600 max-w-xl mx-auto" style={{ fontSize: "1rem" }}>
+          <p className="text-gray-600 max-w-xl mx-auto" style={{ fontSize: "1.125rem" }}>
             Hover to expand and unmute.
           </p>
         </motion.div>
 
-        {/* CONTAINER: Flexbox that centers items */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-6">
+        {/* CONTAINER */}
+        <div className="flex flex-col md:flex-row justify-center items-center gap-8">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
           ))}
@@ -96,21 +96,21 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         relative rounded-2xl overflow-hidden
         flex-shrink-0 
         bg-black border border-indigo-100/50 
-        shadow-lg transition-all duration-300 ease-out z-0
+        shadow-xl transition-all duration-300 ease-out z-0
 
         /* HOVER EFFECTS */
-        hover:scale-110 
+        hover:scale-105 
         hover:z-50
         hover:border-indigo-300
-        hover:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.5)]
+        hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.6)]
       "
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      // 🔥 THIS IS THE FIX: STRICT INLINE STYLES 🔥
+      // 🔥 UPDATED SIZE: LARGER & BALANCED 🔥
       style={{
-        width: "220px",    // Force width to 220px
-        height: "380px",   // Force height to 380px
-        maxWidth: "90vw"   // Ensure it never overflows mobile screens
+        width: "280px",    // Increased from 220px -> 280px
+        height: "500px",   // Increased from 380px -> 500px
+        maxWidth: "90vw"   // Keeps it safe on mobile
       }}
     >
       <video
@@ -128,21 +128,21 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
 
       {/* Volume Icon */}
       <div className={`
-        absolute top-3 right-3 z-30 
+        absolute top-4 right-4 z-30 
         bg-black/30 backdrop-blur-md p-2 rounded-full text-white 
         transition-all duration-300 border border-white/10
         ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}
       `}>
-        {isHovered ? <Volume2 size={18} /> : <VolumeX size={18} />}
+        {isHovered ? <Volume2 size={20} /> : <VolumeX size={20} />}
       </div>
 
       {/* Title */}
       <div className={`
-        absolute bottom-4 left-4 right-4 z-30 text-white 
+        absolute bottom-6 left-5 right-5 z-30 text-white 
         transition-all duration-300
         ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
       `}>
-          <h3 className="text-base font-bold leading-tight">{video.title}</h3>
+          <h3 className="text-lg font-bold leading-tight">{video.title}</h3>
       </div>
     </motion.div>
   );
