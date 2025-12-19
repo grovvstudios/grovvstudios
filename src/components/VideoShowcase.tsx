@@ -1,149 +1,94 @@
-import { useRef, useState } from "react";
-import { motion } from "motion/react";
-import { Volume2, VolumeX } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Navbar } from "./components/Navbar";
+import { Hero } from "./components/Hero";
+import Testimonials from "./components/testimonials";
+import { Process } from "./components/Process";
+import { Portfolio } from "./components/Portfolio";
+import { VideoShowcase } from "./components/VideoShowcase"; // <--- IMPORT ADDED BACK
+import { Contact } from "./components/Contact";
+import { Footer } from "./components/Footer";
 
-const VIDEOS = [
-  {
-    id: 1,
-    title: "Brand Campaign",
-    src: "/videos/brand-campaign.mp4",
-  },
-  {
-    id: 2,
-    title: "Social Media Reel",
-    src: "/videos/social-reel.mp4",
-  },
-  {
-    id: 3,
-    title: "Product Showcase",
-    src: "/videos/product-showcase.mp4",
-  }
-];
+function ParallaxDots() {
+  const [scrollY, setScrollY] = useState(0);
 
-export function VideoShowcase() {
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const p1 = scrollY * -0.10;
+  const p2 = scrollY * -0.05;
+  const p3 = scrollY * -0.08;
+  const p4 = scrollY * -0.04;
+  const p5 = scrollY * -0.07;
+
   return (
-    // REMOVED id="work" from here. It is now handled in App.tsx
-    <section className="py-24 px-4 relative overflow-visible bg-white">
-       {/* Background Decoration */}
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
-        style={{
-          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-          filter: "blur(100px)",
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 
-            className="mb-4"
-            style={{ 
-              fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-              fontWeight: "800",
-              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              letterSpacing: "-0.02em" 
-            }}
-          >
-            Stop The Scroll.
-          </h2>
-          <p className="text-gray-600 max-w-xl mx-auto" style={{ fontSize: "1.25rem", lineHeight: "1.6" }}>
-            In an ocean of noise, we create the signals that matter. <br className="hidden md:block"/>
-            <span className="font-semibold text-[#667eea]">Hover to experience the difference.</span>
-          </p>
-        </motion.div>
-
-        <div className="flex flex-col md:flex-row justify-center items-center gap-12">
-          {VIDEOS.map((video, index) => (
-            <LocalVideoCard key={video.id} video={video} index={index} />
-          ))}
-        </div>
-      </div>
-    </section>
+    <div className="fixed inset-0 pointer-events-none -z-10">
+      <div style={{ position: "absolute", top: 80 + p1, left: 50, width: 180, height: 180, borderRadius: "50%", background: "rgba(147,197,253,0.5)", filter: "blur(70px)" }} />
+      <div style={{ position: "absolute", top: 260 + p2, right: 120, width: 150, height: 150, borderRadius: "50%", background: "rgba(167,139,250,0.4)", filter: "blur(75px)" }} />
+      <div style={{ position: "absolute", top: 520 + p3, left: "50%", transform: "translateX(-50%)", width: 220, height: 220, borderRadius: "50%", background: "rgba(191,219,254,0.45)", filter: "blur(80px)" }} />
+      <div style={{ position: "absolute", bottom: 180 + p4, left: 30, width: 160, height: 160, borderRadius: "50%", background: "rgba(129,140,248,0.45)", filter: "blur(70px)" }} />
+      <div style={{ position: "absolute", bottom: 80 + p5, right: 100, width: 190, height: 190, borderRadius: "50%", background: "rgba(244,114,182,0.4)", filter: "blur(85px)" }} />
+    </div>
   );
 }
 
-function LocalVideoCard({ video, index }: { video: any, index: number }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (videoRef.current) {
-      videoRef.current.muted = false;
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (videoRef.current) {
-      videoRef.current.muted = true;
-    }
-  };
-
+export default function App() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      viewport={{ once: true }}
-      className="
-        relative rounded-2xl overflow-hidden
-        flex-shrink-0 
-        bg-black border border-indigo-100/50 
-        transition-all duration-300 ease-out z-0
+    <div className="min-h-screen relative overflow-hidden">
+      <ParallaxDots />
 
-        /* HOVER EFFECTS */
-        hover:scale-105 
-        hover:z-50
-        hover:border-indigo-300
-      "
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        width: "280px",
-        height: "500px",
-        maxWidth: "90vw",
-        boxShadow: isHovered 
-          ? "0 30px 60px -10px rgba(0, 0, 0, 0.6)" 
-          : "0 10px 30px -5px rgba(0, 0, 0, 0.3)"
-      }}
-    >
-      <video
-        ref={videoRef}
-        src={video.src}
-        className="w-full h-full object-cover block" 
-        autoPlay
-        muted
-        loop
-        playsInline
-      />
+      <div className="relative z-10">
+        <Navbar />
+        <main id="main">
+          
+          {/* 1. HERO */}
+          <section id="hero">
+            <Hero />
+          </section>
+          
+          <div className="section-divider" />
 
-      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {/* 2. TESTIMONIALS (Linked to #testimonials) */}
+          <section id="testimonials" className="scroll-mt-24">
+            <Testimonials />
+          </section>
 
-      <div className={`
-        absolute top-4 right-4 z-30 
-        bg-black/30 backdrop-blur-md p-2 rounded-full text-white 
-        transition-all duration-300 border border-white/10
-        ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}
-      `}>
-        {isHovered ? <Volume2 size={20} /> : <VolumeX size={20} />}
+          <div className="section-divider" />
+
+          {/* 3. PROCESS (Linked to #process) */}
+          <section id="process" className="scroll-mt-24">
+            <Process />
+          </section>
+
+          <div className="section-divider" />
+
+          {/* 4. SERVICES / PORTFOLIO (Linked to #services) */}
+          <section id="services" className="scroll-mt-24">
+            <Portfolio />
+          </section>
+
+          <div className="section-divider" />
+
+          {/* 5. WORK / VIDEOS (Linked to #work) */}
+          <section id="work" className="scroll-mt-24">
+            <VideoShowcase /> 
+          </section>
+
+          <div className="section-divider" />
+
+          {/* 6. CONTACT (Linked to #contact) */}
+          <section id="contact" className="scroll-mt-24">
+            <Contact />
+          </section>
+
+          <div className="section-divider" />
+        </main>
+        <Footer />
       </div>
-
-      <div className={`
-        absolute bottom-6 left-5 right-5 z-30 text-white 
-        transition-all duration-300
-        ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
-      `}>
-          <h3 className="text-lg font-bold leading-tight">{video.title}</h3>
-      </div>
-    </motion.div>
+    </div>
   );
 }
