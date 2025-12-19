@@ -24,7 +24,7 @@ export function VideoShowcase() {
   return (
     <section className="py-20 px-4 relative overflow-hidden bg-white">
        {/* Background Decoration */}
-       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full opacity-10 pointer-events-none"
         style={{
           background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
           filter: "blur(100px)",
@@ -98,8 +98,8 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       className="
         relative rounded-xl overflow-hidden
         
-        /* FIXED COMPACT SIZE: 200px width x 355px height */
-        w-[200px] h-[355px]
+        /* FIXED COMPACT SIZE: 150px width x 305px height */
+        w-[150px] h-[305px]
         
         flex-shrink-0 
         bg-black border border-indigo-100/50 
