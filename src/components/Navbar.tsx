@@ -5,23 +5,22 @@ import { motion, AnimatePresence } from "motion/react";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // 1. Define Menu Items
   const navItems = ["Work", "Services", "Process", "Testimonials", "Contact"];
 
-  // 2. Map Items to IDs
   const getNavLink = (item: string) => {
     switch (item) {
-      case "Work":         return "#work";         // Maps to <section id="work"> in App.tsx
-      case "Services":     return "#services";     // Maps to <section id="services"> in App.tsx
-      case "Process":      return "#process";      // Maps to <section id="process"> in App.tsx
-      case "Testimonials": return "#testimonials"; // Maps to <section id="testimonials"> in App.tsx
-      case "Contact":      return "#contact";      // Maps to <section id="contact"> in App.tsx
+      case "Work":         return "#work";     // <--- Must match id="work" in App.tsx
+      case "Services":     return "#services"; 
+      case "Process":      return "#process";
+      case "Testimonials": return "#testimonials";
+      case "Contact":      return "#contact";
       default:             return "#";
     }
   };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
+      {/* ... rest of your Navbar code ... */}
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ y: -100 }}
