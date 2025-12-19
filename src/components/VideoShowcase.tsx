@@ -1,26 +1,25 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
-import { Volume2, VolumeX, Loader2 } from "lucide-react";
+import { Volume2, VolumeX } from "lucide-react";
 
-// YOUR SPECIFIC VIDEO IDs
 const VIDEOS = [
   {
     id: 1,
     title: "Brand Campaign",
-    videoId: "Rxja1QAkKI", // Removed the accidental space you had at the end
-    thumbnail: "https://img.youtube.com/vi/Rxja1QAkKI/maxresdefault.jpg"
+    // Matches the file name in public/videos/
+    src: "/videos/brand-campaign.mp4", 
   },
   {
     id: 2,
     title: "Social Media Reel",
-    videoId: "faTDXV7RNlM",
-    thumbnail: "https://img.youtube.com/vi/faTDXV7RNlM/maxresdefault.jpg"
+    // Matches the file name in public/videos/
+    src: "/videos/social-reel.mp4",
   },
   {
     id: 3,
-    title: "Personal Branding",
-    videoId: "UL8AZq3BAXo",
-    thumbnail: "https://img.youtube.com/vi/UL8AZq3BAXo/maxresdefault.jpg"
+    title: "Product Showcase",
+    // Matches the file name in public/videos/
+    src: "/videos/product-showcase.mp4",
   }
 ];
 
@@ -64,7 +63,7 @@ export function VideoShowcase() {
         {/* Grid Container */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-8">
           {VIDEOS.map((video, index) => (
-            <YouTubeCard key={video.id} video={video} index={index} />
+            <LocalVideoCard key={video.id} video={video} index={index} />
           ))}
         </div>
       </div>
@@ -72,37 +71,24 @@ export function VideoShowcase() {
   );
 }
 
-function YouTubeCard({ video, index }: { video: any, index: number }) {
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+function LocalVideoCard({ video, index }: { video: any, index: number }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  // Stagger loading to prevent "Bot" detection errors
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, index * 1000 + 500); 
-    return () => clearTimeout(timer);
-  }, [index]);
-
-  const postCommand = (command: string, args: any[] = []) => {
-    if (iframeRef.current && iframeRef.current.contentWindow) {
-      iframeRef.current.contentWindow.postMessage(
-        JSON.stringify({ event: 'command', func: command, args: args }), 
-        '*'
-      );
-    }
-  };
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    postCommand('unMute');
-    postCommand('setVolume', [100]);
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      // Optional: Reset to start if you want it to "restart" on hover
+      // videoRef.current.currentTime = 0; 
+    }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    postCommand('mute');
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+    }
   };
 
   return (
@@ -115,7 +101,7 @@ function YouTubeCard({ video, index }: { video: any, index: number }) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
-        // FORCE VERTICAL SIZE (Pixels)
+        // FIXED SIZE: Ensures 9:16 vertical look
         width: "300px",
         height: "533px", 
         background: "#000",
@@ -123,35 +109,18 @@ function YouTubeCard({ video, index }: { video: any, index: number }) {
         flexShrink: 0, 
       }}
     >
-      {/* 1. Loading State / Thumbnail */}
-      <div 
-        className={`absolute inset-0 z-0 transition-opacity duration-1000 ${isLoaded ? 'opacity-0' : 'opacity-100'}`}
-        style={{
-          backgroundImage: `url(${video.thumbnail})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-            <Loader2 className="w-8 h-8 text-white animate-spin" />
-        </div>
-      </div>
+      <video
+        ref={videoRef}
+        src={video.src}
+        className="w-full h-full object-cover"
+        // CRITICAL ATTRIBUTES FOR AUTOPLAY
+        autoPlay
+        muted
+        loop
+        playsInline // Required for iOS/Mobile
+      />
 
-      {/* 2. YouTube Iframe */}
-      {isLoaded && (
-        <iframe
-            ref={iframeRef}
-            className="w-full h-full object-cover pointer-events-none scale-[1.35]"
-            src={`https://www.youtube.com/embed/${video.videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${video.videoId}&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : ''}`}
-            title={video.title}
-            allow="autoplay; encrypted-media; gyroscope; picture-in-picture"
-            referrerPolicy="strict-origin-when-cross-origin"
-            frameBorder="0"
-        />
-      )}
-
-      {/* 3. Interaction & Overlay Layers */}
-      <div className="absolute inset-0 z-10 cursor-pointer" />
+      {/* Overlay Gradient */}
       <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       {/* Volume Icon */}
