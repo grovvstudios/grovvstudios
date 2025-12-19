@@ -22,7 +22,7 @@ const VIDEOS = [
 
 export function VideoShowcase() {
   return (
-    <section className="py-24 px-6 relative overflow-hidden bg-white">
+    <section className="py-20 px-6 relative overflow-hidden bg-white">
        {/* Background Decoration */}
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
         style={{
@@ -37,12 +37,12 @@ export function VideoShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <h2 
             className="mb-4"
             style={{ 
-              fontSize: "clamp(2rem, 4vw, 3.5rem)", 
+              fontSize: "clamp(2rem, 4vw, 3rem)", 
               fontWeight: "700",
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
@@ -52,14 +52,12 @@ export function VideoShowcase() {
           >
             Featured Shorts
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontSize: "1rem" }}>
+          <p className="text-gray-600 max-w-xl mx-auto" style={{ fontSize: "1rem" }}>
             Hover to expand and unmute.
           </p>
         </motion.div>
 
-        {/* Main Container Group
-          Note: 'gap-6' brings them slightly closer together now that they are smaller
-        */}
+        {/* Container */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-6 group">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
@@ -95,21 +93,17 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       transition={{ duration: 0.6, delay: index * 0.2 }}
       viewport={{ once: true }}
       className="
-        relative rounded-[1.5rem] overflow-hidden shadow-xl
+        relative rounded-2xl overflow-hidden shadow-xl
         transition-all duration-500 ease-out
-        
-        /* NEW SIZE: Smaller and more compact */
-        w-[240px] h-[426px] flex-shrink-0 bg-black border border-indigo-100
+        flex-shrink-0 bg-black border border-indigo-100
 
-        /* PARENT HOVER STATE */
         group-hover:blur-[2px] 
         group-hover:scale-[0.90]
         group-hover:opacity-60
         group-hover:grayscale-[0.5]
 
-        /* SELF HOVER STATE */
         hover:!blur-none 
-        hover:!scale-[1.15] 
+        hover:!scale-[1.2] 
         hover:!opacity-100 
         hover:!grayscale-0
         hover:z-50
@@ -117,6 +111,11 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       "
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      style={{
+        // FORCE SIZE: This overrides any CSS class issues
+        width: "200px",
+        height: "355px", 
+      }}
     >
       <video
         ref={videoRef}
@@ -128,26 +127,25 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         playsInline
       />
 
-      {/* Overlay Gradient */}
       <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-      {/* Volume Icon (Smaller now: size 20) */}
+      {/* Volume Icon */}
       <div className={`
-        absolute top-4 right-4 z-30 
+        absolute top-3 right-3 z-30 
         bg-black/30 backdrop-blur-md p-2 rounded-full text-white 
         transition-all duration-300 border border-white/10
         ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}
       `}>
-        {isHovered ? <Volume2 size={20} /> : <VolumeX size={20} />}
+        {isHovered ? <Volume2 size={16} /> : <VolumeX size={16} />}
       </div>
 
-      {/* Title (Smaller text: text-lg) */}
+      {/* Title */}
       <div className={`
-        absolute bottom-6 left-5 right-5 z-30 text-white 
+        absolute bottom-4 left-4 right-4 z-30 text-white 
         transition-all duration-500
         ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
       `}>
-          <h3 className="text-lg font-bold leading-tight">{video.title}</h3>
+          <h3 className="text-base font-bold leading-tight">{video.title}</h3>
       </div>
     </motion.div>
   );
