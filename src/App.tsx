@@ -45,35 +45,39 @@ export default function App() {
       <div className="relative z-10">
         <Navbar />
         <main id="main">
+          {/* 1. HERO SECTION */}
           <Hero />
           <div className="section-divider" />
 
-          {/* 1. Services Section (Using Portfolio Component) */}
-          <div id="services"> 
+          {/* 2. WORK SECTION (Your Videos) */}
+          {/* We wrap it in id="work" so the navbar can find it */}
+          <section id="work">
+             <VideoShowcase /> 
+          </section>
+          <div className="section-divider" />
+
+          {/* 3. SERVICES SECTION (Portfolio) */}
+          <section id="services">
             <Portfolio />
-          </div>
+          </section>
           <div className="section-divider" />
 
-          {/* 2. Process Section */}
-          <div id="process">
+          {/* 4. PROCESS SECTION */}
+          <section id="process">
             <Process />
-          </div>
+          </section>
           <div className="section-divider" />
 
-          {/* 3. Work Section (Your New Videos) */}
-          {/* Note: The ID is inside the component, but we can wrap it to be safe if needed. 
-              Currently VideoShowcase has id="work" inside it. */}
-          <VideoShowcase /> 
-          <div className="section-divider" />
-
-          {/* 4. Testimonials Section */}
-          <div id="testimonials">
+          {/* 5. TESTIMONIALS SECTION */}
+          <section id="testimonials">
             <Testimonials />
-          </div>
+          </section>
           <div className="section-divider" />
 
-          {/* 5. Contact Section */}
-          <Contact />
+          {/* 6. CONTACT SECTION */}
+          <section id="contact">
+            <Contact />
+          </section>
           <div className="section-divider" />
         </main>
         <Footer />
