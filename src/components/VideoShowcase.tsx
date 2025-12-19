@@ -6,17 +6,17 @@ const VIDEOS = [
   {
     id: 1,
     title: "Brand Campaign",
-    src: "/brand-campaign.mp4", // Make sure these match your files in public
+    src: "/videos/brand-campaign.mp4", // <--- Added "/videos/" back!
   },
   {
     id: 2,
     title: "Social Media Reel",
-    src: "/social-reel.mp4",
+    src: "/videos/social-reel.mp4",     // <--- Added "/videos/" back!
   },
   {
     id: 3,
     title: "Product Showcase",
-    src: "/product-showcase.mp4",
+    src: "/videos/product-showcase.mp4", // <--- Added "/videos/" back!
   }
 ];
 
@@ -57,9 +57,6 @@ export function VideoShowcase() {
           </p>
         </motion.div>
 
-        {/* THE MAGIC "GROUP" CLASS IS HERE:
-          When we hover this container, 'group-hover' triggers on all children.
-        */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-8 group">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
@@ -97,17 +94,11 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       className="
         relative rounded-[2rem] overflow-hidden shadow-2xl
         transition-all duration-500 ease-out
-        
-        /* DEFAULT STATE */
         w-[300px] h-[533px] flex-shrink-0 bg-black border border-indigo-100
-
-        /* PARENT HOVER STATE (When user hovers ANY video, all do this): */
         group-hover:blur-[2px] 
         group-hover:scale-[0.85]
         group-hover:opacity-60
         group-hover:grayscale-[0.5]
-
-        /* SELF HOVER STATE (Overrides the parent hover for THIS specific video): */
         hover:!blur-none 
         hover:!scale-[1.1] 
         hover:!opacity-100 
@@ -128,10 +119,8 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         playsInline
       />
 
-      {/* Overlay Gradient */}
       <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-      {/* Volume Icon */}
       <div className={`
         absolute top-6 right-6 z-30 
         bg-black/30 backdrop-blur-md p-3 rounded-full text-white 
@@ -141,7 +130,6 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         {isHovered ? <Volume2 size={24} /> : <VolumeX size={24} />}
       </div>
 
-      {/* Title */}
       <div className={`
         absolute bottom-8 left-6 right-6 z-30 text-white 
         transition-all duration-500
