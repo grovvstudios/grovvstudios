@@ -22,7 +22,8 @@ const VIDEOS = [
 
 export function VideoShowcase() {
   return (
-    <section className="py-24 px-4 relative overflow-visible bg-white">
+    // ADDED id="work" HERE 👇
+    <section id="work" className="py-24 px-4 relative overflow-visible bg-white">
        {/* Background Decoration */}
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
         style={{
@@ -39,17 +40,16 @@ export function VideoShowcase() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          {/* PSYCHOLOGICAL HOOK HEADLINE */}
           <h2 
             className="mb-4"
             style={{ 
               fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-              fontWeight: "800", // Made extra bold
+              fontWeight: "800",
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              letterSpacing: "-0.02em" // Tight tracking for modern feel
+              letterSpacing: "-0.02em" 
             }}
           >
             Stop The Scroll.
@@ -60,7 +60,6 @@ export function VideoShowcase() {
           </p>
         </motion.div>
 
-        {/* CONTAINER: Increased gap to gap-12 (48px) for better separation */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-12">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
@@ -112,7 +111,6 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         width: "280px",
         height: "500px",
         maxWidth: "90vw",
-        // Dynamic Shadow
         boxShadow: isHovered 
           ? "0 30px 60px -10px rgba(0, 0, 0, 0.6)" 
           : "0 10px 30px -5px rgba(0, 0, 0, 0.3)"
@@ -121,7 +119,6 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       <video
         ref={videoRef}
         src={video.src}
-        // ADDED 'block' HERE TO FIX THE WHITE LINE
         className="w-full h-full object-cover block" 
         autoPlay
         muted
@@ -129,10 +126,8 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         playsInline
       />
 
-      {/* Overlay Gradient */}
       <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-      {/* Volume Icon */}
       <div className={`
         absolute top-4 right-4 z-30 
         bg-black/30 backdrop-blur-md p-2 rounded-full text-white 
@@ -142,7 +137,6 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         {isHovered ? <Volume2 size={20} /> : <VolumeX size={20} />}
       </div>
 
-      {/* Title */}
       <div className={`
         absolute bottom-6 left-5 right-5 z-30 text-white 
         transition-all duration-300
