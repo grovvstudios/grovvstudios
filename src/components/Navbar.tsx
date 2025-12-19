@@ -6,16 +6,16 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   // Define the menu items
-  const navItems = ["Work", "Services", "Process", "Testimonials", "Contact"];
+  const navItems = ["Services", "Process", "Work", "Testimonials", "Contact"];
 
   // Map each item to its corresponding ID
   const getNavLink = (item: string) => {
     switch (item) {
-      case "Work":         return "#work";         // Scrolls to <section id="work">
-      case "Services":     return "#services";     // Scrolls to <section id="services">
-      case "Process":      return "#process";      // Scrolls to <section id="process">
-      case "Testimonials": return "#testimonials"; // Scrolls to <section id="testimonials">
-      case "Contact":      return "#contact";      // Scrolls to <section id="contact">
+      case "Services":     return "#services";     // Scrolls to Portfolio/Services section
+      case "Process":      return "#process";      // Scrolls to Process section
+      case "Work":         return "#work";         // Scrolls to VideoShowcase section
+      case "Testimonials": return "#testimonials"; // Scrolls to Testimonials section
+      case "Contact":      return "#contact";      // Scrolls to Contact section
       default:             return "#";
     }
   };
