@@ -6,17 +6,17 @@ const VIDEOS = [
   {
     id: 1,
     title: "Brand Campaign",
-    src: "/videos/brand-campaign.mp4",
+    src: "/brand-campaign.mp4",
   },
   {
     id: 2,
     title: "Social Media Reel",
-    src: "/videos/social-reel.mp4",
+    src: "/social-reel.mp4",
   },
   {
     id: 3,
     title: "Product Showcase",
-    src: "/videos/product-showcase.mp4",
+    src: "/product-showcase.mp4",
   }
 ];
 
@@ -57,10 +57,10 @@ export function VideoShowcase() {
           </p>
         </motion.div>
 
-        {/* GROUP CONTAINER 
-           'h-[500px]' reserves height so the layout doesn't jump when videos grow.
+        {/* CONTAINER 
+            Fixed height ensures the section doesn't jitter when elements grow.
         */}
-        <div className="flex flex-col md:flex-row justify-center items-center gap-6 group h-[500px]">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-8 h-[500px]">
           {VIDEOS.map((video, index) => (
             <LocalVideoCard key={video.id} video={video} index={index} />
           ))}
@@ -96,26 +96,19 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       viewport={{ once: true }}
       className="
         relative rounded-2xl overflow-hidden
-        transition-all duration-500 ease-out origin-center
         
-        /* 1. BASE SIZE (Medium - 260px) */
-        w-[260px] h-[460px] flex-shrink-0 bg-black border border-indigo-100/50 shadow-xl
+        /* DEFAULT STATE: Stable, no blur, medium size (250px) */
+        w-[250px] h-[444px] flex-shrink-0 
+        bg-black border border-indigo-100/50 
+        shadow-lg transition-all duration-300 ease-out z-0
 
-        /* 2. GROUP HOVER (When hovering the SECTION, shrink everyone) */
-        group-hover:scale-[0.9]
-        group-hover:opacity-60
-        group-hover:blur-[2px]
-        group-hover:grayscale-[0.5]
-
-        /* 3. SELF HOVER (Override the shrink for THIS card) */
-        hover:!scale-[1.15] 
-        hover:!opacity-100 
-        hover:!blur-none 
-        hover:!grayscale-0
+        /* HOVER STATE: Only THIS card changes */
+        hover:scale-110 
         hover:z-50
-
-        /* 4. GLOW SHADOW (Only appears on hover) */
-        hover:shadow-[0_25px_60px_-12px_rgba(99,102,241,0.5)]
+        hover:border-indigo-300
+        
+        /* THE 'SEPARATION' SHADOW: Deep and dark to make it float */
+        hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5),0_0_20px_rgba(102,126,234,0.3)]
       "
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -146,7 +139,7 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       {/* Title */}
       <div className={`
         absolute bottom-6 left-5 right-5 z-30 text-white 
-        transition-all duration-500
+        transition-all duration-300
         ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
       `}>
           <h3 className="text-lg font-bold leading-tight">{video.title}</h3>
