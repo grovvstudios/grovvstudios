@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
+// Standardizing imports to PascalCase (Ensure file names match exactly)
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import Testimonials from "./components/testimonials";
+import Testimonials from "./components/Testimonials"; // Changed from 'testimonials'
 import { Process } from "./components/Process";
-import { Services } from "./components/services";
+import { Services } from "./components/Services";     // Changed from 'services'
 import { VideoShowcase } from "./components/VideoShowcase"; 
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
@@ -16,12 +17,16 @@ function ParallaxDots() {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Basic optimization: usage of requestAnimationFrame is recommended for complex animations
+      // but strictly for state updates, this works for simple setups.
       setScrollY(window.scrollY);
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Parallax calculations
   const p1 = scrollY * -0.10;
   const p2 = scrollY * -0.05;
   const p3 = scrollY * -0.08;
@@ -71,25 +76,26 @@ export default function App() {
 
           {/* 4. SERVICES (Portfolio) */}
           <section id="services" className="relative scroll-mt-24">
-            <Services />   {/* <--- Change this to Services */}
+            <Services />
           </section>
 
           <SectionDivider />
 
-          {/* 5. WORK (Videos) - Added 'scroll-mt-24' to account for navbar height */}
+          {/* 5. WORK (Videos) */}
           <section id="work" className="relative scroll-mt-24">
             <VideoShowcase /> 
           </section>
 
           <SectionDivider />
 
+          {/* 6. FOUNDERS */}
           <section id="founders" className="relative scroll-mt-24">
              <Founders />
           </section>
 
           <SectionDivider />
 
-          {/* 6. CONTACT */}
+          {/* 7. CONTACT */}
           <section id="contact" className="relative scroll-mt-24">
             <Contact />
           </section>
