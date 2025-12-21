@@ -1,9 +1,9 @@
 // Standardized Imports (PascalCase)
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import Testimonials from "./components/Testimonials"; // Ensure file is Testimonials.tsx
+import Testimonials from "./components/testimonials"; // Ensure file is Testimonials.tsx
 import { Process } from "./components/Process";
-import { Services } from "./components/Services";     // Ensure file is Services.tsx
+import { Services } from "./components/services";     // Ensure file is Services.tsx
 import { VideoShowcase } from "./components/VideoShowcase"; 
 import { Founders } from "./components/Founders";     
 import { Contact } from "./components/Contact";
