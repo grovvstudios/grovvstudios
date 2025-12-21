@@ -1,94 +1,59 @@
-import { useEffect, useState } from "react";
-import { Navbar } from "./components/Navbar";
-import { Hero } from "./components/Hero";
-import Testimonials from "./components/testimonials";
-import { Process } from "./components/Process";
-import { Portfolio } from "./components/Portfolio";
-import { VideoShowcase } from "./components/VideoShowcase"; // <--- IMPORT ADDED BACK
-import { Contact } from "./components/Contact";
-import { Footer } from "./components/Footer";
+// FILE: src/components/VideoShowcase.tsx
+import { motion } from "motion/react";
+import { Play } from "lucide-react";
 
-function ParallaxDots() {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const p1 = scrollY * -0.10;
-  const p2 = scrollY * -0.05;
-  const p3 = scrollY * -0.08;
-  const p4 = scrollY * -0.04;
-  const p5 = scrollY * -0.07;
-
+export function VideoShowcase() {
   return (
-    <div className="fixed inset-0 pointer-events-none -z-10">
-      <div style={{ position: "absolute", top: 80 + p1, left: 50, width: 180, height: 180, borderRadius: "50%", background: "rgba(147,197,253,0.5)", filter: "blur(70px)" }} />
-      <div style={{ position: "absolute", top: 260 + p2, right: 120, width: 150, height: 150, borderRadius: "50%", background: "rgba(167,139,250,0.4)", filter: "blur(75px)" }} />
-      <div style={{ position: "absolute", top: 520 + p3, left: "50%", transform: "translateX(-50%)", width: 220, height: 220, borderRadius: "50%", background: "rgba(191,219,254,0.45)", filter: "blur(80px)" }} />
-      <div style={{ position: "absolute", bottom: 180 + p4, left: 30, width: 160, height: 160, borderRadius: "50%", background: "rgba(129,140,248,0.45)", filter: "blur(70px)" }} />
-      <div style={{ position: "absolute", bottom: 80 + p5, right: 100, width: 190, height: 190, borderRadius: "50%", background: "rgba(244,114,182,0.4)", filter: "blur(85px)" }} />
-    </div>
-  );
-}
+    // This ID matches the "Work" link in your Navbar
+    <section id="work" className="py-24 bg-black text-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
+            Recent Work
+          </h2>
+          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
+            See how we help brands stand out with high-impact visuals and editing.
+          </p>
+        </motion.div>
 
-export default function App() {
-  return (
-    <div className="min-h-screen relative overflow-hidden">
-      <ParallaxDots />
+        {/* Video Grid Placeholder */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[1, 2, 3].map((item) => (
+            <motion.div 
+              key={item}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: item * 0.1 }}
+              viewport={{ once: true }}
+              className="aspect-[9/16] bg-gray-900 rounded-2xl border border-gray-800 relative group overflow-hidden cursor-pointer"
+            >
+              {/* Placeholder Content */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <Play className="w-8 h-8 text-white fill-white" />
+                </div>
+              </div>
+              
+              {/* Hover Effect */}
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <div>
+                  <h3 className="text-lg font-bold">Client Project {item}</h3>
+                  <p className="text-sm text-gray-300">Short Form Content</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
-      <div className="relative z-10">
-        <Navbar />
-        <main id="main">
-          
-          {/* 1. HERO */}
-          <section id="hero">
-            <Hero />
-          </section>
-          
-          <div className="section-divider" />
-
-          {/* 2. TESTIMONIALS (Linked to #testimonials) */}
-          <section id="testimonials" className="scroll-mt-24">
-            <Testimonials />
-          </section>
-
-          <div className="section-divider" />
-
-          {/* 3. PROCESS (Linked to #process) */}
-          <section id="process" className="scroll-mt-24">
-            <Process />
-          </section>
-
-          <div className="section-divider" />
-
-          {/* 4. SERVICES / PORTFOLIO (Linked to #services) */}
-          <section id="services" className="scroll-mt-24">
-            <Portfolio />
-          </section>
-
-          <div className="section-divider" />
-
-          {/* 5. WORK / VIDEOS (Linked to #work) */}
-          <section id="work" className="scroll-mt-24">
-            <VideoShowcase /> 
-          </section>
-
-          <div className="section-divider" />
-
-          {/* 6. CONTACT (Linked to #contact) */}
-          <section id="contact" className="scroll-mt-24">
-            <Contact />
-          </section>
-
-          <div className="section-divider" />
-        </main>
-        <Footer />
       </div>
-    </div>
+    </section>
   );
 }
