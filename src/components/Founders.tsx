@@ -5,9 +5,9 @@ const founders = [
   {
     name: "Tafheem Irshad",
     role: "Co-Founder & Director",
-    image: "/tafheem.jpg", 
+    image: "/public/images/tafheem.jpg", 
     bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth.",
-    linkedin: "#"
+    linkedin: "www.linkedin.com/in/rathertafheem"
   },
   {
     name: "Co-Founder Name",
