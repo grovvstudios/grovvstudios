@@ -1,32 +1,29 @@
 import { useEffect, useState } from "react";
 
-// Standardizing imports to PascalCase (Ensure file names match exactly)
+// Standardized Imports (PascalCase)
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import Testimonials from "./components/testimonials"; // Changed from 'testimonials'
+import Testimonials from "./components/testimonials"; // Ensure file is Testimonials.tsx
 import { Process } from "./components/Process";
-import { Services } from "./components/services";     // Changed from 'services'
+import { Services } from "./components/services";     // Ensure file is Services.tsx
 import { VideoShowcase } from "./components/VideoShowcase"; 
+import { Founders } from "./components/Founders";     // The new Founders section
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
-import { Founders } from "./components/Founders";
-import SectionDivider from "./components/SectionDivider";
+import SectionDivider from "./components/SectionDivider"; // The fixed visible divider
 
 function ParallaxDots() {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Basic optimization: usage of requestAnimationFrame is recommended for complex animations
-      // but strictly for state updates, this works for simple setups.
       setScrollY(window.scrollY);
     };
-
+    // Added passive: true for better scroll performance
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Parallax calculations
   const p1 = scrollY * -0.10;
   const p2 = scrollY * -0.05;
   const p3 = scrollY * -0.08;
