@@ -4,97 +4,94 @@ const founders = [
   {
     name: "Tafheem Irshad",
     role: "Co-Founder & Director",
-    image: "/tafheem.jpg", 
+    // ⚠️ TEMPORARY: Using a web image to prove the layout works.
+    // Once this works, change this back to: "/tafheem.jpg"
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fit=crop&w=400&h=400", 
     bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth."
   },
   {
     name: "Co-Founder Name",
     role: "Head of Operations",
-    image: "/partner1.jpg", 
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=400&h=400", 
     bio: "Orchestrating the workflows and ensuring every project is delivered with precision and excellence."
   },
   {
     name: "Co-Founder Name",
     role: "Creative Director",
-    image: "/partner2.jpg", 
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?fit=crop&w=400&h=400", 
     bio: "Leading the design philosophy and ensuring our visual output resonates on a psychological level."
   }
 ];
 
 export function Founders() {
   return (
-    <div className="relative w-full max-w-7xl mx-auto px-6 py-24">
-      {/* Background Decor element */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-purple-900/10 blur-[100px] rounded-full -z-10" />
-
-      <div className="text-center mb-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          {/* HEADLINE: EXACT match to your Process component styles */}
+    <section className="py-20 relative bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        
+        {/* HEADER */}
+        <div className="text-center mb-16">
           <h2 
-            className="mb-4"
-            style={{ 
-              fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-              fontWeight: "700",
-              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
+            className="text-4xl md:text-5xl font-bold mb-4"
+            style={{ color: '#1a1a1a' }} // Forced Black Color
           >
             The Minds Behind Grovv
           </h2>
-
-          {/* SUB-HEADLINE: Matched size to 1.125rem as per your code */}
-          <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontSize: "1.125rem" }}>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             We are the architects of digital influence. Dedicated to your exponential growth.
           </p>
-        </motion.div>
-      </div>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center items-stretch">
-        {founders.map((founder, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.2, duration: 0.6 }}
-            whileHover={{ y: -15 }}
-            className="group relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md flex flex-col items-center text-center hover:bg-white/10 transition-colors duration-300"
-          >
-            {/* Hover Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-b from-purple-500/0 via-purple-500/0 to-purple-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        {/* CARDS GRID */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {founders.map((founder, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+              className="flex flex-col items-center text-center p-8 rounded-3xl bg-white"
+              style={{ 
+                border: '1px solid #e5e7eb', // Forced Border
+                boxShadow: '0 10px 40px -10px rgba(0,0,0,0.1)' // Forced Shadow
+              }}
+            >
+              {/* IMAGE */}
+              <div className="mb-6 relative">
+                <div 
+                  className="w-40 h-40 rounded-full overflow-hidden"
+                  style={{ border: '4px solid white', boxShadow: '0 4px 14px rgba(0,0,0,0.1)' }}
+                >
+                  <img 
+                    src={founder.image} 
+                    alt={founder.name} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
 
-            {/* Image Container */}
-            <div className="relative mb-8 w-40 h-40">
-              {/* Rotating Ring on Hover */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-purple-500/30 animate-[spin_10s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* NAME & ROLE - Forced Colors */}
+              <h3 
+                className="text-2xl font-bold mb-2" 
+                style={{ color: '#000000' }}
+              >
+                {founder.name}
+              </h3>
               
-              <img 
-                src={founder.image} 
-                alt={founder.name}
-                className="relative w-full h-full rounded-full object-cover border-4 border-white/10 shadow-2xl group-hover:scale-105 transition-transform duration-500"
-                // Fallback if image fails to load
-                onError={(e) => {
-                  e.currentTarget.src = `https://ui-avatars.com/api/?name=${founder.name.replace(' ', '+')}&background=random&size=200`;
-                }}
-              />
-            </div>
+              <span 
+                className="inline-block px-3 py-1 rounded-full text-sm font-semibold mb-4"
+                style={{ background: '#f3e8ff', color: '#7e22ce' }}
+              >
+                {founder.role}
+              </span>
 
-            <h3 className="text-2xl font-bold text-white mb-2">{founder.name}</h3>
-            <p className="text-purple-400 font-medium text-sm tracking-widest uppercase mb-5">{founder.role}</p>
-            
-            <p className="text-gray-300 leading-relaxed text-sm">
-              {founder.bio}
-            </p>
-          </motion.div>
-        ))}
+              <p className="text-gray-600 leading-relaxed">
+                {founder.bio}
+              </p>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
