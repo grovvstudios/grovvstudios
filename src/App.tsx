@@ -8,6 +8,7 @@ import { Services } from "./components/services";
 import { VideoShowcase } from "./components/VideoShowcase"; 
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
+import { Founders } from "./components/Founders";
 
 function ParallaxDots() {
   const [scrollY, setScrollY] = useState(0);
