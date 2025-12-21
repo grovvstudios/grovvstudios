@@ -1,11 +1,10 @@
 import { motion } from "framer-motion";
-import { Linkedin } from "lucide-react"; // Make sure you have lucide-react installed
+import { Linkedin } from "lucide-react"; 
 
 const founders = [
   {
     name: "Tafheem Irshad",
     role: "Co-Founder & Director",
-    // Primary: Local file. Fallback: handled by code below.
     image: "/tafheem.jpg", 
     bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth.",
     linkedin: "#"
@@ -34,7 +33,7 @@ export function Founders() {
 
       <div className="max-w-7xl mx-auto px-6">
         
-        {/* HEADLINE: Matching 'Process' section fonts & gradients */}
+        {/* HEADLINE SECTION */}
         <div className="text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -42,21 +41,27 @@ export function Founders() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
+            {/* TYPOGRAPHY FIX: 
+               1. Gradient applies to the WHOLE line (same color throughout).
+               2. "The Minds Behind" is Regular (400).
+               3. "Grovv" is Bold (700).
+            */}
             <h2 
               className="mb-6"
               style={{ 
                 fontFamily: "'Poppins', sans-serif",
                 fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-                fontWeight: "700",
-                color: "#1a1a2e", // Dark base
+                // Weight 400 = Regular for the main text
+                fontWeight: "400", 
+                // The exact Process Gradient applied to the whole text
+                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
                 letterSpacing: "-0.02em"
               }}
             >
-              The Minds Behind <span style={{ 
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent"
-              }}>Grovv</span>
+              The Minds Behind <span style={{ fontWeight: "700" }}>Grovv</span>
             </h2>
             
             <p 
@@ -72,7 +77,7 @@ export function Founders() {
           </motion.div>
         </div>
 
-        {/* CARDS: Premium Animation & Psychology */}
+        {/* CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {founders.map((founder, index) => (
             <motion.div
@@ -81,15 +86,15 @@ export function Founders() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.7, ease: "easeOut" }}
-              whileHover={{ y: -12 }} // Smooth lift
+              whileHover={{ y: -12 }} 
               className="group relative bg-white rounded-[2rem] p-8 flex flex-col items-center text-center transition-all duration-500"
               style={{
                 fontFamily: "'Poppins', sans-serif",
-                boxShadow: "0 10px 40px -15px rgba(0,0,0,0.05)", // Clean initial shadow
-                border: "1px solid rgba(0,0,0,0.03)" // Subtle border for precision feel
+                boxShadow: "0 10px 40px -15px rgba(0,0,0,0.05)",
+                border: "1px solid rgba(0,0,0,0.03)"
               }}
             >
-              {/* Hover Shadow State (CSS override for performance) */}
+              {/* Hover Shadow State */}
               <div 
                 className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                 style={{ boxShadow: "0 25px 60px -12px rgba(100, 80, 200, 0.15)" }} 
@@ -97,7 +102,7 @@ export function Founders() {
 
               {/* IMAGE CONTAINER */}
               <div className="relative mb-8">
-                {/* Rotating Gradient Ring - Adds "Grovv Vibes" */}
+                {/* Rotating Gradient Ring */}
                 <div className="absolute -inset-1 bg-gradient-to-tr from-blue-400 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500" />
                 
                 <div className="relative w-40 h-40 rounded-full overflow-hidden border-[4px] border-white shadow-lg z-10">
@@ -106,7 +111,6 @@ export function Founders() {
                     alt={founder.name} 
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                     onError={(e) => {
-                      // Fallback if image path is wrong
                       e.currentTarget.src = `https://ui-avatars.com/api/?name=${founder.name.replace(' ', '+')}&background=f3e8ff&color=764ba2&size=200`;
                     }}
                   />
