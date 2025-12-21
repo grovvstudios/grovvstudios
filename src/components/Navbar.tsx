@@ -9,13 +9,18 @@ export function Navbar() {
 
   const getNavLink = (item: string) => {
     switch (item) {
-      case "Work":         return "#work";     // <--- Must match id="work" in App.tsx
+      case "Work":         return "#work";     
       case "Services":     return "#services"; 
       case "Process":      return "#process";
       case "Testimonials": return "#testimonials";
       case "Contact":      return "#contact";
       default:             return "#";
     }
+  };
+
+  // Function to handle scroll to top
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -34,9 +39,10 @@ export function Navbar() {
           }}
         >
           <div className="flex items-center justify-between px-[-4px] py-[-37px] mx-[13px] my-[0px]">
-            {/* Logo */}
+            {/* Logo - NOW CLICKABLE */}
             <div 
-              className="text-lg md:text-2xl"
+              onClick={scrollToTop} // <--- Added Click Handler
+              className="text-lg md:text-2xl cursor-pointer hover:opacity-80 transition-opacity" // <--- Added cursor-pointer
               style={{ 
                 fontWeight: "700",
                 background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
