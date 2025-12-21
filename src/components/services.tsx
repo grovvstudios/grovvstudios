@@ -16,7 +16,7 @@ interface ServiceItem {
   gradient: string;
 }
 
-// --- Data (Your Original Data) ---
+// --- Data ---
 const services: ServiceItem[] = [
   {
     icon: TrendingUp,
@@ -196,7 +196,6 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
 
   const IconComponent = service.icon;
   const hasDiscount = service.originalPrice !== null;
-  
   const savings = hasDiscount 
     ? Math.round((1 - parseFloat(service.price.replace(/[₹,]/g, '')) / parseFloat(service.originalPrice!.replace(/[₹,]/g, ''))) * 100)
     : 0;
@@ -207,45 +206,66 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
       style={{ opacity, scale, y }}
       className="mb-8 last:mb-0"
     >
-      <div className="max-w-4xl mx-auto relative">
-        <div className="bg-white rounded-2xl p-8 md:p-10 border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
+      <div className="max-w-7xl mx-auto relative">
+        <div 
+            className="bg-white rounded-2xl p-8 md:p-10 border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
+            style={{ borderRadius: "24px" }} 
+        >
+          {/* Badge */}
           {service.badge && (
-            <div className="absolute top-6 right-6 px-3 py-1 bg-indigo-600 text-white text-xs rounded-full z-10">
+            <div className="absolute top-6 right-6 px-3 py-1 bg-indigo-600 text-white text-xs rounded-full z-10 font-bold tracking-wide">
               {service.badge}
             </div>
           )}
 
           <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
+            {/* Left: Icon */}
             <div className="flex-shrink-0">
               <div
-                className="w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
+                className="w-24 h-24 rounded-full flex items-center justify-center mb-4 transition-transform duration-500 group-hover:scale-110"
                 style={{
                   background: service.gradient,
-                  boxShadow: "0 10px 30px rgba(102, 126, 234, 0.3)",
+                  boxShadow: "0 20px 60px rgba(102, 126, 234, 0.3)",
                 }}
               >
-                <IconComponent className="w-8 h-8 text-white" />
+                <IconComponent className="w-12 h-12 text-white" />
               </div>
-              <div className="flex items-center gap-2 text-gray-400 text-sm">
+              <div className="flex items-center gap-2 text-gray-400 text-sm pl-2">
                 <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                 <span>4.9/5</span>
               </div>
             </div>
 
+            {/* Middle: Content */}
             <div className="flex-grow">
-              <h3 className="text-2xl md:text-3xl mb-2 font-semibold text-gray-900">
+              {/* Title Matching Process.tsx H3 style */}
+              <h3 
+                className="mb-2"
+                style={{ fontSize: "1.5rem", fontWeight: "600" }}
+              >
                 {service.title}
               </h3>
-              <p className="text-indigo-600 mb-3 font-medium">
+              
+              <p 
+                className="mb-3 font-semibold tracking-wide"
+                style={{
+                    background: service.gradient,
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                }}
+              >
                 {service.tagline}
               </p>
+              
               <p className="text-gray-600 mb-6 leading-relaxed">
                 {service.description}
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6">
+              {/* Features */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                 {service.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">
+                  <div key={idx} className="flex items-center gap-2 text-sm text-gray-700">
                     <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 flex-shrink-0"></div>
                     <span>{feature}</span>
                   </div>
@@ -257,89 +277,88 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
                   const contactSection = document.getElementById('contact');
                   contactSection?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-all duration-300 hover:shadow-xl hover:scale-105 group/btn"
+                className="inline-flex items-center gap-2 px-8 py-3 text-white rounded-full transition-all duration-300 hover:shadow-xl hover:scale-105 group/btn font-semibold"
                 style={{
-                  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 100%)",
                 }}
-                aria-label={`Get started with ${service.title}`}
               >
                 <span>Get Started</span>
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
               </button>
             </div>
 
+            {/* Right: Pricing */}
             <div className="flex-shrink-0 text-right md:text-left md:min-w-[180px]">
               {hasDiscount && (
                 <div className="mb-2">
                   <span className="text-gray-400 line-through text-lg">
                     {service.originalPrice}
                   </span>
-                  <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded">
+                  <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-bold">
                     Save {savings}%
                   </span>
                 </div>
               )}
-              <div className="text-4xl md:text-5xl text-gray-900 mb-1 font-bold">
+              <div 
+                className="text-4xl md:text-5xl text-gray-900 mb-1"
+                style={{ fontWeight: "700" }}
+              >
                 {service.price}
               </div>
-              <div className="text-gray-500">{service.period}</div>
-              
-              {index === 0 && (
-                <div className="mt-4 text-xs text-orange-600 bg-orange-50 px-3 py-2 rounded-lg inline-block animate-pulse">
-                  Only 2 spots left
-                </div>
-              )}
+              <div className="text-gray-500 font-medium">{service.period}</div>
             </div>
           </div>
-
-          <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-50 to-transparent rounded-full -mr-32 -mb-32 opacity-50 pointer-events-none"></div>
         </div>
       </div>
     </motion.div>
   );
 }
 
-// ✅ Correct Export Name (matches import in App.tsx)
-// ✅ NO ID here (App.tsx handles id="services")
+// NOTE: ID is handled in App.tsx to prevent conflicts.
 export function Portfolio() {
   return (
-    <section className="py-24 px-6 relative overflow-hidden">
+    <section className="py-32 px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
+        
+        {/* Header - EXACT MATCH TO PROCESS.TSX */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16 max-w-3xl mx-auto"
+          className="text-center mb-20"
         >
-          <div 
-            className="inline-block mb-4 px-4 py-2 rounded-full text-sm text-white"
-            style={{
-              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-              boxShadow: "0 4px 15px rgba(102, 126, 234, 0.3)",
-            }}
-          >
+          {/* Badge added to match the previous Services content but styled nicely */}
+          <div className="inline-block mb-6 px-4 py-2 rounded-full text-sm bg-white shadow-sm border border-gray-100 text-indigo-600 font-semibold tracking-wide">
             Transparent Pricing • No Hidden Fees
           </div>
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl mb-6 font-bold bg-clip-text text-transparent bg-gradient-to-br from-[#1a1a2e] via-[#667eea] to-[#764ba2]">
+          <h2 
+            className="mb-4"
+            style={{ 
+              fontSize: "clamp(2.5rem, 5vw, 4rem)", 
+              fontWeight: "700",
+              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
             Services That Scale<br />Your Business
           </h2>
           
-          <p className="text-gray-600 text-lg md:text-xl">
+          <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontSize: "1.125rem" }}>
             Choose the service that fits your goals. All packages include dedicated support and proven strategies.
           </p>
 
-          {/* Social Proof */}
           <div className="mt-8 flex items-center justify-center gap-6 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <ClientLogos />
-              <span>50+ happy clients</span>
+              <span className="font-medium">50+ happy clients</span>
             </div>
             <div className="flex items-center gap-1">
               <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-              <span>4.9/5 average rating</span>
+              <span className="font-medium">4.9/5 average rating</span>
             </div>
           </div>
         </motion.div>
@@ -357,27 +376,26 @@ export function Portfolio() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mt-20 p-10 rounded-2xl text-white relative overflow-hidden"
+          className="text-center mt-20 p-12 rounded-3xl text-white relative overflow-hidden shadow-2xl"
           style={{
             background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
           }}
         >
-           {/* Decorative circles for CTA */}
-           <div className="absolute top-0 left-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-           <div className="absolute bottom-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full translate-x-1/2 translate-y-1/2"></div>
+           <div className="absolute top-0 left-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-2xl"></div>
+           <div className="absolute bottom-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full translate-x-1/2 translate-y-1/2 blur-2xl"></div>
 
-          <h3 className="text-2xl md:text-3xl mb-4 font-semibold relative z-10">
+          <h3 className="text-3xl md:text-4xl mb-4 font-bold relative z-10">
             Not sure which service is right for you?
           </h3>
-          <p className="text-indigo-100 mb-6 text-lg relative z-10">
-            Book a free 15-minute consultation and we'll create a custom plan for your business.
+          <p className="text-indigo-100 mb-8 text-lg relative z-10 max-w-2xl mx-auto">
+            Book a free 15-minute consultation and we'll create a custom plan tailored to your business needs.
           </p>
           <button
             onClick={() => {
               const contactSection = document.getElementById('contact');
               contactSection?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-8 py-4 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105 inline-flex items-center gap-2 font-semibold relative z-10 shadow-lg"
+            className="px-10 py-4 bg-white text-gray-900 rounded-full hover:bg-gray-50 transition-all duration-300 hover:scale-105 inline-flex items-center gap-2 font-bold relative z-10 shadow-lg"
           >
             <span>Book Free Consultation</span>
             <ArrowRight className="w-5 h-5" />
