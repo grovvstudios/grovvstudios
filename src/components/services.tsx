@@ -1,5 +1,6 @@
-import { motion, useScroll, useTransform, MotionValue } from "motion/react"; // Assuming motion/react (v12) or framer-motion
-import { TrendingUp, Video, Search, MapPin, Brain, Globe, Film, Award, ArrowRight, Star, LucideIcon } from "lucide-react";
+// FILE: src/components/Services.tsx
+import { motion, useScroll, useTransform } from "motion/react"; 
+import { TrendingUp, Video, Search, Brain, Globe, Film, Award, ArrowRight, Star, LucideIcon } from "lucide-react";
 import { useRef } from "react";
 
 // --- Types ---
@@ -191,7 +192,6 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
     offset: ["start end", "end start"]
   });
 
-  // Adjusted opacity to stay fully visible longer in the center of the viewport
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0.5]);
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.95]);
   const y = useTransform(scrollYProgress, [0, 1], [100, -50]);
@@ -199,7 +199,6 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
   const IconComponent = service.icon;
   const hasDiscount = service.originalPrice !== null;
   
-  // Calculate savings percentage safely
   const savings = hasDiscount 
     ? Math.round((1 - parseFloat(service.price.replace(/[₹,]/g, '')) / parseFloat(service.originalPrice!.replace(/[₹,]/g, ''))) * 100)
     : 0;
@@ -211,10 +210,7 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
       className="mb-8 last:mb-0"
     >
       <div className="max-w-4xl mx-auto relative">
-        <div
-          className="bg-white rounded-2xl p-8 md:p-10 border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
-        >
-          {/* Badge */}
+        <div className="bg-white rounded-2xl p-8 md:p-10 border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
           {service.badge && (
             <div className="absolute top-6 right-6 px-3 py-1 bg-indigo-600 text-white text-xs rounded-full z-10">
               {service.badge}
@@ -222,7 +218,6 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
           )}
 
           <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
-            {/* Left: Icon & Title */}
             <div className="flex-shrink-0">
               <div
                 className="w-16 h-16 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
@@ -239,7 +234,6 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
               </div>
             </div>
 
-            {/* Middle: Content */}
             <div className="flex-grow">
               <h3 className="text-2xl md:text-3xl mb-2 font-semibold text-gray-900">
                 {service.title}
@@ -251,7 +245,6 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
                 {service.description}
               </p>
 
-              {/* Features */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6">
                 {service.features.map((feature, idx) => (
                   <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">
@@ -277,7 +270,6 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
               </button>
             </div>
 
-            {/* Right: Pricing */}
             <div className="flex-shrink-0 text-right md:text-left md:min-w-[180px]">
               {hasDiscount && (
                 <div className="mb-2">
@@ -302,7 +294,6 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
             </div>
           </div>
 
-          {/* Decorative gradient */}
           <div className="absolute bottom-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-50 to-transparent rounded-full -mr-32 -mb-32 opacity-50 pointer-events-none"></div>
         </div>
       </div>
@@ -310,11 +301,11 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
   );
 }
 
-export function Portfolio() {
+export function Services() {
   return (
-    <section id="work" className="py-24 px-6 relative overflow-hidden">
+    // !!! THIS ID IS NOW SERVICES. THIS FIXES YOUR NAVIGATION !!!
+    <section id="services" className="py-24 px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -340,7 +331,6 @@ export function Portfolio() {
             Choose the service that fits your goals. All packages include dedicated support and proven strategies.
           </p>
 
-          {/* Social Proof */}
           <div className="mt-8 flex items-center justify-center gap-6 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <ClientLogos />
@@ -353,14 +343,12 @@ export function Portfolio() {
           </div>
         </motion.div>
 
-        {/* Stacked Services */}
         <div className="py-12">
           {services.map((service, index) => (
             <ServiceCard key={service.title} service={service} index={index} />
           ))}
         </div>
 
-        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -371,7 +359,6 @@ export function Portfolio() {
             background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
           }}
         >
-           {/* Decorative circles for CTA */}
            <div className="absolute top-0 left-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
            <div className="absolute bottom-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full translate-x-1/2 translate-y-1/2"></div>
 
