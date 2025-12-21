@@ -2,63 +2,88 @@ import { motion } from "framer-motion";
 
 const founders = [
   {
-    name: "Tafheem Irshad", // Your Name
+    name: "Tafheem Irshad",
     role: "Co-Founder & Director",
-    // This uses a placeholder. Replace 'src' with your actual image path later, e.g., "/tafheem.jpg"
-    image: "https://ui-avatars.com/api/?name=Tafheem+Irshad&background=random&size=200", 
-    description: "Driving the vision and strategy behind Grovv Studios."
+    // This points to public/tafheem.jpg
+    image: "/tafheem.jpg", 
+    bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth."
   },
   {
-    name: "Co-Founder Name", // Replace with actual name
-    role: "Co-Founder",
-    image: "https://ui-avatars.com/api/?name=Co+Founder&background=random&size=200",
-    description: "Leading creative direction and execution."
+    name: "Co-Founder Name",
+    role: "Head of Operations",
+    // Replace this with the second co-founder's image name, e.g., "/partner1.jpg"
+    image: "/partner1.jpg", 
+    bio: "Orchestrating the workflows and ensuring every project is delivered with precision and excellence."
   },
   {
-    name: "Co-Founder Name", // Replace with actual name
-    role: "Co-Founder",
-    image: "https://ui-avatars.com/api/?name=Co+Founder&background=random&size=200",
-    description: "Spearheading technology and operations."
+    name: "Co-Founder Name",
+    role: "Creative Director",
+    // Replace this with the third co-founder's image name
+    image: "/partner2.jpg", 
+    bio: "Leading the design philosophy and ensuring our visual output resonates on a psychological level."
   }
 ];
 
 export function Founders() {
   return (
-    <div className="max-w-7xl mx-auto px-6 py-20 text-center">
-      {/* HEADER: Matches the "density" of other section headers */}
-      <motion.h2 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="text-4xl md:text-5xl font-bold mb-16 text-white tracking-tight"
-      >
-        The Minds Behind Grovv
-      </motion.h2>
+    <div className="relative w-full max-w-7xl mx-auto px-6 py-24">
+      {/* Background Decor element */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-purple-900/10 blur-[120px] rounded-full -z-10" />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className="text-center mb-20">
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6"
+        >
+          The Minds Behind <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Grovv</span>
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="text-gray-400 max-w-2xl mx-auto text-lg"
+        >
+          We are the architects of digital influence. Meet the team dedicated to your exponential growth.
+        </motion.p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center items-stretch">
         {founders.map((founder, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.2 }}
-            className="flex flex-col items-center p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-purple-500/50 transition-colors"
+            transition={{ delay: index * 0.2, duration: 0.6 }}
+            whileHover={{ y: -15 }}
+            className="group relative bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-md flex flex-col items-center text-center hover:bg-white/10 transition-colors duration-300"
           >
-            {/* IMAGE CIRCLE */}
-            <div className="w-32 h-32 mb-6 rounded-full overflow-hidden border-2 border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.3)]">
+            {/* Hover Glow Effect */}
+            <div className="absolute inset-0 bg-gradient-to-b from-purple-500/0 via-purple-500/0 to-purple-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            {/* Image Container */}
+            <div className="relative mb-8 w-40 h-40">
+              {/* Rotating Ring on Hover */}
+              <div className="absolute inset-0 rounded-full border-2 border-dashed border-purple-500/30 animate-[spin_10s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity" />
+              
               <img 
                 src={founder.image} 
-                alt={founder.name} 
-                className="w-full h-full object-cover"
+                alt={founder.name}
+                className="relative w-full h-full rounded-full object-cover border-4 border-white/10 shadow-2xl group-hover:scale-105 transition-transform duration-500"
+                // Fallback if image fails to load
+                onError={(e) => {
+                  e.currentTarget.src = `https://ui-avatars.com/api/?name=${founder.name.replace(' ', '+')}&background=random&size=200`;
+                }}
               />
             </div>
 
-            {/* TEXT CONTENT */}
-            <h3 className="text-2xl font-bold text-white mb-1">{founder.name}</h3>
-            <p className="text-purple-400 font-medium mb-3">{founder.role}</p>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
-              {founder.description}
+            <h3 className="text-2xl font-bold text-white mb-2">{founder.name}</h3>
+            <p className="text-purple-400 font-medium text-sm tracking-widest uppercase mb-5">{founder.role}</p>
+            
+            <p className="text-gray-300 leading-relaxed text-sm">
+              {founder.bio}
             </p>
           </motion.div>
         ))}
