@@ -70,7 +70,7 @@ export default function App() {
           {/* 4. SERVICES (Portfolio) */}
           <section id="services" className="relative scroll-mt-24">
             <Services />   {/* <--- Change this to Services */}
-          </section>>
+          </section>
 
           <div className="section-divider" />
 
