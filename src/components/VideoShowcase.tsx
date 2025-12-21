@@ -2,11 +2,12 @@ import { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Volume2, VolumeX } from "lucide-react";
 
+// 👇 MAKE SURE THESE FILENAMES MATCH YOUR PUBLIC/VIDEOS FOLDER
 const VIDEOS = [
   {
     id: 1,
     title: "Brand Campaign",
-    src: "/videos/brand-campaign.mp4",
+    src: "/videos/brand-campaign.mp4", 
   },
   {
     id: 2,
@@ -22,7 +23,7 @@ const VIDEOS = [
 
 export function VideoShowcase() {
   return (
-    // REMOVED id="work" from here. It is now handled in App.tsx
+    // ID handled by App.tsx
     <section className="py-24 px-4 relative overflow-visible bg-white">
        {/* Background Decoration */}
        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
@@ -77,14 +78,15 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
   const handleMouseEnter = () => {
     setIsHovered(true);
     if (videoRef.current) {
-      videoRef.current.muted = false;
+      videoRef.current.muted = false; // Unmute on hover
+      videoRef.current.volume = 1;    // Ensure volume is up
     }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
     if (videoRef.current) {
-      videoRef.current.muted = true;
+      videoRef.current.muted = true; // Mute on leave
     }
   };
 
@@ -128,6 +130,7 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
 
       <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
+      {/* Volume Indicator */}
       <div className={`
         absolute top-4 right-4 z-30 
         bg-black/30 backdrop-blur-md p-2 rounded-full text-white 
