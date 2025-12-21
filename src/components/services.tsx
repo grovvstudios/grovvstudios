@@ -1,5 +1,4 @@
-// FILE: src/components/Services.tsx
-import { motion, useScroll, useTransform } from "motion/react"; 
+import { motion, useScroll, useTransform } from "motion/react";
 import { TrendingUp, Video, Search, Brain, Globe, Film, Award, ArrowRight, Star, LucideIcon } from "lucide-react";
 import { useRef } from "react";
 
@@ -17,7 +16,7 @@ interface ServiceItem {
   gradient: string;
 }
 
-// --- Data ---
+// --- Data (Your Original Data) ---
 const services: ServiceItem[] = [
   {
     icon: TrendingUp,
@@ -149,7 +148,6 @@ const services: ServiceItem[] = [
 ];
 
 // --- Sub-Components ---
-
 const ClientLogos = () => (
   <div className="flex -space-x-2">
     {/* Google Style */}
@@ -301,10 +299,13 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
   );
 }
 
-export function Portfolio() { 
+// ✅ Correct Export Name (matches import in App.tsx)
+// ✅ NO ID here (App.tsx handles id="services")
+export function Portfolio() {
   return (
     <section className="py-24 px-6 relative overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -330,6 +331,7 @@ export function Portfolio() {
             Choose the service that fits your goals. All packages include dedicated support and proven strategies.
           </p>
 
+          {/* Social Proof */}
           <div className="mt-8 flex items-center justify-center gap-6 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <ClientLogos />
@@ -342,12 +344,14 @@ export function Portfolio() {
           </div>
         </motion.div>
 
+        {/* Stacked Services */}
         <div className="py-12">
           {services.map((service, index) => (
             <ServiceCard key={service.title} service={service} index={index} />
           ))}
         </div>
 
+        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -358,6 +362,7 @@ export function Portfolio() {
             background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
           }}
         >
+           {/* Decorative circles for CTA */}
            <div className="absolute top-0 left-0 w-32 h-32 bg-white opacity-10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
            <div className="absolute bottom-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full translate-x-1/2 translate-y-1/2"></div>
 
