@@ -34,22 +34,27 @@ const founders = [
 
 export function Founders() {
   return (
-    <section className="py-24 relative overflow-hidden bg-gray-50/50">
+    // Changed bg-white to bg-slate-50 for a premium off-white base
+    <section className="py-24 relative overflow-hidden bg-slate-50">
       
-      {/* 1. BACKGROUND BLOBS (Crucial for Glass Effect) */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
-         {/* Purple Blob Left */}
-         <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-purple-300/30 blur-[120px] rounded-full" />
-         {/* Blue Blob Right */}
-         <div className="absolute bottom-[20%] right-[-10%] w-[500px] h-[500px] bg-blue-300/30 blur-[120px] rounded-full" />
-         {/* Pink Blob Center */}
-         <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-300/20 blur-[100px] rounded-full" />
+      {/* =========================================================
+          PREMIUM BACKGROUND BLOBS (The "Visible Parallax" Effect)
+         ========================================================= */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none">
+         {/* Top Left - Blue/Purple */}
+         <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-300/30 blur-[120px] rounded-full mix-blend-multiply" />
+         
+         {/* Bottom Right - Pink/Purple */}
+         <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-fuchsia-300/30 blur-[120px] rounded-full mix-blend-multiply" />
+         
+         {/* Center - Cyan (Adds depth) */}
+         <div className="absolute top-[40%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cyan-200/40 blur-[100px] rounded-full mix-blend-multiply" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* HEADLINE */}
-        <div className="text-center mb-24">
+        <div className="text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -85,8 +90,10 @@ export function Founders() {
           </motion.div>
         </div>
 
-        {/* GLASSMORPHISM CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+        {/* GRID FIXES:
+            1. items-stretch -> Forces all cards to be equal height
+        */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {founders.map((founder, index) => (
             <motion.div
               key={index}
@@ -94,55 +101,56 @@ export function Founders() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.7, ease: "easeOut" }}
-              whileHover={{ y: -15 }} 
-              // GLASS STYLES:
-              // bg-white/60 -> Semi-transparent white
-              // backdrop-blur-xl -> The "Frost" effect
-              // border-white/50 -> The shiny glass edge
-              className="group relative flex flex-col items-center text-center transition-all duration-500"
+              whileHover={{ y: -10 }} 
+              // GLASS CARD STYLES
+              // h-full -> Fills the stretched grid cell
+              // bg-white/60 + backdrop-blur-xl -> The Glass Effect
+              className="group relative flex flex-col items-center text-center transition-all duration-500 h-full"
               style={{
                 fontFamily: "'Poppins', sans-serif",
-                background: "rgba(255, 255, 255, 0.65)", // Glass Base
-                backdropFilter: "blur(20px)", // The Blur
-                WebkitBackdropFilter: "blur(20px)", // Safari Support
-                border: "1px solid rgba(255, 255, 255, 0.8)", // Shiny Edge
-                borderRadius: "3rem", // SUPER Rounded corners
+                background: "rgba(255, 255, 255, 0.60)", // More transparent to show blobs
+                backdropFilter: "blur(24px)", // Heavy frost
+                WebkitBackdropFilter: "blur(24px)",
+                border: "1px solid rgba(255, 255, 255, 0.6)", // Shiny border
+                borderRadius: "2.5rem",
                 padding: "3rem 2rem",
-                boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.07)" // Soft glass shadow
+                boxShadow: "0 10px 40px -10px rgba(0,0,0,0.05)"
               }}
             >
-              {/* Hover Glow (inside the glass) */}
-              <div className="absolute inset-0 rounded-[3rem] bg-gradient-to-b from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
-              {/* IMAGE CONTAINER */}
+              
+              {/* === FIXED IMAGE SIZING === 
+                  Locked width and height to prevent "Too Big" issues 
+              */}
               <div className="relative mb-8">
                 {/* Glow behind image */}
                 <div className="absolute -inset-4 bg-gradient-to-tr from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
                 
-                <div className="relative w-48 h-48 rounded-full overflow-hidden shadow-xl z-10 border-4 border-white">
+                {/* Fixed Dimension Container: w-44 h-44 */}
+                <div className="relative w-44 h-44 rounded-full overflow-hidden shadow-lg z-10 border-[6px] border-white/50">
                   <img 
                     src={founder.image} 
                     alt={founder.name} 
-                    className="w-full h-full object-cover transform scale-[1.02] group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700"
                   />
                 </div>
               </div>
 
               {/* NAME & ROLE */}
               <h3 
-                className="text-3xl font-bold mb-3 text-gray-900 relative z-10"
-                style={{ letterSpacing: "-0.02em" }}
+                className="text-2xl font-bold mb-3 text-gray-900 relative z-10"
+                style={{ letterSpacing: "-0.01em" }}
               >
                 {founder.name}
               </h3>
               
               <div className="mb-6 relative z-10">
-                <span className="px-5 py-2 rounded-full bg-white/80 border border-white text-purple-700 text-sm font-bold uppercase tracking-wider shadow-sm">
+                <span className="px-4 py-1.5 rounded-full bg-white/80 border border-white text-purple-700 text-xs font-bold uppercase tracking-wider shadow-sm">
                   {founder.role}
                 </span>
               </div>
 
-              <p className="text-gray-600 text-base leading-relaxed mb-8 relative z-10">
+              {/* flex-grow pushes the icon to the bottom if bio is short */}
+              <p className="text-gray-600 text-sm leading-relaxed mb-8 relative z-10 flex-grow">
                 {founder.bio}
               </p>
 
@@ -151,7 +159,7 @@ export function Founders() {
                 href={founder.linkedin} 
                 className="relative z-10 text-gray-400 hover:text-blue-600 transition-colors p-3 hover:bg-white rounded-full hover:shadow-md"
               >
-                <Linkedin size={24} />
+                <Linkedin size={22} />
               </a>
 
             </motion.div>
