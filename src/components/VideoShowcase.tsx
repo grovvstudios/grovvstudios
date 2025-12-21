@@ -8,21 +8,23 @@ const videos = [
     title: "Brand Commercial",
     category: "Advertisement",
     videoSrc: "/public/videos/brand-campaign.mp4", // Refers to public/videos/video1.mp4
-    },
+    thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop", 
+  },
   {
     id: 2,
     title: "Product Showcase",
     category: "Social Media Reel",
     videoSrc: "/public/videos/product-showcase.mp4", // Refers to public/videos/video2.mp4
-   },
+    thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=1000&auto=format&fit=crop",
+  },
   {
     id: 3,
     title: "Event Highlights",
     category: "Corporate",
-    videoSrc: "/public/videos/social-reel.mp4", // Refers to public/videos/video3.mp
+    videoSrc: "/public/videos/social-reel.mp4", // Refers to public/videos/video3.mp4
+    thumbnail: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop",
   }
 ];
-
 export function VideoShowcase() {
   
   // Helper to handle mute/unmute
