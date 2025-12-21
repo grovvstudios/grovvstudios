@@ -1,93 +1,141 @@
 import { motion } from "framer-motion";
+import { Linkedin } from "lucide-react"; // Make sure you have lucide-react installed
 
 const founders = [
   {
     name: "Tafheem Irshad",
     role: "Co-Founder & Director",
-    // ⚠️ TEMPORARY: Using a web image to prove the layout works.
-    // Once this works, change this back to: "/tafheem.jpg"
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?fit=crop&w=400&h=400", 
-    bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth."
+    // Primary: Local file. Fallback: handled by code below.
+    image: "/tafheem.jpg", 
+    bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth.",
+    linkedin: "#"
   },
   {
     name: "Co-Founder Name",
     role: "Head of Operations",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=400&h=400", 
-    bio: "Orchestrating the workflows and ensuring every project is delivered with precision and excellence."
+    image: "/partner1.jpg", 
+    bio: "Orchestrating the workflows and ensuring every project is delivered with precision and excellence.",
+    linkedin: "#"
   },
   {
     name: "Co-Founder Name",
     role: "Creative Director",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?fit=crop&w=400&h=400", 
-    bio: "Leading the design philosophy and ensuring our visual output resonates on a psychological level."
+    image: "/partner2.jpg", 
+    bio: "Leading the design philosophy and ensuring our visual output resonates on a psychological level.",
+    linkedin: "#"
   }
 ];
 
 export function Founders() {
   return (
-    <section className="py-20 relative bg-white">
+    <section className="py-24 relative overflow-hidden">
+      {/* Background: Subtle gradient blob for "Grovv Vibe" */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-purple-100/40 blur-[100px] rounded-full -z-10" />
+
       <div className="max-w-7xl mx-auto px-6">
         
-        {/* HEADER */}
-        <div className="text-center mb-16">
-          <h2 
-            className="text-4xl md:text-5xl font-bold mb-4"
-            style={{ color: '#1a1a1a' }} // Forced Black Color
+        {/* HEADLINE: Matching 'Process' section fonts & gradients */}
+        <div className="text-center mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            The Minds Behind Grovv
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We are the architects of digital influence. Dedicated to your exponential growth.
-          </p>
+            <h2 
+              className="mb-6"
+              style={{ 
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: "clamp(2.5rem, 5vw, 4rem)", 
+                fontWeight: "700",
+                color: "#1a1a2e", // Dark base
+                letterSpacing: "-0.02em"
+              }}
+            >
+              The Minds Behind <span style={{ 
+                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent"
+              }}>Grovv</span>
+            </h2>
+            
+            <p 
+              className="max-w-2xl mx-auto text-gray-600"
+              style={{ 
+                fontFamily: "'Poppins', sans-serif",
+                fontSize: "1.125rem",
+                lineHeight: "1.6"
+              }}
+            >
+              We are the architects of digital influence. Experts dedicated to your exponential growth.
+            </p>
+          </motion.div>
         </div>
 
-        {/* CARDS GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* CARDS: Premium Animation & Psychology */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {founders.map((founder, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-              className="flex flex-col items-center text-center p-8 rounded-3xl bg-white"
-              style={{ 
-                border: '1px solid #e5e7eb', // Forced Border
-                boxShadow: '0 10px 40px -10px rgba(0,0,0,0.1)' // Forced Shadow
+              transition={{ delay: index * 0.2, duration: 0.7, ease: "easeOut" }}
+              whileHover={{ y: -12 }} // Smooth lift
+              className="group relative bg-white rounded-[2rem] p-8 flex flex-col items-center text-center transition-all duration-500"
+              style={{
+                fontFamily: "'Poppins', sans-serif",
+                boxShadow: "0 10px 40px -15px rgba(0,0,0,0.05)", // Clean initial shadow
+                border: "1px solid rgba(0,0,0,0.03)" // Subtle border for precision feel
               }}
             >
-              {/* IMAGE */}
-              <div className="mb-6 relative">
-                <div 
-                  className="w-40 h-40 rounded-full overflow-hidden"
-                  style={{ border: '4px solid white', boxShadow: '0 4px 14px rgba(0,0,0,0.1)' }}
-                >
+              {/* Hover Shadow State (CSS override for performance) */}
+              <div 
+                className="absolute inset-0 rounded-[2rem] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{ boxShadow: "0 25px 60px -12px rgba(100, 80, 200, 0.15)" }} 
+              />
+
+              {/* IMAGE CONTAINER */}
+              <div className="relative mb-8">
+                {/* Rotating Gradient Ring - Adds "Grovv Vibes" */}
+                <div className="absolute -inset-1 bg-gradient-to-tr from-blue-400 to-purple-600 rounded-full opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500" />
+                
+                <div className="relative w-40 h-40 rounded-full overflow-hidden border-[4px] border-white shadow-lg z-10">
                   <img 
                     src={founder.image} 
                     alt={founder.name} 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                    onError={(e) => {
+                      // Fallback if image path is wrong
+                      e.currentTarget.src = `https://ui-avatars.com/api/?name=${founder.name.replace(' ', '+')}&background=f3e8ff&color=764ba2&size=200`;
+                    }}
                   />
                 </div>
               </div>
 
-              {/* NAME & ROLE - Forced Colors */}
+              {/* NAME & ROLE */}
               <h3 
-                className="text-2xl font-bold mb-2" 
-                style={{ color: '#000000' }}
+                className="text-2xl font-bold mb-2 text-gray-900"
+                style={{ letterSpacing: "-0.01em" }}
               >
                 {founder.name}
               </h3>
               
-              <span 
-                className="inline-block px-3 py-1 rounded-full text-sm font-semibold mb-4"
-                style={{ background: '#f3e8ff', color: '#7e22ce' }}
-              >
-                {founder.role}
-              </span>
+              <div className="mb-6">
+                <span className="px-4 py-1.5 rounded-full bg-purple-50 text-purple-700 text-xs font-bold uppercase tracking-wider">
+                  {founder.role}
+                </span>
+              </div>
 
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-gray-500 text-sm leading-relaxed mb-6">
                 {founder.bio}
               </p>
+
+              {/* Social Proof Icon */}
+              <a href={founder.linkedin} className="text-gray-400 hover:text-blue-600 transition-colors">
+                <Linkedin size={20} />
+              </a>
+
             </motion.div>
           ))}
         </div>
