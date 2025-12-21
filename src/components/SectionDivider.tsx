@@ -2,26 +2,30 @@ import { motion } from "framer-motion";
 
 export default function SectionDivider() {
   return (
-    <div className="relative w-full py-24 flex items-center justify-center overflow-hidden">
-      {/* The Glow Effect behind the line */}
+    // Changed py-24 to py-8 to remove the huge gaps
+    <div className="relative w-full py-8 flex items-center justify-center overflow-hidden">
+      
+      {/* 1. Stronger Glow behind the line */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="w-3/4 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent blur-sm" />
+        <div className="w-3/4 h-[2px] bg-purple-500/30 blur-md" />
       </div>
 
-      {/* The Actual Visible Line */}
+      {/* 2. The Visible Line (Brighter) */}
       <motion.div 
         initial={{ scaleX: 0, opacity: 0 }}
         whileInView={{ scaleX: 1, opacity: 1 }}
+        viewport={{ once: true }}
         transition={{ duration: 1, ease: "easeOut" }}
-        className="w-3/4 h-[1px] bg-gradient-to-r from-transparent via-purple-400 to-transparent"
+        className="w-full max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-80"
       />
 
-      {/* The Central Anchor Dot - Psychology: Gives the eye a focal point */}
+      {/* 3. The Central Jewel (Matches site aesthetic) */}
       <motion.div 
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
-        transition={{ delay: 0.5, type: "spring" }}
-        className="absolute w-3 h-3 bg-white rounded-full shadow-[0_0_15px_rgba(168,85,247,0.8)] z-10"
+        viewport={{ once: true }}
+        transition={{ delay: 0.2, type: "spring" }}
+        className="absolute w-2 h-2 bg-white rounded-full shadow-[0_0_10px_rgba(168,85,247,1)] z-10"
       />
     </div>
   );
