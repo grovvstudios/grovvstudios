@@ -1,53 +1,82 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+// Standardized Imports (PascalCase)
+import { Navbar } from "./components/Navbar";
+import { Hero } from "./components/Hero";
+import Testimonials from "./components/Testimonials"; // Ensure file is Testimonials.tsx
+import { Process } from "./components/Process";
+import { Services } from "./components/Services";     // Ensure file is Services.tsx
+import { VideoShowcase } from "./components/VideoShowcase"; 
+import { Founders } from "./components/Founders";     
+import { Contact } from "./components/Contact";
+import { Footer } from "./components/Footer";
+import SectionDivider from "./components/SectionDivider"; 
 
-export function PremiumBackground() {
-  // 1. Track global scroll progress
-  const { scrollY } = useScroll();
+// Import the new background system
+import { PremiumBackground } from "./components/PremiumBackground";
 
-  // 2. Define "Parallax Speeds"
-  // When you scroll 0px to 2000px...
-  // y1 moves down 400px (Slow)
-  // y2 moves UP 300px (Counter-movement creates depth)
-  // y3 moves down 200px (Very slow)
-  const y1 = useTransform(scrollY, [0, 2000], [0, 400]);
-  const y2 = useTransform(scrollY, [0, 2000], [0, -300]);
-  const y3 = useTransform(scrollY, [0, 2000], [0, 200]);
-  
-  // Optional: Rotate the top orb slowly as you scroll
-  const rotate1 = useTransform(scrollY, [0, 2000], [0, 180]);
-
+export default function App() {
   return (
-    <div className="fixed inset-0 w-full h-full overflow-hidden -z-50 bg-slate-50 pointer-events-none">
+    // Base styles: Off-white background, dark text, purple selection color
+    <div className="min-h-screen relative overflow-hidden bg-slate-50 text-gray-900 selection:bg-purple-200 selection:text-purple-900">
       
-      {/* ORB 1: Top Left (Deep Purple/Indigo) - Moves Down */}
-      <motion.div 
-        style={{ y: y1, rotate: rotate1 }}
-        className="absolute top-[-10%] left-[-10%] w-[70vh] h-[70vh] rounded-full opacity-50 mix-blend-multiply filter blur-[90px]"
-      >
-        <div className="w-full h-full bg-gradient-to-br from-indigo-300 to-purple-400 rounded-full" />
-      </motion.div>
+      {/* The Living, Breathing Background */}
+      <PremiumBackground />
 
-      {/* ORB 2: Middle Right (Cyan/Blue) - Moves UP */}
-      <motion.div 
-        style={{ y: y2 }}
-        className="absolute top-[40%] right-[-15%] w-[60vh] h-[60vh] rounded-full opacity-50 mix-blend-multiply filter blur-[100px]"
-      >
-        <div className="w-full h-full bg-gradient-to-bl from-blue-300 to-cyan-200 rounded-full" />
-      </motion.div>
+      <div className="relative z-10">
+        <Navbar />
+        <main id="main">
+          
+          {/* 1. HERO */}
+          <section id="hero" className="relative">
+            <Hero />
+          </section>
+          
+          <SectionDivider />
 
-      {/* ORB 3: Bottom Left (Pink/Rose) - Moves Down Slowly */}
-      <motion.div 
-        style={{ y: y3 }}
-        className="absolute bottom-[-20%] left-[10%] w-[50vh] h-[50vh] rounded-full opacity-50 mix-blend-multiply filter blur-[100px]"
-      >
-        <div className="w-full h-full bg-gradient-to-tr from-pink-300 to-rose-300 rounded-full" />
-      </motion.div>
+          {/* 2. TESTIMONIALS */}
+          <section id="testimonials" className="relative scroll-mt-24">
+            <Testimonials />
+          </section>
 
-      {/* NOISE TEXTURE: Adds "tactile" premium feel, prevents color banding */}
-      <div 
-        className="absolute inset-0 opacity-[0.03]"
-        style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/noise.png")` }}
-      />
+          <SectionDivider />
+
+          {/* 3. PROCESS */}
+          <section id="process" className="relative scroll-mt-24">
+            <Process />
+          </section>
+
+          <SectionDivider />
+
+          {/* 4. SERVICES (Portfolio) */}
+          <section id="services" className="relative scroll-mt-24">
+            <Services />
+          </section>
+
+          <SectionDivider />
+
+          {/* 5. WORK (Videos) */}
+          <section id="work" className="relative scroll-mt-24">
+            <VideoShowcase /> 
+          </section>
+
+          <SectionDivider />
+
+          {/* 6. FOUNDERS */}
+          <section id="founders" className="relative scroll-mt-24">
+             <Founders />
+          </section>
+
+          <SectionDivider />
+
+          {/* 7. CONTACT */}
+          <section id="contact" className="relative scroll-mt-24">
+            <Contact />
+          </section>
+
+          <SectionDivider />
+
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }
