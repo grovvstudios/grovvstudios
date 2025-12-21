@@ -88,7 +88,8 @@ export function Hero() {
 
           <button
             onClick={() => {
-              const workSection = document.getElementById("portfolio"); // Fixed ID to match App.tsx
+              // 👇 FIXED: Changed "portfolio" to "work" to match App.tsx
+              const workSection = document.getElementById("work"); 
               workSection?.scrollIntoView({ behavior: "smooth" });
             }}
             className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105"
