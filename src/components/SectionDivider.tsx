@@ -2,13 +2,17 @@ import { motion } from "motion/react";
 
 export default function SectionDivider() {
   return (
-    <div className="relative py-24 overflow-hidden flex items-center justify-center">
+    <div className="relative w-full py-16 flex items-center justify-center overflow-hidden">
+      {/* The Line */}
       <motion.div 
-        initial={{ width: "0%", opacity: 0 }}
-        whileInView={{ width: "100%", opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
+        initial={{ scaleX: 0, opacity: 0 }}
+        whileInView={{ scaleX: 1, opacity: 1 }}
+        transition={{ duration: 1, ease: "circOut" }}
         viewport={{ once: true }}
-        className="h-[1px] w-full max-w-5xl bg-gradient-to-r from-transparent via-indigo-400/50 to-transparent"
+        className="h-[2px] w-full max-w-4xl rounded-full"
+        style={{
+             background: "linear-gradient(90deg, transparent 0%, rgba(102, 126, 234, 0.5) 50%, transparent 100%)"
+        }}
       />
     </div>
   );
