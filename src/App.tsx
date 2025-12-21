@@ -1,18 +1,13 @@
-// FILE: src/App.tsx
 import { useEffect, useState } from "react";
-import { Navbar } from "./components/ui/Navbar";
-import { Hero } from "./components/ui/Hero";
-import Testimonials from "./components/ui/testimonials";
-import { Process } from "./components/ui/Process";
 
-// 👇 Updated import for your services/portfolio
-import { Portfolio } from "./components/ui/services"; 
-
-// 👇 Updated import for your video showcase
+import { Navbar } from "./components/Navbar";
+import { Hero } from "./components/Hero";
+import Testimonials from "./components/testimonials"; // Matches your file "testimonials.tsx"
+import { Process } from "./components/Process";
+import { Portfolio } from "./components/services"; 
 import { VideoShowcase } from "./components/VideoShowcase"; 
-
-import { Contact } from "./components/ui/Contact";
-import { Footer } from "./components/ui/Footer";
+import { Contact } from "./components/Contact";
+import { Footer } from "./components/Footer";
 
 function ParallaxDots() {
   const [scrollY, setScrollY] = useState(0);
@@ -25,8 +20,21 @@ function ParallaxDots() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ... (Keep your existing dots logic here)
-  return <div className="fixed inset-0 pointer-events-none -z-10" />;
+  const p1 = scrollY * -0.10;
+  const p2 = scrollY * -0.05;
+  const p3 = scrollY * -0.08;
+  const p4 = scrollY * -0.04;
+  const p5 = scrollY * -0.07;
+
+  return (
+    <div className="fixed inset-0 pointer-events-none -z-10">
+      <div style={{ position: "absolute", top: 80 + p1, left: 50, width: 180, height: 180, borderRadius: "50%", background: "rgba(147,197,253,0.5)", filter: "blur(70px)" }} />
+      <div style={{ position: "absolute", top: 260 + p2, right: 120, width: 150, height: 150, borderRadius: "50%", background: "rgba(167,139,250,0.4)", filter: "blur(75px)" }} />
+      <div style={{ position: "absolute", top: 520 + p3, left: "50%", transform: "translateX(-50%)", width: 220, height: 220, borderRadius: "50%", background: "rgba(191,219,254,0.45)", filter: "blur(80px)" }} />
+      <div style={{ position: "absolute", bottom: 180 + p4, left: 30, width: 160, height: 160, borderRadius: "50%", background: "rgba(129,140,248,0.45)", filter: "blur(70px)" }} />
+      <div style={{ position: "absolute", bottom: 80 + p5, right: 100, width: 190, height: 190, borderRadius: "50%", background: "rgba(244,114,182,0.4)", filter: "blur(85px)" }} />
+    </div>
+  );
 }
 
 export default function App() {
@@ -56,14 +64,14 @@ export default function App() {
 
           <div className="section-divider" />
 
-          {/* This renders the services.tsx component */}
+          {/* SERVICES (Pricing) */}
           <section id="services" className="scroll-mt-24">
             <Portfolio />
           </section>
 
           <div className="section-divider" />
 
-          {/* This renders the VideoShowcase.tsx component */}
+          {/* WORK (Videos) */}
           <section id="work" className="scroll-mt-24">
             <VideoShowcase /> 
           </section>
