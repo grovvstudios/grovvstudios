@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 // Standardizing imports to PascalCase (Ensure file names match exactly)
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import Testimonials from "./components/Testimonials"; // Changed from 'testimonials'
+import Testimonials from "./components/testimonials"; // Changed from 'testimonials'
 import { Process } from "./components/Process";
-import { Services } from "./components/Services";     // Changed from 'services'
+import { Services } from "./components/services";     // Changed from 'services'
 import { VideoShowcase } from "./components/VideoShowcase"; 
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
