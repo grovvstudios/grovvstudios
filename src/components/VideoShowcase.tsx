@@ -1,54 +1,38 @@
+import { useRef, useState } from "react";
 import { motion } from "motion/react";
-import { useRef } from "react";
+import { Volume2, VolumeX } from "lucide-react";
 
-// 👇 ENSURE THESE MATCH YOUR FILENAMES IN public/videos/
-const videos = [
+const VIDEOS = [
   {
     id: 1,
-    title: "Brand Commercial",
-    category: "Advertisement",
-    videoSrc: "/public/videos/brand-campaign.mp4", // Refers to public/videos/video1.mp4
-    thumbnail: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1000&auto=format&fit=crop", 
+    title: "Brand Campaign",
+    src: "/videos/brand-campaign.mp4",
   },
   {
     id: 2,
-    title: "Product Showcase",
-    category: "Social Media Reel",
-    videoSrc: "/public/videos/product-showcase.mp4", // Refers to public/videos/video2.mp4
-    thumbnail: "https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=1000&auto=format&fit=crop",
+    title: "Social Media Reel",
+    src: "/videos/social-reel.mp4",
   },
   {
     id: 3,
-    title: "Event Highlights",
-    category: "Corporate",
-    videoSrc: "/public/videos/social-reel.mp4", // Refers to public/videos/video3.mp4
-    thumbnail: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop",
+    title: "Product Showcase",
+    src: "/videos/product-showcase.mp4",
   }
 ];
+
 export function VideoShowcase() {
-  
-  // Helper to handle mute/unmute
-  const handleMouseEnter = (e: React.MouseEvent<HTMLVideoElement>) => {
-    e.currentTarget.muted = false;
-  };
-
-  const handleMouseLeave = (e: React.MouseEvent<HTMLVideoElement>) => {
-    e.currentTarget.muted = true;
-  };
-
   return (
-    // ID handled by App.tsx, so we don't need it here
-    <section className="py-24 bg-black text-white relative overflow-hidden">
-      
-      {/* Background Ambience */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-[100px]"></div>
-      </div>
+    // REMOVED id="work" from here. It is now handled in App.tsx
+    <section className="py-24 px-4 relative overflow-visible bg-white">
+       {/* Background Decoration */}
+       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10 pointer-events-none"
+        style={{
+          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          filter: "blur(100px)",
+        }}
+      />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
-        {/* Header */}
+      <div className="max-w-7xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -56,57 +40,110 @@ export function VideoShowcase() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-block mb-4 px-4 py-2 rounded-full text-sm bg-white/10 border border-white/10 backdrop-blur-md">
-            Our Selected Work
-          </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
-            Visuals That Speak<br />Louder Than Words
+          <h2 
+            className="mb-4"
+            style={{ 
+              fontSize: "clamp(2.5rem, 5vw, 4rem)", 
+              fontWeight: "800",
+              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              letterSpacing: "-0.02em" 
+            }}
+          >
+            Stop The Scroll.
           </h2>
+          <p className="text-gray-600 max-w-xl mx-auto" style={{ fontSize: "1.25rem", lineHeight: "1.6" }}>
+            In an ocean of noise, we create the signals that matter. <br className="hidden md:block"/>
+            <span className="font-semibold text-[#667eea]">Hover to experience the difference.</span>
+          </p>
         </motion.div>
 
-        {/* 9:16 Video Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {videos.map((video, index) => (
-            <motion.div 
-              key={video.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="relative group"
-            >
-              {/* Video Container with Hover Effects */}
-              <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-gray-900 
-                              transition-all duration-500 ease-out 
-                              group-hover:scale-105 group-hover:shadow-[0_20px_50px_rgba(124,58,237,0.5)] 
-                              group-hover:border-purple-500/50 z-0 group-hover:z-10 aspect-[9/16]">
-                
-                <video
-                  src={video.src}
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  loop
-                  muted // Starts muted
-                  playsInline
-                  onMouseEnter={handleMouseEnter} // Unmute on hover
-                  onMouseLeave={handleMouseLeave} // Mute on leave
-                />
-
-                {/* Optional: Text Overlay that fades out on hover so video is clear? 
-                    Or stays? I'll keep it subtle at the bottom. */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 to-transparent pointer-events-none">
-                  <span className="text-xs font-medium text-blue-400 mb-1 block tracking-wider uppercase">
-                    {video.category}
-                  </span>
-                  <h3 className="text-xl font-bold text-white">
-                    {video.title}
-                  </h3>
-                </div>
-              </div>
-            </motion.div>
+        <div className="flex flex-col md:flex-row justify-center items-center gap-12">
+          {VIDEOS.map((video, index) => (
+            <LocalVideoCard key={video.id} video={video} index={index} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function LocalVideoCard({ video, index }: { video: any, index: number }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.2 }}
+      viewport={{ once: true }}
+      className="
+        relative rounded-2xl overflow-hidden
+        flex-shrink-0 
+        bg-black border border-indigo-100/50 
+        transition-all duration-300 ease-out z-0
+
+        /* HOVER EFFECTS */
+        hover:scale-105 
+        hover:z-50
+        hover:border-indigo-300
+      "
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        width: "280px",
+        height: "500px",
+        maxWidth: "90vw",
+        boxShadow: isHovered 
+          ? "0 30px 60px -10px rgba(0, 0, 0, 0.6)" 
+          : "0 10px 30px -5px rgba(0, 0, 0, 0.3)"
+      }}
+    >
+      <video
+        ref={videoRef}
+        src={video.src}
+        className="w-full h-full object-cover block" 
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
+
+      <div className="absolute inset-0 z-20 pointer-events-none bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+      <div className={`
+        absolute top-4 right-4 z-30 
+        bg-black/30 backdrop-blur-md p-2 rounded-full text-white 
+        transition-all duration-300 border border-white/10
+        ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}
+      `}>
+        {isHovered ? <Volume2 size={20} /> : <VolumeX size={20} />}
+      </div>
+
+      <div className={`
+        absolute bottom-6 left-5 right-5 z-30 text-white 
+        transition-all duration-300
+        ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
+      `}>
+          <h3 className="text-lg font-bold leading-tight">{video.title}</h3>
+      </div>
+    </motion.div>
   );
 }
