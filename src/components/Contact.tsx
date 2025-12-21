@@ -83,7 +83,7 @@ export function Contact() {
               backgroundClip: "text",
             }}
           >
-            Let's GROVV Together
+            Let's Grovv Together.
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontSize: "1.125rem" }}>
             Ready to start your next project? Get in touch and let's make something amazing
