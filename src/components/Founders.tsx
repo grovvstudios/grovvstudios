@@ -1,25 +1,35 @@
 import { motion } from "framer-motion";
-import { Linkedin } from "lucide-react"; 
+import { Linkedin } from "lucide-react";
+
+// ---------------------------------------------------------
+// STEP 1: IMPORT YOUR IMAGES HERE
+// ---------------------------------------------------------
+// If the file is red, it means the image is NOT in src/assets/
+import tafheemImg from "../assets/tafheem.jpg";
+// Use placeholders for others until you have the files in src/assets/
+const partner1Img = "https://ui-avatars.com/api/?name=Partner+1&background=f3e8ff&color=764ba2&size=200";
+const partner2Img = "https://ui-avatars.com/api/?name=Partner+2&background=f3e8ff&color=764ba2&size=200";
+
 
 const founders = [
   {
     name: "Tafheem Irshad",
     role: "Co-Founder & Director",
-    image: "public/images/tafheem.jpg", 
+    image: tafheemImg, // Using the imported variable
     bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth.",
-    linkedin: "https://www.linkedin.com/in/rathertafheem"
+    linkedin: "#"
   },
   {
     name: "Co-Founder Name",
     role: "Head of Operations",
-    image: "/partner1.jpg", 
+    image: partner1Img, 
     bio: "Orchestrating the workflows and ensuring every project is delivered with precision and excellence.",
     linkedin: "#"
   },
   {
     name: "Co-Founder Name",
     role: "Creative Director",
-    image: "/partner2.jpg", 
+    image: partner2Img, 
     bio: "Leading the design philosophy and ensuring our visual output resonates on a psychological level.",
     linkedin: "#"
   }
@@ -27,7 +37,7 @@ const founders = [
 
 export function Founders() {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden bg-white">
       {/* Background: Subtle gradient blob for "Grovv Vibe" */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-purple-100/40 blur-[100px] rounded-full -z-10" />
 
@@ -42,22 +52,23 @@ export function Founders() {
             transition={{ duration: 0.6 }}
           >
             {/* TYPOGRAPHY FIX: 
-               1. Gradient applies to the WHOLE line (same color throughout).
-               2. "The Minds Behind" is Regular (400).
-               3. "Grovv" is Bold (700).
+               1. Single Gradient applied to the whole h2
+               2. "The Minds Behind" -> Regular (400)
+               3. "Grovv" -> Bold (700)
             */}
             <h2 
               className="mb-6"
               style={{ 
                 fontFamily: "'Poppins', sans-serif",
                 fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-                // Weight 400 = Regular for the main text
-                fontWeight: "400", 
-                // The exact Process Gradient applied to the whole text
+                fontWeight: "400", // Regular by default
+                
+                // The Continuous Gradient
                 background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
+                
                 letterSpacing: "-0.02em"
               }}
             >
@@ -110,9 +121,6 @@ export function Founders() {
                     src={founder.image} 
                     alt={founder.name} 
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                    onError={(e) => {
-                      e.currentTarget.src = `https://ui-avatars.com/api/?name=${founder.name.replace(' ', '+')}&background=f3e8ff&color=764ba2&size=200`;
-                    }}
                   />
                 </div>
               </div>
