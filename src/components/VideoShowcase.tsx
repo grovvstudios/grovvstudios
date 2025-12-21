@@ -75,18 +75,33 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = async () => {
     setIsHovered(true);
     if (videoRef.current) {
-      videoRef.current.muted = false; // Unmute on hover
-      videoRef.current.volume = 1;    // Ensure volume is up
+      try {
+        // Try to unmute
+        videoRef.current.muted = false;
+        // Force play ensure it doesn't pause when unmuting
+        await videoRef.current.play();
+      } catch (err) {
+        // If browser blocks audio, we log it (and keep it muted)
+        console.log("Audio blocked: User must click the page first.");
+        videoRef.current.muted = true; 
+      }
     }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
     if (videoRef.current) {
-      videoRef.current.muted = true; // Mute on leave
+      videoRef.current.muted = true; // Mute immediately on leave
+    }
+  };
+
+  // Backup: Allow clicking to force sound if hover is blocked
+  const handleClick = () => {
+    if (videoRef.current) {
+        videoRef.current.muted = !videoRef.current.muted;
     }
   };
 
@@ -101,6 +116,7 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         flex-shrink-0 
         bg-black border border-indigo-100/50 
         transition-all duration-300 ease-out z-0
+        cursor-pointer
 
         /* HOVER EFFECTS */
         hover:scale-105 
@@ -109,6 +125,7 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
       "
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick} // Added click handler
       style={{
         width: "280px",
         height: "500px",
@@ -123,7 +140,7 @@ function LocalVideoCard({ video, index }: { video: any, index: number }) {
         src={video.src}
         className="w-full h-full object-cover block" 
         autoPlay
-        muted
+        muted // Starts muted (REQUIRED for autoplay)
         loop
         playsInline
       />
