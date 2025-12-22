@@ -23,9 +23,8 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: Increased pt-28 -> pt-48. This pushes everything down from the Navbar.
-    // Increased pb-20 -> pb-32 to give space at the bottom.
-    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-50 pb-32">
+    // FIX 1: Increased pt-48 -> pt-56. This adds SIGNIFICANT space at the top.
+    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-56 pb-32">
       
       <style>{`
         /* Shine Animation */
@@ -40,9 +39,9 @@ export function Hero() {
 
         /* Pulse Animation: Pop once, wait 5 seconds */
         @keyframes pulse-wait {
-          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.4); }
-          10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(30, 64, 175, 0); }
-          20% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30, 64, 175, 0); }
+          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); } /* Updated shadow color to match new gradient */
+          10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+          20% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
           100% { transform: scale(1); }
         }
         .animate-btn-pulse-wait {
@@ -57,7 +56,6 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          // FIX 2: Increased margin-bottom (mb-8) for breathing room
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
           style={{
             background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
@@ -71,7 +69,6 @@ export function Hero() {
         </motion.div>
 
         {/* HEADLINE */}
-        {/* FIX 2: Increased margin-bottom (mb-8) so it doesn't touch the tagline */}
         <div className="relative mb-8 inline-block max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -83,8 +80,9 @@ export function Hero() {
               fontFamily: "'Poppins', sans-serif",
               fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
               lineHeight: 1.1,
-              // Gradient: Lighter Royal Blue -> Dark Navy
-              background: "linear-gradient(135deg, #2563eb 0%, #1e40af 40%, #0f172a 100%)",
+              // FIX 2: Exact "Real Stories" Gradient from Testimonials.tsx
+              // Dark (#1a1a2e) -> Soft Purple (#667eea) -> Deep Purple (#764ba2)
+              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -105,7 +103,6 @@ export function Hero() {
         </div>
 
         {/* Subheading */}
-        {/* FIX 2: Increased margin-bottom (mb-12) to push buttons away */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -132,7 +129,8 @@ export function Hero() {
             }}
             className="group animate-btn-pulse-wait px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl"
             style={{
-              background: "linear-gradient(135deg, #0f172a 0%, #1e40af 100%)",
+              // Matches the Headline Gradient
+              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
               color: "white",
               fontWeight: 600
             }}
@@ -160,7 +158,6 @@ export function Hero() {
         </motion.div>
 
         {/* Stats cards */}
-        {/* FIX 3: Increased margin-top (mt-20) to separate clearly from buttons */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -177,7 +174,7 @@ export function Hero() {
               className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
               style={{
                 background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
-                border: "1px solid rgba(30, 64, 175, 0.15)",
+                border: "1px solid rgba(102, 126, 234, 0.2)",
                 boxShadow: "0 10px 20px -10px rgba(0,0,0,0.05)"
               }}
             >
@@ -186,7 +183,8 @@ export function Hero() {
                 style={{
                   fontSize: "2.5rem", 
                   fontWeight: "700",
-                  background: "linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #0f172a 100%)",
+                  // Matches the Headline Gradient
+                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
