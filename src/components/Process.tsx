@@ -1,36 +1,37 @@
 import { Lightbulb, Pencil, Code2, Rocket } from "lucide-react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 const steps = [
   {
     icon: Lightbulb,
     title: "Discover",
-    description: "We dive deep into your vision, goals, and target audience",
+    description: "We dive deep into your vision, goals, and target audience.",
+    // Use consistent gradient backgrounds for icons
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
   },
   {
     icon: Pencil,
     title: "Design",
-    description: "Creating stunning visuals and user experiences",
+    description: "Creating stunning visuals and user experiences.",
     gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
   },
   {
     icon: Code2,
     title: "Develop",
-    description: "Building robust, scalable digital solutions",
+    description: "Building robust, scalable digital solutions.",
     gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
   },
   {
     icon: Rocket,
     title: "Launch",
-    description: "Deploying and optimizing for maximum impact",
+    description: "Deploying and optimizing for maximum impact.",
     gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
   },
 ];
 
 export function Process() {
   return (
-    <section className="py-32 px-6 relative">
+    <section className="py-32 px-6 relative bg-gray-50/50">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -39,19 +40,27 @@ export function Process() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
+          {/* --- UPDATED HEADLINE START --- */}
           <h2 
             className="mb-4"
             style={{ 
+              fontFamily: "'Poppins', sans-serif",
               fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-              fontWeight: "700",
-              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+              fontWeight: "400", // Regular
+              color: "#1f2937", // Dark Gray
+            }}
+          >
+            Our <span style={{ 
+              fontWeight: "700", // Bold
+              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)", // Matching Gradient
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-            }}
-          >
-            Our Process
+              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" // Soft Shadow
+            }}>Process</span>
           </h2>
+          {/* --- UPDATED HEADLINE END --- */}
+
           <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontSize: "1.125rem" }}>
             A proven methodology that delivers exceptional results every time
           </p>
@@ -97,6 +106,7 @@ export function Process() {
                         background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 100%)",
                         fontSize: "0.875rem",
                         fontWeight: "700",
+                        boxShadow: "0 4px 10px rgba(0,0,0,0.1)"
                       }}
                     >
                       {index + 1}
@@ -104,12 +114,12 @@ export function Process() {
                   </div>
 
                   <h3 
-                    className="mb-3"
-                    style={{ fontSize: "1.5rem", fontWeight: "600" }}
+                    className="mb-3 text-gray-900"
+                    style={{ fontSize: "1.5rem", fontWeight: "700" }}
                   >
                     {step.title}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 leading-relaxed">
                     {step.description}
                   </p>
                 </motion.div>
