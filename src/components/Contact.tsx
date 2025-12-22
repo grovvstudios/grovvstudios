@@ -48,11 +48,13 @@ export function Contact() {
   
   return (
     <section id="contact" className="py-32 px-6 relative overflow-hidden">
-      {/* Background Elements - Updated to match the Dark Royal theme */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-5"
+      
+      {/* BACKGROUND FIX: Made very subtle and blurred */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full pointer-events-none"
         style={{
           background: "linear-gradient(135deg, #1e40af 0%, #312e81 100%)",
-          filter: "blur(100px)",
+          opacity: 0.03, // Very faint
+          filter: "blur(150px)", // Super blurry
         }}
       />
 
@@ -64,24 +66,21 @@ export function Contact() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          {/* --- DARK ROYAL HEADLINE --- */}
           <h2 
             className="mb-4"
             style={{ 
               fontFamily: "'Poppins', sans-serif",
               fontSize: "clamp(2.5rem, 5vw, 4rem)", 
               fontWeight: "400", 
-              // The New Gradient: Blackish -> Royal Blue -> Deep Indigo
               background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" // Soft Shadow
+              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
             }}
           >
             Let's <span style={{ fontWeight: "700" }}>Grovv Together.</span>
           </h2>
-          {/* --------------------------- */}
 
           <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontSize: "1.125rem" }}>
             Ready to start your next project? Get in touch and let's make something amazing.
@@ -98,8 +97,8 @@ export function Contact() {
             className="p-8 rounded-3xl backdrop-blur-sm"
             style={{
               background: "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%)",
-              border: "1px solid rgba(30, 64, 175, 0.1)", // Subtle Royal Blue border
-              boxShadow: "0 20px 60px rgba(30, 64, 175, 0.1)",
+              border: "1px solid rgba(30, 64, 175, 0.1)", 
+              boxShadow: "0 20px 60px rgba(30, 64, 175, 0.05)", // Reduced shadow intensity
             }}
           >
             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -142,7 +141,6 @@ export function Contact() {
                 type="submit" 
                 disabled={isSubmitting} 
                 className="w-full py-4 rounded-xl text-white transition-all duration-300 hover:shadow-2xl hover:scale-105 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" 
-                // Button Gradient: Royal Blue -> Dark Indigo
                 style={{ background: "linear-gradient(135deg, #1e40af 0%, #312e81 100%)" }}
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
