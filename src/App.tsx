@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 // Standardized Imports (PascalCase - Fixed for Vercel)
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import Testimonials from "./components/Testimonials"; // Fixed Capitalization
+import Testimonials from "./components/testimonials"; // Fixed Capitalization
 import { Process } from "./components/Process";
-import { Services } from "./components/Services";     // Fixed Capitalization
+import { Services } from "./components/services";     // Fixed Capitalization
 import { VideoShowcase } from "./components/VideoShowcase"; 
 import { Founders } from "./components/Founders";     
 import { Contact } from "./components/Contact";
