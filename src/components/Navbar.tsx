@@ -55,7 +55,7 @@ export function Navbar() {
                 filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15))"
               }}
             >
-              GROVV STUDIOS
+              VV
             </div>
             {/* ----------------------------------------------------- */}
 
