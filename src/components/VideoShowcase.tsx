@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 
 // 👇 MAKE SURE THESE FILENAMES MATCH YOUR PUBLIC/VIDEOS FOLDER
@@ -41,20 +41,27 @@ export function VideoShowcase() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          {/* --- UPDATED HEADLINE START --- */}
           <h2 
             className="mb-4"
             style={{ 
+              fontFamily: "'Poppins', sans-serif",
               fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-              fontWeight: "800",
-              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+              fontWeight: "400", // Regular
+              color: "#1f2937", // Dark Gray
+            }}
+          >
+            Stop The <span style={{ 
+              fontWeight: "700", // Bold
+              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)", // Matching Gradient
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              letterSpacing: "-0.02em" 
-            }}
-          >
-            Stop The Scroll.
+              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" // Soft Shadow
+            }}>Scroll.</span>
           </h2>
+          {/* --- UPDATED HEADLINE END --- */}
+
           <p className="text-gray-600 max-w-xl mx-auto" style={{ fontSize: "1.25rem", lineHeight: "1.6" }}>
             In an ocean of noise, we create the signals that matter. <br className="hidden md:block"/>
             <span className="font-semibold text-[#667eea]">Hover to experience the difference.</span>
