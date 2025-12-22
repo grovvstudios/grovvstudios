@@ -1,9 +1,11 @@
-// Standardized Imports (PascalCase)
+import { useEffect, useState } from "react";
+
+// Standardized Imports (PascalCase - Fixed for Vercel)
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import Testimonials from "./components/testimonials"; // Ensure file is Testimonials.tsx
+import Testimonials from "./components/Testimonials"; // Fixed Capitalization
 import { Process } from "./components/Process";
-import { Services } from "./components/services";     // Ensure file is Services.tsx
+import { Services } from "./components/Services";     // Fixed Capitalization
 import { VideoShowcase } from "./components/VideoShowcase"; 
 import { Founders } from "./components/Founders";     
 import { Contact } from "./components/Contact";
@@ -15,8 +17,8 @@ import { PremiumBackground } from "./components/PremiumBackground";
 
 export default function App() {
   return (
-    // Base styles: Off-white background, dark text, purple selection color
-    <div className="min-h-screen relative overflow-hidden bg-slate-50 text-gray-900 selection:bg-purple-200 selection:text-purple-900">
+    // CHANGED: bg-[#0f172a] (Deep Blue/Dark) and text-white
+    <div className="min-h-screen relative overflow-hidden bg-[#0f172a] text-white selection:bg-cyan-500 selection:text-white">
       
       {/* The Living, Breathing Background */}
       <PremiumBackground />
@@ -71,8 +73,6 @@ export default function App() {
           <section id="contact" className="relative scroll-mt-24">
             <Contact />
           </section>
-
-          <SectionDivider />
 
         </main>
         <Footer />
