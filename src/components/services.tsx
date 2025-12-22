@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { TrendingUp, Video, Search, Brain, Globe, Film, Award, ArrowRight, Star, LucideIcon } from "lucide-react";
 import { useRef } from "react";
 
@@ -333,18 +333,25 @@ export function Services() {
             Transparent Pricing • No Hidden Fees
           </div>
           
+          {/* --- UPDATED HEADLINE START --- */}
           <h2 
-            className="text-4xl md:text-5xl lg:text-6xl mb-6" 
+            className="text-4xl md:text-5xl lg:text-6xl mb-6"
             style={{ 
-              fontWeight: "700",
-              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+              fontFamily: "'Poppins', sans-serif",
+              fontWeight: "400", // Regular
+              color: "#1f2937", // Dark Gray
+            }}
+          >
+            Services That <span style={{ 
+              fontWeight: "700", // Bold
+              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)", // Matching Gradient
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-            }}
-          >
-            Services That Scale<br />Your Business
+              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" // Soft Shadow
+            }}>Scale</span>
           </h2>
+          {/* --- UPDATED HEADLINE END --- */}
           
           <p className="text-gray-600 text-lg md:text-xl">
             Choose the service that fits your goals. All packages include dedicated support and proven strategies.
