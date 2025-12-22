@@ -1,77 +1,58 @@
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 export function PremiumBackground() {
-  // 1. Scroll Parallax
+  // 1. Capture the scroll position
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 1000], [0, -150]); // Moves up slowly as you scroll down
 
-  // 2. Mouse Parallax Logic
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // 2. Parallax Physics
+  // As you scroll 0px -> 2000px, these values change
+  // creating the feeling that the blobs are floating at different depths.
+  const y1 = useTransform(scrollY, [0, 2000], [0, 300]);   // Moves DOWN
+  const y2 = useTransform(scrollY, [0, 2000], [0, -400]);  // Moves UP (Fast)
+  const y3 = useTransform(scrollY, [0, 2000], [0, 200]);   // Moves DOWN (Slow)
   
-  // Use springs for smooth mouse movement (no jitter)
-  const springConfig = { stiffness: 50, damping: 20 };
-  const mouseX = useSpring(0, springConfig);
-  const mouseY = useSpring(0, springConfig);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      // Calculate position relative to center of screen
-      const { innerWidth, innerHeight } = window;
-      const x = e.clientX - innerWidth / 2;
-      const y = e.clientY - innerHeight / 2;
-      
-      // Update spring values (divide by 20 to make movement subtle)
-      mouseX.set(x / 20);
-      mouseY.set(y / 20);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+  // Subtle rotation for extra life
+  const rotate1 = useTransform(scrollY, [0, 2000], [0, 90]);
+  const rotate2 = useTransform(scrollY, [0, 2000], [0, -45]);
 
   return (
     <div className="fixed inset-0 w-full h-full -z-50 bg-white overflow-hidden pointer-events-none">
       
-      {/* LAYER 1: The Royal Gradient Blobs (Deep Background) 
-        These provide that "Royal" atmosphere behind the dots 
-      */}
-      <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] bg-indigo-200/40 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-purple-200/40 rounded-full blur-[100px]" />
-        <div className="absolute top-[40%] left-[40%] w-[500px] h-[500px] bg-blue-100/40 rounded-full blur-[100px]" />
-      </div>
-
-      {/* LAYER 2: The Interactive Parallax Dots 
+      {/* ORB 1: TOP LEFT (The "Royal" Anchor) 
+        Deep Indigo/Blue. Moves down slowly.
       */}
       <motion.div 
-        className="absolute inset-0 w-full h-full"
-        style={{ 
-          y: y, // Scroll movement
-          x: mouseX, // Mouse movement X
-          translateY: mouseY // Mouse movement Y
-        }}
+        style={{ y: y1, rotate: rotate1 }}
+        className="absolute top-[-10%] left-[-5%] w-[600px] h-[600px] rounded-full mix-blend-multiply filter blur-[80px] opacity-70"
       >
-        <div 
-          className="absolute inset-0 w-full h-full"
-          style={{
-            // THE DOT PATTERN
-            backgroundImage: `radial-gradient(#667eea 1.5px, transparent 1.5px)`,
-            backgroundSize: "40px 40px", // Spacing between dots
-            opacity: 0.7, // Requested 70% Opacity
-            
-            // Fade out edges so it doesn't look like a hard grid
-            maskImage: "radial-gradient(circle at center, black 40%, transparent 100%)",
-            WebkitMaskImage: "radial-gradient(circle at center, black 40%, transparent 100%)"
-          }}
-        />
+        <div className="w-full h-full bg-gradient-to-br from-[#667eea] to-[#764ba2] rounded-full" />
       </motion.div>
 
-      {/* LAYER 3: Noise Texture 
-        Adds that expensive "grainy" feel to the background 
+      {/* ORB 2: MIDDLE RIGHT (The Counter-Weight) 
+        Vibrant Blue. Moves UP against the scroll direction.
+      */}
+      <motion.div 
+        style={{ y: y2, rotate: rotate2 }}
+        className="absolute top-[40%] right-[-10%] w-[500px] h-[500px] rounded-full mix-blend-multiply filter blur-[90px] opacity-60"
+      >
+        <div className="w-full h-full bg-gradient-to-bl from-blue-400 to-indigo-500 rounded-full" />
+      </motion.div>
+
+      {/* ORB 3: BOTTOM LEFT (The Depth)
+        Soft Violet. Moves down very slowly.
+      */}
+      <motion.div 
+        style={{ y: y3 }}
+        className="absolute bottom-[-10%] left-[20%] w-[700px] h-[700px] rounded-full mix-blend-multiply filter blur-[100px] opacity-50"
+      >
+        <div className="w-full h-full bg-gradient-to-tr from-[#a78bfa] to-[#818cf8] rounded-full" />
+      </motion.div>
+
+      {/* PREMIUM NOISE OVERLAY 
+        Essential for avoiding "color banding" and making it look like film.
       */}
       <div 
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/noise.png")` }}
       />
     </div>
