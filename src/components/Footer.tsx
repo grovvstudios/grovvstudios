@@ -3,10 +3,10 @@ import { Linkedin, Instagram } from "lucide-react";
 export function Footer() {
   return (
     <footer className="py-16 px-6 relative overflow-hidden bg-white">
-      {/* Background Decoration Line */}
+      {/* Decoration Line - Adjusted to match the blue theme */}
       <div className="absolute top-0 left-0 right-0 h-px"
         style={{
-          background: "linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent)",
+          background: "linear-gradient(90deg, transparent, rgba(30, 64, 175, 0.3), transparent)",
         }}
       />
 
@@ -16,22 +16,23 @@ export function Footer() {
           {/* Brand Column */}
           <div className="md:col-span-2">
             
-            {/* --- UPDATED LOGO: Matches Founders.tsx Style --- */}
+            {/* --- DARK ROYAL LOGO --- */}
             <div 
               className="text-3xl mb-4"
               style={{ 
                 fontFamily: "'Poppins', sans-serif",
-                fontWeight: "800", // Logo stays bold/extra bold
-                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)", // Same gradient as Founders
+                fontWeight: "800", 
+                // Dark Royal Gradient
+                background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-                filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" // Same soft shadow
+                filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
               }}
             >
               GROVV STUDIOS
             </div>
-            {/* ------------------------------------------------ */}
+            {/* ----------------------- */}
 
             <p className="text-gray-500 mb-6 max-w-md leading-relaxed">
               Creating extraordinary digital experiences that elevate brands and captivate audiences.
@@ -51,10 +52,11 @@ export function Footer() {
                   className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md group"
                   style={{
                     background: "white",
-                    border: "1px solid rgba(102, 126, 234, 0.2)",
+                    border: "1px solid rgba(30, 64, 175, 0.2)",
                   }}
                 >
-                  <Icon className="w-5 h-5 text-gray-500 group-hover:text-purple-600 transition-colors" />
+                  {/* Icon turns Royal Blue on hover */}
+                  <Icon className="w-5 h-5 text-gray-500 group-hover:text-[#1e40af] transition-colors" />
                 </a>
               ))}
             </div>
@@ -66,7 +68,7 @@ export function Footer() {
             <ul className="space-y-3">
               {["Work", "Process", "Testimonials", "Contact"].map((item) => (
                 <li key={item}>
-                  <a href={`#${item.toLowerCase()}`} className="text-gray-500 hover:text-purple-600 transition-colors hover:translate-x-1 inline-block">
+                  <a href={`#${item.toLowerCase()}`} className="text-gray-500 hover:text-[#1e40af] transition-colors hover:translate-x-1 inline-block">
                     {item}
                   </a>
                 </li>
@@ -80,7 +82,7 @@ export function Footer() {
             <ul className="space-y-3">
               {["Digital Marketing", "Website Dev", "AI Agents", "Branding"].map((item) => (
                 <li key={item}>
-                  <a href="#services" className="text-gray-500 hover:text-purple-600 transition-colors hover:translate-x-1 inline-block">
+                  <a href="#services" className="text-gray-500 hover:text-[#1e40af] transition-colors hover:translate-x-1 inline-block">
                     {item}
                   </a>
                 </li>
@@ -95,10 +97,10 @@ export function Footer() {
             © 2025 Grovv Studios. All rights reserved.
           </p>
           <div className="flex gap-8 text-sm">
-            <a href="#" className="text-gray-400 hover:text-purple-600 transition-colors">
+            <a href="#" className="text-gray-400 hover:text-[#1e40af] transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-gray-400 hover:text-purple-600 transition-colors">
+            <a href="#" className="text-gray-400 hover:text-[#1e40af] transition-colors">
               Terms of Service
             </a>
           </div>
