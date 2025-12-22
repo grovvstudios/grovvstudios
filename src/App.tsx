@@ -1,9 +1,11 @@
 // Standardized Imports (PascalCase)
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import Testimonials from "./components/testimonials"; // Ensure file is Testimonials.tsx
+// FIX: PascalCase to match file name (fixes Vercel build error)
+import Testimonials from "./components/testimonials"; 
 import { Process } from "./components/Process";
-import { Services } from "./components/services";     // Ensure file is Services.tsx
+// FIX: PascalCase to match file name
+import { Services } from "./components/services";     
 import { VideoShowcase } from "./components/VideoShowcase"; 
 import { Founders } from "./components/Founders";     
 import { Contact } from "./components/Contact";
@@ -15,8 +17,9 @@ import { PremiumBackground } from "./components/PremiumBackground";
 
 export default function App() {
   return (
-    // Base styles: Off-white background, dark text, purple selection color
-    <div className="min-h-screen relative overflow-hidden bg-slate-50 text-gray-900 selection:bg-purple-200 selection:text-purple-900">
+    // FIX: Removed 'bg-slate-50'. 
+    // We want the main container transparent so PremiumBackground shows through.
+    <div className="min-h-screen relative overflow-hidden text-gray-900 selection:bg-purple-200 selection:text-purple-900">
       
       {/* The Living, Breathing Background */}
       <PremiumBackground />
