@@ -2601,3 +2601,22 @@ main {
   position: relative;
   z-index: 10;
 }
+/* FORCE TRANSPARENCY
+   This ensures the new Premium Background shows through 
+   your sections.
+*/
+section, main, #hero, #process, #services, #testimonials, #contact, #founders {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* Ensure the body itself doesn't hide the fixed background */
+body {
+  background-color: transparent; 
+}
+
+/* Keep Cards White so text is readable */
+.bg-white {
+  background-color: rgba(255, 255, 255, 0.8) !important; /* Slight glass effect */
+  backdrop-filter: blur(12px);
+}
