@@ -46,25 +46,26 @@ export function Founders() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {/* --- UPDATED HEADLINE: Whole text is Gradient --- */}
+            {/* --- UPDATED HEADLINE: Dark Royal Gradient + Soft Shadow --- */}
             <h2 
               className="mb-6"
               style={{ 
                 fontFamily: "'Poppins', sans-serif",
                 fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-                fontWeight: "400", // Regular for the start
-                // Gradient applied to the WHOLE line
-                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                fontWeight: "400", // Regular start
+                // Dark Royal Gradient (Blackish -> Royal Blue -> Indigo)
+                background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
                 letterSpacing: "-0.02em",
+                // Soft Vertical Drop Shadow (No Glow)
                 filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" 
               }}
             >
               The Minds Behind <span style={{ fontWeight: "700" }}>Grovv</span>
             </h2>
-            {/* ----------------------------------------------- */}
+            {/* ----------------------------------------------------------- */}
             
             <p 
               className="max-w-2xl mx-auto text-gray-600"
