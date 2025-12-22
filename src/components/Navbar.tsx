@@ -1,6 +1,6 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,32 +32,31 @@ export function Navbar() {
           transition={{ duration: 0.6 }}
           className="px-6 py-4 rounded-2xl backdrop-blur-md"
           style={{
-            background: "rgba(255, 255, 255, 0.9)", // Slightly higher opacity for legibility
-            border: "1px solid rgba(30, 64, 175, 0.1)", // Subtle Royal Blue border
-            boxShadow: "0 10px 40px rgba(30, 64, 175, 0.05)",
+            background: "rgba(255, 255, 255, 0.9)", 
+            border: "1px solid rgba(102, 126, 234, 0.1)",
+            boxShadow: "0 10px 40px rgba(102, 126, 234, 0.05)",
           }}
         >
           <div className="flex items-center justify-between">
             
-            {/* --- UPDATED LOGO: Dark Royal Gradient + Soft Shadow --- */}
+            {/* --- UPDATED LOGO: Matches Hero & Testimonials Gradient --- */}
+            {/* Dark (#1a1a2e) -> Soft Purple (#667eea) -> Deep Purple (#764ba2) */}
             <div 
               onClick={scrollToTop}
               className="text-xl md:text-2xl cursor-pointer hover:opacity-80 transition-opacity"
               style={{ 
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: "800", // Extra Bold
-                // Dark Royal Gradient
-                background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
+                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-                // Soft Vertical Shadow
                 filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15))"
               }}
             >
-              VV
+              GROVV STUDIOS
             </div>
-            {/* ----------------------------------------------------- */}
+            {/* -------------------------------------------------------- */}
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center gap-8">
@@ -65,8 +64,8 @@ export function Navbar() {
                 <a
                   key={item}
                   href={getNavLink(item)}
-                  // Hover color changed to Royal Blue
-                  className="text-gray-600 hover:text-[#1e40af] transition-colors duration-300 font-medium"
+                  // Hover color matches the purple theme
+                  className="text-gray-600 hover:text-[#667eea] transition-colors duration-300 font-medium"
                 >
                   {item}
                 </a>
@@ -78,7 +77,7 @@ export function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
             >
-              {isOpen ? <X className="w-6 h-6 text-[#1e40af]" /> : <Menu className="w-6 h-6 text-[#0f172a]" />}
+              {isOpen ? <X className="w-6 h-6 text-[#667eea]" /> : <Menu className="w-6 h-6 text-[#1a1a2e]" />}
             </button>
           </div>
 
@@ -97,7 +96,7 @@ export function Navbar() {
                     <a
                       key={item}
                       href={getNavLink(item)}
-                      className="block py-2 text-gray-700 hover:text-[#1e40af] transition-colors font-medium"
+                      className="block py-2 text-gray-700 hover:text-[#667eea] transition-colors font-medium"
                       onClick={() => setIsOpen(false)}
                     >
                       {item}
@@ -107,8 +106,8 @@ export function Navbar() {
                     <button
                       className="w-full mt-4 px-6 py-3 rounded-xl text-white transition-all duration-300 shadow-lg"
                       style={{
-                        // Royal Blue Gradient for Mobile Button
-                        background: "linear-gradient(135deg, #1e40af 0%, #312e81 100%)",
+                        // Matching Purple Gradient for Mobile Button
+                        background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 100%)",
                       }}
                       onClick={() => setIsOpen(false)}
                     >
