@@ -23,25 +23,35 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: Increased pt-28 to pt-40 to clear the Navbar
-    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-27 pb-20">
+    // FIX 1: Increased padding from pt-40 to pt-48 (Moves everything down)
+    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-48 pb-20">
       
-      {/* FIX 2: Smoother, Slower Shine Animation */}
       <style>{`
+        /* Shine Animation */
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
-          40% { transform: translateX(150%) skewX(-25deg); } /* Sweep finishes */
-          100% { transform: translateX(150%) skewX(-25deg); } /* Wait phase */
+          40% { transform: translateX(150%) skewX(-25deg); } 
+          100% { transform: translateX(150%) skewX(-25deg); } 
         }
         .animate-shine {
-          /* Slowed down to 3.5s for elegance */
           animation: shine-sweep 3.5s ease-in-out infinite;
+        }
+
+        /* FIX 3: Pulse Once, Wait 5 Seconds */
+        @keyframes pulse-wait {
+          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.4); }
+          10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(30, 64, 175, 0); }
+          20% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30, 64, 175, 0); }
+          100% { transform: scale(1); } /* Stay still for rest of time */
+        }
+        .animate-btn-pulse-wait {
+          animation: pulse-wait 5s infinite; /* 5 second cycle */
         }
       `}</style>
 
       <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
         
-        {/* Badge */}
+        {/* Badge - Now safely below navbar */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -70,7 +80,9 @@ export function Hero() {
               fontFamily: "'Poppins', sans-serif",
               fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
               lineHeight: 1.1,
-              background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
+              // FIX 2: Gradient Swapped
+              // Starts Brighter Blue (#2563eb) -> Fade to Dark Navy (#0f172a)
+              background: "linear-gradient(135deg, #2563eb 0%, #1e40af 40%, #0f172a 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -110,19 +122,13 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-wrap gap-4 justify-center"
         >
-          {/* FIX 3: Replaced CSS pulse with smooth Framer Motion breathing */}
-          <motion.button
+          {/* FIX 3: Using the CSS Animation class for 5s intervals */}
+          <button
             onClick={() => {
               const contactSection = document.getElementById("contact");
               contactSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ 
-              duration: 2, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-            className="px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl"
+            className="group animate-btn-pulse-wait px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl"
             style={{
               background: "linear-gradient(135deg, #0f172a 0%, #1e40af 100%)",
               color: "white",
@@ -131,9 +137,9 @@ export function Hero() {
           >
             <span className="flex items-center gap-2">
               Start Your Project
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
-          </motion.button>
+          </button>
 
           <button
             onClick={() => {
@@ -156,7 +162,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full"
+          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 w-full"
         >
           {[
             { value: 150, suffix: "+", label: "Projects Delivered" },
@@ -165,19 +171,20 @@ export function Hero() {
           ].map((stat, index) => (
             <div
               key={index}
-              className="p-8 rounded-3xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
               style={{
                 background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
                 border: "1px solid rgba(30, 64, 175, 0.15)",
-                boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)"
+                boxShadow: "0 10px 20px -10px rgba(0,0,0,0.05)"
               }}
             >
               <div
-                className="mb-2"
+                className="mb-1"
                 style={{
-                  fontSize: "3rem",
+                  fontSize: "2.5rem", 
                   fontWeight: "700",
-                  background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
+                  // Updated to match the new lighter-to-darker gradient
+                  background: "linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #0f172a 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -187,7 +194,7 @@ export function Hero() {
                 <NumberTicker value={stat.value} />
                 {stat.suffix}
               </div>
-              <div className="text-gray-600 font-medium">{stat.label}</div>
+              <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
             </div>
           ))}
         </motion.div>
