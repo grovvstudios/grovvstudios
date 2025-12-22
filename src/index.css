@@ -2587,3 +2587,16 @@ html {
   inherits: false;
   initial-value: 1;
 }
+/* FORCE TRANSPARENCY
+   This makes sure the Hero and other sections are see-through
+   so the Premium Background Orbs are visible. 
+*/
+section, #hero, #process, #services, #testimonials, #founders, #contact {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+main {
+  position: relative;
+  z-index: 10;
+}
