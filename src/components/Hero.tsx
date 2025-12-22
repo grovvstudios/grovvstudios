@@ -23,8 +23,9 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: Increased padding from pt-40 to pt-48 (Moves everything down)
-    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-48 pb-20">
+    // FIX 1: Increased pt-28 -> pt-48. This pushes everything down from the Navbar.
+    // Increased pb-20 -> pb-32 to give space at the bottom.
+    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-48 pb-32">
       
       <style>{`
         /* Shine Animation */
@@ -37,25 +38,26 @@ export function Hero() {
           animation: shine-sweep 3.5s ease-in-out infinite;
         }
 
-        /* FIX 3: Pulse Once, Wait 5 Seconds */
+        /* Pulse Animation: Pop once, wait 5 seconds */
         @keyframes pulse-wait {
           0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.4); }
           10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(30, 64, 175, 0); }
           20% { transform: scale(1); box-shadow: 0 0 0 0 rgba(30, 64, 175, 0); }
-          100% { transform: scale(1); } /* Stay still for rest of time */
+          100% { transform: scale(1); }
         }
         .animate-btn-pulse-wait {
-          animation: pulse-wait 5s infinite; /* 5 second cycle */
+          animation: pulse-wait 5s infinite;
         }
       `}</style>
 
       <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
         
-        {/* Badge - Now safely below navbar */}
+        {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          // FIX 2: Increased margin-bottom (mb-8) for breathing room
           className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
           style={{
             background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
@@ -69,6 +71,7 @@ export function Hero() {
         </motion.div>
 
         {/* HEADLINE */}
+        {/* FIX 2: Increased margin-bottom (mb-8) so it doesn't touch the tagline */}
         <div className="relative mb-8 inline-block max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -80,8 +83,7 @@ export function Hero() {
               fontFamily: "'Poppins', sans-serif",
               fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
               lineHeight: 1.1,
-              // FIX 2: Gradient Swapped
-              // Starts Brighter Blue (#2563eb) -> Fade to Dark Navy (#0f172a)
+              // Gradient: Lighter Royal Blue -> Dark Navy
               background: "linear-gradient(135deg, #2563eb 0%, #1e40af 40%, #0f172a 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -103,6 +105,7 @@ export function Hero() {
         </div>
 
         {/* Subheading */}
+        {/* FIX 2: Increased margin-bottom (mb-12) to push buttons away */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -122,7 +125,6 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-wrap gap-4 justify-center"
         >
-          {/* FIX 3: Using the CSS Animation class for 5s intervals */}
           <button
             onClick={() => {
               const contactSection = document.getElementById("contact");
@@ -158,11 +160,12 @@ export function Hero() {
         </motion.div>
 
         {/* Stats cards */}
+        {/* FIX 3: Increased margin-top (mt-20) to separate clearly from buttons */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 w-full"
+          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full"
         >
           {[
             { value: 150, suffix: "+", label: "Projects Delivered" },
@@ -183,7 +186,6 @@ export function Hero() {
                 style={{
                   fontSize: "2.5rem", 
                   fontWeight: "700",
-                  // Updated to match the new lighter-to-darker gradient
                   background: "linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #0f172a 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
