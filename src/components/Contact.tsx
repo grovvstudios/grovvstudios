@@ -72,19 +72,25 @@ export function Contact() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
+          {/* --- UPDATED HEADLINE START --- */}
           <h2 
-            className="mb-4"
+            className="mb-4 text-4xl md:text-6xl"
             style={{ 
-              fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-              fontWeight: "700",
-              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
+              fontFamily: "'Poppins', sans-serif",
+              fontWeight: "400", // Regular
+              color: "#1f2937", // Dark Gray
             }}
           >
-            Let's Grovv Together.
+            Let's <span style={{ 
+              fontWeight: "700", // Bold
+              background: "linear-gradient(135deg, #7c3aed 0%, #2563eb 100%)", // Purple to Blue
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 4px 15px rgba(124, 58, 237, 0.3))" // Soft Glow
+            }}>Grovv Together.</span>
           </h2>
+          {/* --- UPDATED HEADLINE END --- */}
+
           <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontSize: "1.125rem" }}>
             Ready to start your next project? Get in touch and let's make something amazing
           </p>
@@ -145,31 +151,31 @@ export function Contact() {
               </div>
 
              <div>
-    <label className="block mb-2 text-gray-700">Service Interested In</label>
-    <select 
-      name="projectType"
-      value={formData.projectType}
-      onChange={handleChange}
-      required
-      className="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:outline-none focus:border-[#667eea] transition-colors"
-    >
-      <option value="">Select a service...</option>
-      
-      {/* --- NEW OPTION ADDED BELOW --- */}
-      <option value="Consultation">1-on-1 Consultation</option>
-      {/* ----------------------------- */}
+                <label className="block mb-2 text-gray-700">Service Interested In</label>
+                <select 
+                  name="projectType"
+                  value={formData.projectType}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:outline-none focus:border-[#667eea] transition-colors"
+                >
+                  <option value="">Select a service...</option>
+                  
+                  {/* --- NEW OPTION ADDED BELOW --- */}
+                  <option value="Consultation">1-on-1 Consultation</option>
+                  {/* ----------------------------- */}
 
-      <option value="Social Media Management">Social Media Management</option>
-      <option value="Video Production">Video Production</option>
-      <option value="Video Editing">Video Editing</option>
-      <option value="Google My Business">Google My Business Optimization</option>
-      <option value="SEO Optimization">SEO Optimization</option>
-      <option value="AI Workflow Automation">AI Workflow & Calling Agents</option>
-      <option value="Website Development">Website Development</option>
-      <option value="Personal & Brand Branding">Personal & Brand Branding</option>
-      <option value="Other">Other</option>
-    </select>
-</div>
+                  <option value="Social Media Management">Social Media Management</option>
+                  <option value="Video Production">Video Production</option>
+                  <option value="Video Editing">Video Editing</option>
+                  <option value="Google My Business">Google My Business Optimization</option>
+                  <option value="SEO Optimization">SEO Optimization</option>
+                  <option value="AI Workflow Automation">AI Workflow & Calling Agents</option>
+                  <option value="Website Development">Website Development</option>
+                  <option value="Personal & Brand Branding">Personal & Brand Branding</option>
+                  <option value="Other">Other</option>
+                </select>
+            </div>
 
               <div>
                 <label className="block mb-2 text-gray-700">Message</label>
