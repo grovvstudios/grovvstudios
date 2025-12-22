@@ -1,74 +1,74 @@
+// Standardized Imports (PascalCase)
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
-import Testimonials from "./components/testimonials"; 
+import Testimonials from "./components/testimonials"; // Ensure file is Testimonials.tsx
 import { Process } from "./components/Process";
-import { Services } from "./components/services";    
+import { Services } from "./components/services";     // Ensure file is Services.tsx
 import { VideoShowcase } from "./components/VideoShowcase"; 
 import { Founders } from "./components/Founders";     
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import SectionDivider from "./components/SectionDivider"; 
+
+// Import the new background system
 import { PremiumBackground } from "./components/PremiumBackground";
 
 export default function App() {
   return (
-    // 1. bg-[#0f172a]: Deep Dark Background.
-    // 2. REMOVED 'text-white': This restores Black text on your White cards.
-    // 3. REMOVED 'bg-slate-50': No more white flash.
-    <div className="min-h-screen relative bg-[#0f172a]">
+    // Base styles: Off-white background, dark text, purple selection color
+    <div className="min-h-screen relative overflow-hidden bg-slate-50 text-gray-900 selection:bg-purple-200 selection:text-purple-900">
       
-      {/* The Moving Background */}
+      {/* The Living, Breathing Background */}
       <PremiumBackground />
 
       <div className="relative z-10">
         <Navbar />
-        
-        <main id="main" className="flex flex-col">
+        <main id="main">
           
-          {/* HERO: Needs White text because it sits on the Dark Background */}
-          <section id="hero" className="relative text-white">
+          {/* 1. HERO */}
+          <section id="hero" className="relative">
             <Hero />
           </section>
           
           <SectionDivider />
 
-          {/* TESTIMONIALS: Cards are White -> Text will be Black (Default) */}
+          {/* 2. TESTIMONIALS */}
           <section id="testimonials" className="relative scroll-mt-24">
             <Testimonials />
           </section>
 
           <SectionDivider />
 
-          {/* PROCESS: Cards are White -> Text will be Black */}
+          {/* 3. PROCESS */}
           <section id="process" className="relative scroll-mt-24">
             <Process />
           </section>
 
           <SectionDivider />
 
-          {/* SERVICES: Cards are White -> Text will be Black */}
+          {/* 4. SERVICES (Portfolio) */}
           <section id="services" className="relative scroll-mt-24">
             <Services />
           </section>
 
           <SectionDivider />
 
-          {/* WORK: Usually has dark overlays or videos, let's keep text white for headers if needed */}
-          <section id="work" className="relative scroll-mt-24 text-white">
+          {/* 5. WORK (Videos) */}
+          <section id="work" className="relative scroll-mt-24">
             <VideoShowcase /> 
           </section>
 
           <SectionDivider />
 
-          {/* FOUNDERS: Cards are White -> Text will be Black */}
+          {/* 6. FOUNDERS */}
           <section id="founders" className="relative scroll-mt-24">
              <Founders />
           </section>
 
           <SectionDivider />
 
-          {/* CONTACT: Usually sits on background, needs White text */}
-          <section id="contact" className="relative scroll-mt-24 text-white">
+          {/* 7. CONTACT */}
+          <section id="contact" className="relative scroll-mt-24">
             <Contact />
           </section>
 
