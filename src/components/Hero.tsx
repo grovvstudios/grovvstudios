@@ -2,10 +2,11 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, useSpring, useTransform, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-// --- Helper: Count-Up Animation Component ---
+// --- Helper: Re-Triggering Count-Up Animation ---
 function NumberTicker({ value }: { value: number }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  // once: false ensures it triggers EVERY time you scroll to it
+  const isInView = useInView(ref, { once: false, margin: "-50px" });
   
   const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
   const display = useTransform(spring, (current) => Math.round(current));
@@ -13,6 +14,9 @@ function NumberTicker({ value }: { value: number }) {
   useEffect(() => {
     if (isInView) {
       spring.set(value);
+    } else {
+      // Reset to 0 when scrolled away so it can count up again
+      spring.set(0); 
     }
   }, [isInView, spring, value]);
 
@@ -21,17 +25,27 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // Reduced padding-top (pt-24 instead of pt-32) to bring everything up
-    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-24 pb-12">
+    // RESTORED PADDING: Changed pt-24 back to pt-32 to fix the "crumbled" look
+    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-32 pb-20">
       
-      {/* SHINE ANIMATION FIX: Smooth 2s cycle */}
+      {/* SHINE ANIMATION */}
       <style>{`
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
+          50% { transform: translateX(150%) skewX(-25deg); }
           100% { transform: translateX(150%) skewX(-25deg); }
         }
         .animate-shine {
           animation: shine-sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        
+        /* New Pulse for Button */
+        @keyframes subtle-pulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.4); }
+          50% { box-shadow: 0 0 0 10px rgba(30, 64, 175, 0); }
+        }
+        .animate-btn-pulse {
+          animation: subtle-pulse 2s infinite;
         }
       `}</style>
 
@@ -42,7 +56,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4" // Reduced mb
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8" // Increased margin-bottom
           style={{
             background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
             border: "1px solid rgba(102, 126, 234, 0.2)",
@@ -54,8 +68,8 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* HEADLINE: Scaled down to fit screen */}
-        <div className="relative mb-4 inline-block max-w-full">
+        {/* HEADLINE */}
+        <div className="relative mb-8 inline-block max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -64,8 +78,7 @@ export function Hero() {
             aria-label="Grovv Studios"
             style={{
               fontFamily: "'Poppins', sans-serif",
-              // Changed from 6rem to 4.5rem max to fit screen
-              fontSize: "clamp(2.5rem, 7vw, 4.5rem)", 
+              fontSize: "clamp(2.5rem, 8vw, 5.5rem)", // Restored size
               lineHeight: 1.1,
               background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
               WebkitBackgroundClip: "text",
@@ -87,12 +100,12 @@ export function Hero() {
           />
         </div>
 
-        {/* Subheading: Reduced margin */}
+        {/* Subheading */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-8 mx-auto max-w-2xl text-gray-600"
+          className="mb-12 mx-auto max-w-2xl text-gray-600"
           style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
         >
           We assist brands with professional <strong className="font-semibold text-gray-900">Video Editing</strong>,{" "}
@@ -100,7 +113,7 @@ export function Hero() {
           <strong className="font-semibold text-gray-900">Social Media Growth</strong>. 
         </motion.h2>
 
-        {/* CTA buttons */}
+        {/* CTA buttons - WITH NEW ANIMATION */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -112,7 +125,8 @@ export function Hero() {
               const contactSection = document.getElementById("contact");
               contactSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="group px-6 py-3 rounded-2xl transition-all duration-300 hover:shadow-xl hover:scale-105"
+            // Added 'animate-btn-pulse' class for attention
+            className="group animate-btn-pulse px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105"
             style={{
               background: "linear-gradient(135deg, #0f172a 0%, #1e40af 100%)",
               color: "white",
@@ -121,7 +135,7 @@ export function Hero() {
           >
             <span className="flex items-center gap-2">
               Start Your Project
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </button>
 
@@ -130,7 +144,7 @@ export function Hero() {
               const workSection = document.getElementById("work"); 
               workSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-6 py-3 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium"
+            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50"
             style={{
               background: "rgba(255, 255, 255, 0.8)",
               border: "2px solid rgba(102, 126, 234, 0.3)",
@@ -141,12 +155,12 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* Stats cards: Moved up (mt-12 instead of mt-20) */}
+        {/* Stats cards */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 w-full"
+          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full"
         >
           {[
             { value: 150, suffix: "+", label: "Projects Delivered" },
@@ -155,17 +169,17 @@ export function Hero() {
           ].map((stat, index) => (
             <div
               key={index}
-              className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              className="p-8 rounded-3xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
               style={{
                 background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
                 border: "1px solid rgba(30, 64, 175, 0.15)",
-                boxShadow: "0 10px 20px -10px rgba(0,0,0,0.05)"
+                boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)"
               }}
             >
               <div
-                className="mb-1"
+                className="mb-2"
                 style={{
-                  fontSize: "2.5rem", // Slightly smaller numbers
+                  fontSize: "3rem",
                   fontWeight: "700",
                   background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
                   WebkitBackgroundClip: "text",
@@ -177,7 +191,7 @@ export function Hero() {
                 <NumberTicker value={stat.value} />
                 {stat.suffix}
               </div>
-              <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
+              <div className="text-gray-600 font-medium">{stat.label}</div>
             </div>
           ))}
         </motion.div>
