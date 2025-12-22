@@ -1,10 +1,39 @@
 import { ArrowRight, Sparkles } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, useSpring, useTransform, useInView } from "framer-motion";
+import { useEffect, useRef } from "react";
+
+// --- Helper: Number Ticker for Count-Up Animation ---
+function NumberTicker({ value }: { value: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  // Spring config for smooth counting
+  const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
+  const display = useTransform(spring, (current) => Math.round(current));
+
+  useEffect(() => {
+    if (isInView) {
+      spring.set(value);
+    }
+  }, [isInView, spring, value]);
+
+  return <motion.span ref={ref}>{display}</motion.span>;
+}
 
 export function Hero() {
   return (
     <section className="relative min-h-screen flex justify-center overflow-hidden px-6 pt-28 pb-20 md:pt-32">
-      {/* Background is handled by App.tsx (PremiumBackground) */}
+      
+      {/* Inline Styles for the Shine Animation to guarantee it works */}
+      <style>{`
+        @keyframes shine-sweep {
+          0% { transform: translateX(-150%) skewX(-25deg); }
+          100% { transform: translateX(150%) skewX(-25deg); }
+        }
+        .animate-shine {
+          animation: shine-sweep 3s ease-in-out infinite;
+        }
+      `}</style>
 
       {/* MAIN HERO CONTAINER */}
       <div className="relative z-10 max-w-5xl mx-auto px-0 py-0 flex flex-col items-center text-center">
@@ -26,31 +55,47 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* --- UPDATED HEADLINE START --- */}
-        <motion.h1
+        {/* --- UPDATED HEADLINE WITH SHINE --- */}
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-6 whitespace-nowrap relative inline-block max-w-full"
-          aria-label="Grovv Studios"
-          style={{
-            fontFamily: "'Poppins', sans-serif",
-            fontSize: "clamp(2.5rem, 8vw, 5.5rem)", // Responsive sizing
-            lineHeight: 1.1,
-            // The Dark Royal Gradient applied to the whole text
-            background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            // The Soft Vertical Shadow
-            filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
-          }}
+          className="relative mb-6 inline-block max-w-full"
         >
-          {/* Font Weight Contrast: GROVV (800) vs STUDIOS (400/600) */}
-          <span style={{ fontWeight: 800 }}>GROVV</span>{" "}
-          <span style={{ fontWeight: 600 }}>STUDIOS</span>
-        </motion.h1>
-        {/* --- UPDATED HEADLINE END --- */}
+          <h1
+            className="whitespace-nowrap relative overflow-hidden"
+            aria-label="Grovv Studios"
+            style={{
+              fontFamily: "'Poppins', sans-serif",
+              fontSize: "clamp(2.5rem, 8vw, 6rem)", 
+              lineHeight: 1.1,
+              color: "transparent", // Hide text color to show gradient
+            }}
+          >
+            {/* The Text Layer */}
+            <span 
+              style={{
+                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
+              }}
+            >
+              <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
+              <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
+            </span>
+
+            {/* The Shine Overlay */}
+            <div 
+              className="absolute inset-0 w-full h-full pointer-events-none animate-shine"
+              style={{
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)",
+                mixBlendMode: "overlay", // Blends nicely with the dark text
+              }}
+            />
+          </h1>
+        </motion.div>
+        {/* ----------------------------------- */}
 
         {/* Subheading */}
         <motion.h2
@@ -80,7 +125,7 @@ export function Hero() {
             }}
             className="group px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105"
             style={{
-              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+              background: "linear-gradient(135deg, #0f172a 0%, #1e40af 100%)",
               color: "white",
               fontWeight: 600
             }}
@@ -107,7 +152,7 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* Stats cards */}
+        {/* Stats cards with Count Up Animation */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -115,16 +160,16 @@ export function Hero() {
           className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full"
         >
           {[
-            { number: "150+", label: "Projects Delivered" },
-            { number: "50+", label: "Happy Clients" },
-            { number: "15+", label: "Team Members" },
+            { value: 150, suffix: "+", label: "Projects Delivered" },
+            { value: 50, suffix: "+", label: "Happy Clients" },
+            { value: 15, suffix: "+", label: "Team Members" },
           ].map((stat, index) => (
             <div
               key={index}
               className="p-8 rounded-3xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-2xl"
               style={{
                 background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
-                border: "1px solid rgba(102, 126, 234, 0.2)",
+                border: "1px solid rgba(30, 64, 175, 0.15)",
                 boxShadow: "0 10px 30px -10px rgba(0,0,0,0.05)"
               }}
             >
@@ -133,15 +178,16 @@ export function Hero() {
                 style={{
                   fontSize: "3rem",
                   fontWeight: "700",
-                  // Applied consistent gradient to numbers
-                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                  background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
                   filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
                 }}
               >
-                {stat.number}
+                {/* Count Up Component */}
+                <NumberTicker value={stat.value} />
+                {stat.suffix}
               </div>
               <div className="text-gray-600 font-medium">{stat.label}</div>
             </div>
