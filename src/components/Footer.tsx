@@ -24,7 +24,8 @@ export function Footer() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-                filter: "drop-shadow(0 2px 10px rgba(102, 126, 234, 0.3))" // Premium Glow Effect
+                // FIXED: Soft Drop Shadow instead of Neon Glow
+                filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15))" 
               }}
             >
               GROVV STUDIOS
@@ -74,7 +75,6 @@ export function Footer() {
           <div>
             <h4 className="mb-6 text-gray-900" style={{ fontWeight: "600" }}>Services</h4>
             <ul className="space-y-3">
-              {/* Fixed casing to be Title Case for a more premium look */}
               {["Digital Marketing", "Website Dev", "AI Agents", "Branding"].map((item) => (
                 <li key={item}>
                   <a href="#services" className="text-gray-500 hover:text-purple-600 transition-colors hover:translate-x-1 inline-block">
