@@ -72,25 +72,24 @@ export function Contact() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          {/* --- UPDATED HEADLINE START --- */}
+          {/* --- UPDATED HEADLINE: Matches Founders.tsx exactly --- */}
           <h2 
-            className="mb-4 text-4xl md:text-6xl"
+            className="mb-4"
             style={{ 
               fontFamily: "'Poppins', sans-serif",
-              fontWeight: "400", // Regular
-              color: "#1f2937", // Dark Gray
-            }}
-          >
-            Let's <span style={{ 
-              fontWeight: "700", // Bold
-              background: "linear-gradient(135deg, #7c3aed 0%, #2563eb 100%)", 
+              fontSize: "clamp(2.5rem, 5vw, 4rem)", 
+              fontWeight: "400", // Regular base
+              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)", // Specific Gradient
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              // FIXED: Soft Drop Shadow (Vertical, not glowing)
-              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" 
-            }}>Grovv Together.</span>
+              backgroundClip: "text",
+              letterSpacing: "-0.02em",
+              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" // Soft Vertical Shadow
+            }}
+          >
+            Let's <span style={{ fontWeight: "700" }}>Grovv Together.</span>
           </h2>
-          {/* --- UPDATED HEADLINE END --- */}
+          {/* ----------------------------------------------------- */}
 
           <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontSize: "1.125rem" }}>
             Ready to start your next project? Get in touch and let's make something amazing
