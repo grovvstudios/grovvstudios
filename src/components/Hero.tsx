@@ -25,7 +25,7 @@ export function Hero() {
   return (
     // FIX 1: Increased pt-28 -> pt-48. This pushes everything down from the Navbar.
     // Increased pb-20 -> pb-32 to give space at the bottom.
-    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-48 pb-32">
+    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-50 pb-32">
       
       <style>{`
         /* Shine Animation */
