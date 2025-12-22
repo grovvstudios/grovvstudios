@@ -24,7 +24,7 @@ function NumberTicker({ value }: { value: number }) {
 export function Hero() {
   return (
     // FIX 1: Increased pt-28 to pt-40 to clear the Navbar
-    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-60 pb-20">
+    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-27 pb-20">
       
       {/* FIX 2: Smoother, Slower Shine Animation */}
       <style>{`
