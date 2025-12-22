@@ -2611,3 +2611,23 @@ html, body, #root {
   background-color: transparent !important;
   background: transparent !important;
 }
+/* Paste this at the very bottom of src/index.css */
+
+/* 1. Make the body see-through so the background shows */
+html, body, #root {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* 2. Make sections see-through */
+section, main, #hero, #process, #services, #testimonials, #contact, #founders {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* 3. Make white cards slightly transparent (Glass effect) */
+.bg-white {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
