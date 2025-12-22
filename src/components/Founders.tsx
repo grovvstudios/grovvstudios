@@ -2,19 +2,15 @@ import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
 
 // ---------------------------------------------------------
-// 1. IMPORT BOTH IMAGES HERE
+// Imports
 // ---------------------------------------------------------
 import tafheemImg from "../assets/tafheem.jpg";
-// FIX: Import the second image just like the first one
 import ayaanImg from "../assets/ayaan.jpeg"; 
-
-// (Optional) Fallback if you ever add a 3rd partner later
-const partner3Img = "https://ui-avatars.com/api/?name=Partner+3&background=f3e8ff&color=764ba2&size=200";
 
 const founders = [
   {
     name: "Tafheem Irshad",
-    role: "Founder & Director",
+    role: "Co-Founder & Director",
     image: tafheemImg, 
     bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth.",
     linkedin: "https://www.linkedin.com/in/rathertafheem"
@@ -23,7 +19,6 @@ const founders = [
   {
     name: "Ayaan Umer",
     role: "Creative Director",
-    // FIX: Use the variable 'ayaanImg' here, not the string path
     image: ayaanImg, 
     bio: "Leading the design philosophy and ensuring our visual output resonates on a psychological level.",
     linkedin: "https://www.linkedin.com/in/ayaan-bhat-423546310/"
@@ -59,21 +54,28 @@ export function Founders() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
+            {/* --- UPDATED HEADLINE START --- */}
             <h2 
               className="mb-6"
               style={{ 
                 fontFamily: "'Poppins', sans-serif",
                 fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-                fontWeight: "400",
-                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                fontWeight: "400", // Regular
+                color: "#1f2937", // Dark Gray
                 letterSpacing: "-0.02em"
               }}
             >
-              The Minds Behind <span style={{ fontWeight: "700" }}>Grovv</span>
+              The Minds Behind <span style={{ 
+                fontWeight: "700", // Bold
+                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)", // The Gradient
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                // FIXED: Soft Drop Shadow (Vertical)
+                filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" 
+              }}>Grovv</span>
             </h2>
+            {/* --- UPDATED HEADLINE END --- */}
             
             <p 
               className="max-w-2xl mx-auto text-gray-600"
