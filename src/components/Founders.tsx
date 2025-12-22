@@ -6,7 +6,7 @@ import { Linkedin } from "lucide-react";
 // ---------------------------------------------------------
 import tafheemImg from "../assets/tafheem.jpg";
 const partner1Img = "https://ui-avatars.com/api/?name=Partner+1&background=f3e8ff&color=764ba2&size=200";
-const partner2Img = "../assets/ayaan.jpeg";
+const partner2Img = "src/assets/ayaan.jpeg";
 
 const founders = [
   {
