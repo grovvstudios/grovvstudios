@@ -339,17 +339,16 @@ export function Services() {
             style={{ 
               fontFamily: "'Poppins', sans-serif",
               fontWeight: "400", // Regular
-              color: "#1f2937", // Dark Gray
-            }}
-          >
-            Services That <span style={{ 
-              fontWeight: "700", // Bold
-              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)", // Matching Gradient
+              // Dark Royal Gradient applied to the whole text
+              background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" // Soft Shadow
-            }}>Scale</span>
+              // Soft Vertical Shadow
+              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
+            }}
+          >
+            Services That <span style={{ fontWeight: "700" }}>Scale</span>
           </h2>
           {/* --- UPDATED HEADLINE END --- */}
           
