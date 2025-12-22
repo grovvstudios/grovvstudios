@@ -14,21 +14,15 @@ const founders = [
     role: "Co-Founder & Director",
     image: tafheemImg, 
     bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth.",
-    linkedin: "#"
+    linkedin: "https://www.linkedin.com/in/rathertafheem"
   },
+  
   {
-    name: "Co-Founder Name",
-    role: "Head of Operations",
-    image: partner1Img, 
-    bio: "Orchestrating the workflows and ensuring every project is delivered with precision and excellence.",
-    linkedin: "#"
-  },
-  {
-    name: "Co-Founder Name",
+    name: "Ayaan Umer",
     role: "Creative Director",
     image: partner2Img, 
     bio: "Leading the design philosophy and ensuring our visual output resonates on a psychological level.",
-    linkedin: "#"
+    linkedin: "https://www.linkedin.com/in/ayaan-bhat-423546310/"
   }
 ];
 
