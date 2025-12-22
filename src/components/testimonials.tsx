@@ -106,20 +106,26 @@ export default function Testimonials() {
             Trusted by Growing Businesses
           </div>
 
+          {/* --- UPDATED HEADLINE START --- */}
           <h2
             className="text-4xl md:text-5xl lg:text-6xl mb-4"
             style={{
-              fontWeight: "700",
-              background:
-                "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              fontFamily: "'Poppins', sans-serif",
+              fontWeight: "400", // Regular
+              color: "#1f2937", // Dark Gray
             }}
           >
-            Real Results,
-            <br />
-            Real Stories
+            Real Results, <br className="hidden md:block" />
+            <span style={{ 
+              fontWeight: "700", // Bold
+              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)", // Matching Gradient
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" // Soft Shadow
+            }}>Real Stories</span>
           </h2>
+          {/* --- UPDATED HEADLINE END --- */}
 
           <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto">
             Don't just take our word for it. Here's what our clients say.
@@ -237,4 +243,3 @@ export default function Testimonials() {
     </section>
   );
 }
-
