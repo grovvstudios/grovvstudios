@@ -2600,3 +2600,24 @@ main {
   position: relative;
   z-index: 10;
 }
+/* 1. Force sections to be transparent so the dark background shows */
+section, #hero, #process, #services, #testimonials, #founders, #contact {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* 2. Reset text color to white for the dark theme */
+h1, h2, h3, h4, p, span, div {
+  color: white;
+}
+
+/* 3. Exceptions: Keep gradients or specific colored text */
+.text-transparent {
+  color: transparent !important;
+}
+.text-purple-400 {
+  color: #c084fc !important;
+}
+.text-gray-400 {
+  color: #9ca3af !important;
+}
