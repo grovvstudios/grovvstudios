@@ -3,38 +3,41 @@ import { motion, useScroll, useTransform } from "framer-motion";
 export function PremiumBackground() {
   const { scrollY } = useScroll();
 
-  // Movement speeds
-  const y1 = useTransform(scrollY, [0, 1000], [0, 200]);
-  const y2 = useTransform(scrollY, [0, 1000], [0, -150]);
-  const rotate1 = useTransform(scrollY, [0, 2000], [0, 360]);
+  // MORE AGGRESSIVE MOVEMENT
+  // When you scroll 1000px:
+  // y1 moves DOWN 300px
+  const y1 = useTransform(scrollY, [0, 1000], [0, 300]);
+  // y2 moves UP 200px
+  const y2 = useTransform(scrollY, [0, 1000], [0, -200]);
+  // Rotation
+  const rotate1 = useTransform(scrollY, [0, 1000], [0, 90]);
 
   return (
-    // DARK BASE COLOR: #0f172a (Deep Slate Blue)
-    <div className="fixed inset-0 w-full h-full overflow-hidden -z-50 bg-[#0f172a] pointer-events-none">
+    <div className="fixed inset-0 w-full h-full -z-50 bg-[#0f172a] overflow-hidden pointer-events-none">
       
-      {/* ORB 1: Purple Glow - Moves Down */}
+      {/* ORB 1: Top Left (Purple/Indigo) */}
       <motion.div 
         style={{ y: y1, rotate: rotate1 }}
-        className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full opacity-40 blur-[100px]"
+        className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] max-w-[600px] max-h-[600px] rounded-full opacity-40 blur-[80px]"
       >
-        <div className="w-full h-full bg-purple-600 rounded-full" />
+        <div className="w-full h-full bg-gradient-to-br from-purple-600 to-indigo-600 rounded-full" />
       </motion.div>
 
-      {/* ORB 2: Cyan/Blue Glow - Moves Up */}
+      {/* ORB 2: Middle Right (Blue/Cyan) */}
       <motion.div 
         style={{ y: y2 }}
-        className="absolute top-[40%] right-[-10%] w-[600px] h-[600px] rounded-full opacity-30 blur-[120px]"
+        className="absolute top-[40%] right-[-5%] w-[50vw] h-[50vw] max-w-[500px] max-h-[500px] rounded-full opacity-30 blur-[90px]"
       >
-        <div className="w-full h-full bg-blue-500 rounded-full" />
+        <div className="w-full h-full bg-gradient-to-bl from-blue-500 to-cyan-400 rounded-full" />
       </motion.div>
 
-      {/* ORB 3: Deep Pink Bottom */}
-      <div className="absolute bottom-[-10%] left-[20%] w-[400px] h-[400px] rounded-full opacity-20 bg-pink-600 blur-[100px]" />
+      {/* ORB 3: Bottom Left (Pink) - Static Anchor */}
+      <div className="absolute bottom-[-10%] left-[10%] w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] rounded-full opacity-20 bg-pink-600 blur-[100px]" />
 
-      {/* Noise Texture for Premium Feel */}
+      {/* NOISE OVERLAY - Adds texture */}
       <div 
-        className="absolute inset-0 opacity-20 mix-blend-overlay"
-        style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/stardust.png")` }}
+        className="absolute inset-0 opacity-[0.05]"
+        style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/noise.png")` }}
       />
     </div>
   );
