@@ -2,12 +2,12 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, useSpring, useTransform, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-// --- Helper: Number Ticker for Count-Up Animation ---
+// --- Helper: Count-Up Animation Component ---
 function NumberTicker({ value }: { value: number }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   
-  // Spring config for smooth counting
+  // Spring physics for a high-quality smooth count
   const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
   const display = useTransform(spring, (current) => Math.round(current));
 
@@ -24,14 +24,16 @@ export function Hero() {
   return (
     <section className="relative min-h-screen flex justify-center overflow-hidden px-6 pt-28 pb-20 md:pt-32">
       
-      {/* Inline Styles for the Shine Animation to guarantee it works */}
+      {/* --- FAST SHINE ANIMATION CSS --- */}
       <style>{`
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
+          50% { transform: translateX(150%) skewX(-25deg); }
           100% { transform: translateX(150%) skewX(-25deg); }
         }
         .animate-shine {
-          animation: shine-sweep 3s ease-in-out infinite;
+          /* 1.2s duration: Fast and Visible */
+          animation: shine-sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
       `}</style>
 
@@ -55,47 +57,40 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* --- UPDATED HEADLINE WITH SHINE --- */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative mb-6 inline-block max-w-full"
-        >
-          <h1
+        {/* --- UPDATED HEADLINE START --- */}
+        <div className="relative mb-6 inline-block max-w-full">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
             className="whitespace-nowrap relative overflow-hidden"
             aria-label="Grovv Studios"
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontSize: "clamp(2.5rem, 8vw, 6rem)", 
               lineHeight: 1.1,
-              color: "transparent", // Hide text color to show gradient
+              // Dark Royal Gradient
+              background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
             }}
           >
-            {/* The Text Layer */}
-            <span 
-              style={{
-                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
-              }}
-            >
-              <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
-              <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
-            </span>
+            <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
+            <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
+          </motion.h1>
 
-            {/* The Shine Overlay */}
-            <div 
-              className="absolute inset-0 w-full h-full pointer-events-none animate-shine"
-              style={{
-                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)",
-                mixBlendMode: "overlay", // Blends nicely with the dark text
-              }}
-            />
-          </h1>
-        </motion.div>
-        {/* ----------------------------------- */}
+          {/* THE SHINE OVERLAY - High Contrast White */}
+          <div 
+            className="absolute inset-0 w-full h-full pointer-events-none animate-shine"
+            style={{
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.95), transparent)",
+              mixBlendMode: "overlay", 
+            }}
+          />
+        </div>
+        {/* --- UPDATED HEADLINE END --- */}
 
         {/* Subheading */}
         <motion.h2
@@ -152,7 +147,7 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* Stats cards with Count Up Animation */}
+        {/* Stats cards (NOW WITH ANIMATED NUMBERS) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -185,7 +180,7 @@ export function Hero() {
                   filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
                 }}
               >
-                {/* Count Up Component */}
+                {/* Animated Number Component */}
                 <NumberTicker value={stat.value} />
                 {stat.suffix}
               </div>
