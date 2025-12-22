@@ -32,7 +32,7 @@ export function Hero() {
           100% { transform: translateX(150%) skewX(-25deg); }
         }
         .animate-shine {
-          /* 1.2s duration: Fast and Visible */
+          /* 2.5s duration: Fast and Visible */
           animation: shine-sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
       `}</style>
