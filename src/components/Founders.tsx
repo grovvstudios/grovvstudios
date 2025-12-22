@@ -14,7 +14,7 @@ const partner3Img = "https://ui-avatars.com/api/?name=Partner+3&background=f3e8f
 const founders = [
   {
     name: "Tafheem Irshad",
-    role: "Co-Founder & Director",
+    role: "Founder & Director",
     image: tafheemImg, 
     bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth.",
     linkedin: "https://www.linkedin.com/in/rathertafheem"
