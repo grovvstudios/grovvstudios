@@ -1,9 +1,9 @@
-import { Twitter, Linkedin, Instagram } from "lucide-react";
+import { Linkedin, Instagram } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="py-16 px-6 relative overflow-hidden">
-      {/* Background Decoration */}
+    <footer className="py-16 px-6 relative overflow-hidden bg-white">
+      {/* Background Decoration Line */}
       <div className="absolute top-0 left-0 right-0 h-px"
         style={{
           background: "linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent)",
@@ -12,26 +12,31 @@ export function Footer() {
 
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
+          
+          {/* Brand Column */}
           <div className="md:col-span-2">
             <div 
               className="text-3xl mb-4"
               style={{ 
-                fontWeight: "700",
+                fontFamily: "'Poppins', sans-serif",
+                fontWeight: "800", // Extra Bold for Logo
                 background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
+                filter: "drop-shadow(0 2px 10px rgba(102, 126, 234, 0.3))" // Premium Glow Effect
               }}
             >
               GROVV STUDIOS
             </div>
-            <p className="text-gray-600 mb-6 max-w-md">
+            <p className="text-gray-500 mb-6 max-w-md leading-relaxed">
               Creating extraordinary digital experiences that elevate brands and captivate audiences.
             </p>
+            
+            {/* Social Icons */}
             <div className="flex gap-4">
               {[
-               { Icon: Linkedin, href: "https://www.linkedin.com/in/rathertafheem" },
+                { Icon: Linkedin, href: "https://www.linkedin.com/in/rathertafheem" },
                 { Icon: Instagram, href: "https://www.instagram.com/grovvstudios" }
               ].map(({ Icon, href }, index) => (
                 <a
@@ -39,25 +44,25 @@ export function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-md group"
                   style={{
-                    background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
+                    background: "white",
                     border: "1px solid rgba(102, 126, 234, 0.2)",
                   }}
                 >
-                  <Icon className="w-5 h-5 text-gray-700" />
+                  <Icon className="w-5 h-5 text-gray-500 group-hover:text-purple-600 transition-colors" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links Column */}
           <div>
-            <h4 className="mb-4" style={{ fontWeight: "600" }}>Quick Links</h4>
-            <ul className="space-y-2">
-              {["About", "Services"].map((item) => (
+            <h4 className="mb-6 text-gray-900" style={{ fontWeight: "600" }}>Quick Links</h4>
+            <ul className="space-y-3">
+              {["Work", "Process", "Testimonials", "Contact"].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-gray-600 hover:text-[#667eea] transition-colors">
+                  <a href={`#${item.toLowerCase()}`} className="text-gray-500 hover:text-purple-600 transition-colors hover:translate-x-1 inline-block">
                     {item}
                   </a>
                 </li>
@@ -65,13 +70,14 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Services Column */}
           <div>
-            <h4 className="mb-4" style={{ fontWeight: "600" }}>Services</h4>
-            <ul className="space-y-2">
-              {["DIGITAL MARKETING", "WEBSITE DEV", "AI AGENTS", "Branding"].map((item) => (
+            <h4 className="mb-6 text-gray-900" style={{ fontWeight: "600" }}>Services</h4>
+            <ul className="space-y-3">
+              {/* Fixed casing to be Title Case for a more premium look */}
+              {["Digital Marketing", "Website Dev", "AI Agents", "Branding"].map((item) => (
                 <li key={item}>
-                  <a href="#" className="text-gray-600 hover:text-[#667eea] transition-colors">
+                  <a href="#services" className="text-gray-500 hover:text-purple-600 transition-colors hover:translate-x-1 inline-block">
                     {item}
                   </a>
                 </li>
@@ -81,15 +87,15 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-600 text-sm">
-            © 2025 GROVV STUDIOS. All rights reserved.
+        <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-gray-400 text-sm">
+            © 2025 Grovv Studios. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm">
-            <a href="#" className="text-gray-600 hover:text-[#667eea] transition-colors">
+          <div className="flex gap-8 text-sm">
+            <a href="#" className="text-gray-400 hover:text-purple-600 transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-gray-600 hover:text-[#667eea] transition-colors">
+            <a href="#" className="text-gray-400 hover:text-purple-600 transition-colors">
               Terms of Service
             </a>
           </div>
