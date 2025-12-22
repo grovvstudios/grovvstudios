@@ -3,46 +3,41 @@ import { motion, useScroll, useTransform } from "framer-motion";
 export function PremiumBackground() {
   const { scrollY } = useScroll();
 
-  // Parallax Physics: Stronger movement range
-  const y1 = useTransform(scrollY, [0, 2000], [0, 400]); 
-  const y2 = useTransform(scrollY, [0, 2000], [0, -300]);
-  const y3 = useTransform(scrollY, [0, 2000], [0, 200]);
+  // Parallax Physics: Orbs move at different speeds when you scroll
+  const y1 = useTransform(scrollY, [0, 2000], [0, 300]);   // Moves DOWN
+  const y2 = useTransform(scrollY, [0, 2000], [0, -400]);  // Moves UP (Fast)
+  const y3 = useTransform(scrollY, [0, 2000], [0, 200]);   // Moves DOWN (Slow)
   
-  const rotate1 = useTransform(scrollY, [0, 2000], [0, 180]);
-  const rotate2 = useTransform(scrollY, [0, 2000], [0, -180]);
-
   return (
-    // Removed 'bg-white' from here so it doesn't block itself. 
-    // Added 'bg-slate-50' as a base layer if needed, or keep transparent.
     <div className="fixed inset-0 w-full h-full -z-50 bg-slate-50 overflow-hidden pointer-events-none">
       
-      {/* ORB 1: TOP LEFT (Royal Blue) */}
+      {/* ORB 1: TOP LEFT (Royal Blue/Purple) */}
       <motion.div 
-        style={{ y: y1, rotate: rotate1 }}
-        className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] rounded-full filter blur-[100px] opacity-60"
+        style={{ y: y1 }}
+        className="absolute top-[-10%] left-[-5%] w-[700px] h-[700px] rounded-full mix-blend-multiply filter blur-[100px] opacity-60"
       >
-        <div className="w-full h-full bg-gradient-to-br from-[#4f46e5] to-[#3b82f6] rounded-full" />
+        <div className="w-full h-full bg-gradient-to-br from-[#667eea] to-[#764ba2] rounded-full" />
       </motion.div>
 
-      {/* ORB 2: MIDDLE RIGHT (Vibrant Violet) */}
+      {/* ORB 2: MIDDLE RIGHT (Cyan/Indigo) */}
       <motion.div 
-        style={{ y: y2, rotate: rotate2 }}
-        className="absolute top-[30%] right-[-15%] w-[600px] h-[600px] rounded-full filter blur-[120px] opacity-60"
+        style={{ y: y2 }}
+        className="absolute top-[40%] right-[-15%] w-[600px] h-[600px] rounded-full mix-blend-multiply filter blur-[120px] opacity-50"
       >
-        <div className="w-full h-full bg-gradient-to-bl from-[#8b5cf6] to-[#6366f1] rounded-full" />
+        <div className="w-full h-full bg-gradient-to-bl from-blue-400 to-indigo-500 rounded-full" />
       </motion.div>
 
-      {/* ORB 3: BOTTOM LEFT (Deep Indigo) */}
+      {/* ORB 3: BOTTOM LEFT (Soft Violet) */}
       <motion.div 
         style={{ y: y3 }}
-        className="absolute bottom-[-20%] left-[10%] w-[700px] h-[700px] rounded-full filter blur-[100px] opacity-60"
+        className="absolute bottom-[-10%] left-[10%] w-[800px] h-[800px] rounded-full mix-blend-multiply filter blur-[100px] opacity-40"
       >
-        <div className="w-full h-full bg-gradient-to-tr from-[#312e81] to-[#4338ca] rounded-full" />
+        <div className="w-full h-full bg-gradient-to-tr from-[#a78bfa] to-[#818cf8] rounded-full" />
       </motion.div>
 
-      {/* Noise Overlay */}
+      {/* Noise Texture (Makes it look like high-quality film) */}
       <div 
-        className="absolute inset-0 opacity-[0.05]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/noise.png")` }}
       />
     </div>
