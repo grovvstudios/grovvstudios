@@ -83,10 +83,11 @@ export function Contact() {
           >
             Let's <span style={{ 
               fontWeight: "700", // Bold
-              background: "linear-gradient(135deg, #7c3aed 0%, #2563eb 100%)", // Purple to Blue
+              background: "linear-gradient(135deg, #7c3aed 0%, #2563eb 100%)", 
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              filter: "drop-shadow(0 4px 15px rgba(124, 58, 237, 0.3))" // Soft Glow
+              // FIXED: Soft Drop Shadow (Vertical, not glowing)
+              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" 
             }}>Grovv Together.</span>
           </h2>
           {/* --- UPDATED HEADLINE END --- */}
@@ -160,11 +161,7 @@ export function Contact() {
                   className="w-full px-4 py-3 rounded-xl bg-white/50 border border-gray-200 focus:outline-none focus:border-[#667eea] transition-colors"
                 >
                   <option value="">Select a service...</option>
-                  
-                  {/* --- NEW OPTION ADDED BELOW --- */}
                   <option value="Consultation">1-on-1 Consultation</option>
-                  {/* ----------------------------- */}
-
                   <option value="Social Media Management">Social Media Management</option>
                   <option value="Video Production">Video Production</option>
                   <option value="Video Editing">Video Editing</option>
