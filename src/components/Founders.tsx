@@ -2,11 +2,14 @@ import { motion } from "framer-motion";
 import { Linkedin } from "lucide-react";
 
 // ---------------------------------------------------------
-// Imports
+// 1. IMPORT BOTH IMAGES HERE
 // ---------------------------------------------------------
 import tafheemImg from "../assets/tafheem.jpg";
-const partner1Img = "https://ui-avatars.com/api/?name=Partner+1&background=f3e8ff&color=764ba2&size=200";
-const partner2Img = "src/assets/ayaan.jpeg";
+// FIX: Import the second image just like the first one
+import ayaanImg from "../assets/ayaan.jpeg"; 
+
+// (Optional) Fallback if you ever add a 3rd partner later
+const partner3Img = "https://ui-avatars.com/api/?name=Partner+3&background=f3e8ff&color=764ba2&size=200";
 
 const founders = [
   {
@@ -20,7 +23,8 @@ const founders = [
   {
     name: "Ayaan Umer",
     role: "Creative Director",
-    image: partner2Img, 
+    // FIX: Use the variable 'ayaanImg' here, not the string path
+    image: ayaanImg, 
     bio: "Leading the design philosophy and ensuring our visual output resonates on a psychological level.",
     linkedin: "https://www.linkedin.com/in/ayaan-bhat-423546310/"
   }
@@ -84,10 +88,8 @@ export function Founders() {
           </motion.div>
         </div>
 
-        {/* GRID FIXES:
-            1. items-stretch -> Forces all cards to be equal height
-        */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        {/* GRID FIXES: items-stretch -> Forces all cards to be equal height */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch justify-center max-w-4xl mx-auto">
           {founders.map((founder, index) => (
             <motion.div
               key={index}
@@ -97,8 +99,6 @@ export function Founders() {
               transition={{ delay: index * 0.2, duration: 0.7, ease: "easeOut" }}
               whileHover={{ y: -10 }} 
               // GLASS CARD STYLES
-              // h-full -> Fills the stretched grid cell
-              // bg-white/60 + backdrop-blur-xl -> The Glass Effect
               className="group relative flex flex-col items-center text-center transition-all duration-500 h-full"
               style={{
                 fontFamily: "'Poppins', sans-serif",
@@ -112,9 +112,7 @@ export function Founders() {
               }}
             >
               
-              {/* === FIXED IMAGE SIZING === 
-                  Locked width and height to prevent "Too Big" issues 
-              */}
+              {/* === FIXED IMAGE SIZING === */}
               <div className="relative mb-8">
                 {/* Glow behind image */}
                 <div className="absolute -inset-4 bg-gradient-to-tr from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
