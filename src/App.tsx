@@ -72,8 +72,6 @@ export default function App() {
             <Contact />
           </section>
 
-          <SectionDivider />
-
         </main>
         <Footer />
       </div>
