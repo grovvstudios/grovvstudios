@@ -15,21 +15,24 @@ export function Footer() {
           
           {/* Brand Column */}
           <div className="md:col-span-2">
+            
+            {/* --- UPDATED LOGO: Matches Founders.tsx Style --- */}
             <div 
               className="text-3xl mb-4"
               style={{ 
                 fontFamily: "'Poppins', sans-serif",
-                fontWeight: "800", // Extra Bold for Logo
-                background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                fontWeight: "800", // Logo stays bold/extra bold
+                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)", // Same gradient as Founders
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-                // FIXED: Soft Drop Shadow instead of Neon Glow
-                filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15))" 
+                filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" // Same soft shadow
               }}
             >
               GROVV STUDIOS
             </div>
+            {/* ------------------------------------------------ */}
+
             <p className="text-gray-500 mb-6 max-w-md leading-relaxed">
               Creating extraordinary digital experiences that elevate brands and captivate audiences.
             </p>
