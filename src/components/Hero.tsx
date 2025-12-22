@@ -2,10 +2,9 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, useSpring, useTransform, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-// --- Helper: Re-Triggering Count-Up Animation ---
+// --- Helper: Count-Up Animation Component ---
 function NumberTicker({ value }: { value: number }) {
   const ref = useRef(null);
-  // once: false ensures it triggers EVERY time you scroll to it
   const isInView = useInView(ref, { once: false, margin: "-50px" });
   
   const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
@@ -15,8 +14,7 @@ function NumberTicker({ value }: { value: number }) {
     if (isInView) {
       spring.set(value);
     } else {
-      // Reset to 0 when scrolled away so it can count up again
-      spring.set(0); 
+      spring.set(0);
     }
   }, [isInView, spring, value]);
 
@@ -25,27 +23,19 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // RESTORED PADDING: Changed pt-24 back to pt-32 to fix the "crumbled" look
-    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-32 pb-20">
+    // FIX 1: Increased pt-28 to pt-40 to clear the Navbar
+    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-40 pb-20">
       
-      {/* SHINE ANIMATION */}
+      {/* FIX 2: Smoother, Slower Shine Animation */}
       <style>{`
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
-          50% { transform: translateX(150%) skewX(-25deg); }
-          100% { transform: translateX(150%) skewX(-25deg); }
+          40% { transform: translateX(150%) skewX(-25deg); } /* Sweep finishes */
+          100% { transform: translateX(150%) skewX(-25deg); } /* Wait phase */
         }
         .animate-shine {
-          animation: shine-sweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-        
-        /* New Pulse for Button */
-        @keyframes subtle-pulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(30, 64, 175, 0.4); }
-          50% { box-shadow: 0 0 0 10px rgba(30, 64, 175, 0); }
-        }
-        .animate-btn-pulse {
-          animation: subtle-pulse 2s infinite;
+          /* Slowed down to 3.5s for elegance */
+          animation: shine-sweep 3.5s ease-in-out infinite;
         }
       `}</style>
 
@@ -56,7 +46,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8" // Increased margin-bottom
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
           style={{
             background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
             border: "1px solid rgba(102, 126, 234, 0.2)",
@@ -78,7 +68,7 @@ export function Hero() {
             aria-label="Grovv Studios"
             style={{
               fontFamily: "'Poppins', sans-serif",
-              fontSize: "clamp(2.5rem, 8vw, 5.5rem)", // Restored size
+              fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
               lineHeight: 1.1,
               background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
               WebkitBackgroundClip: "text",
@@ -94,7 +84,7 @@ export function Hero() {
           <div 
             className="absolute inset-0 w-full h-full pointer-events-none animate-shine"
             style={{
-              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent)",
               mixBlendMode: "overlay", 
             }}
           />
@@ -113,20 +103,26 @@ export function Hero() {
           <strong className="font-semibold text-gray-900">Social Media Growth</strong>. 
         </motion.h2>
 
-        {/* CTA buttons - WITH NEW ANIMATION */}
+        {/* CTA buttons */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-wrap gap-4 justify-center"
         >
-          <button
+          {/* FIX 3: Replaced CSS pulse with smooth Framer Motion breathing */}
+          <motion.button
             onClick={() => {
               const contactSection = document.getElementById("contact");
               contactSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            // Added 'animate-btn-pulse' class for attention
-            className="group animate-btn-pulse px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105"
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ 
+              duration: 2, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+            className="px-8 py-4 rounded-2xl shadow-xl hover:shadow-2xl"
             style={{
               background: "linear-gradient(135deg, #0f172a 0%, #1e40af 100%)",
               color: "white",
@@ -135,9 +131,9 @@ export function Hero() {
           >
             <span className="flex items-center gap-2">
               Start Your Project
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5" />
             </span>
-          </button>
+          </motion.button>
 
           <button
             onClick={() => {
