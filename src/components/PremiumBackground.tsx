@@ -19,28 +19,28 @@ export function PremiumBackground() {
   return (
     <div className="fixed inset-0 w-full h-full overflow-hidden -z-50 bg-slate-50 pointer-events-none">
       
-      {/* ORB 1: Top Left (Deep Purple/Indigo) - Moves Down */}
+      {/* ORB 1: Top Left (Royal Blue/Indigo) - Matches your new Logo */}
       <motion.div 
         style={{ y: y1, rotate: rotate1 }}
-        className="absolute top-[-10%] left-[-10%] w-[70vh] h-[70vh] rounded-full opacity-50 mix-blend-multiply filter blur-[90px]"
+        className="absolute top-[-10%] left-[-10%] w-[70vh] h-[70vh] rounded-full opacity-40 mix-blend-multiply filter blur-[90px]"
       >
-        <div className="w-full h-full bg-gradient-to-br from-indigo-300 to-purple-400 rounded-full" />
+        <div className="w-full h-full bg-gradient-to-br from-blue-300 to-indigo-400 rounded-full" />
       </motion.div>
 
-      {/* ORB 2: Middle Right (Cyan/Blue) - Moves UP */}
+      {/* ORB 2: Middle Right (Cyan/Blue) - Adds a 'Cool' highlight */}
       <motion.div 
         style={{ y: y2 }}
-        className="absolute top-[40%] right-[-15%] w-[60vh] h-[60vh] rounded-full opacity-50 mix-blend-multiply filter blur-[100px]"
+        className="absolute top-[40%] right-[-15%] w-[60vh] h-[60vh] rounded-full opacity-40 mix-blend-multiply filter blur-[100px]"
       >
-        <div className="w-full h-full bg-gradient-to-bl from-blue-300 to-cyan-200 rounded-full" />
+        <div className="w-full h-full bg-gradient-to-bl from-cyan-200 to-blue-300 rounded-full" />
       </motion.div>
 
-      {/* ORB 3: Bottom Left (Pink/Rose) - Moves Down Slowly */}
+      {/* ORB 3: Bottom Left (Deep Violet) - Adds depth */}
       <motion.div 
         style={{ y: y3 }}
-        className="absolute bottom-[-20%] left-[10%] w-[50vh] h-[50vh] rounded-full opacity-50 mix-blend-multiply filter blur-[100px]"
+        className="absolute bottom-[-20%] left-[10%] w-[50vh] h-[50vh] rounded-full opacity-40 mix-blend-multiply filter blur-[100px]"
       >
-        <div className="w-full h-full bg-gradient-to-tr from-pink-300 to-rose-300 rounded-full" />
+        <div className="w-full h-full bg-gradient-to-tr from-violet-300 to-indigo-300 rounded-full" />
       </motion.div>
 
       {/* NOISE TEXTURE: Adds "tactile" premium feel, prevents color banding */}
