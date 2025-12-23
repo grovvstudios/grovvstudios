@@ -23,11 +23,9 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: Layout Physics
-    // Mobile: justify-start + pt-32 (Starts at top, scrolls naturally)
-    // Desktop: justify-center + pt-48 (Centers vertically, looks premium)
-    <section className="relative min-h-screen w-full flex flex-col justify-start md:justify-center items-center overflow-hidden px-4 pt-32 pb-12 md:px-6 md:pt-48 md:pb-32">
+    <section className="relative w-full overflow-hidden">
       
+      {/* GLOBAL STYLES FOR ANIMATIONS */}
       <style>{`
         /* Shine Animation */
         @keyframes shine-sweep {
@@ -51,155 +49,163 @@ export function Hero() {
         }
       `}</style>
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
+      {/* Responsive Container Logic:
+         - Mobile: min-h-[100dvh] (Full viewport height minimum), pt-36 (Clear navbar), justify-start (Stack from top)
+         - Desktop (md+): min-h-screen, pt-80 (Your requested huge gap), justify-center (Center vertically)
+      */}
+      <div className="min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-36 pb-16 md:px-6 md:pt-80 md:pb-32">
         
-        {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 md:mb-8"
-          style={{
-            background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
-            border: "1px solid rgba(102, 126, 234, 0.2)",
-          }}
-        >
-          <Sparkles className="w-3 h-3" style={{ color: "#667eea" }} />
-          <span className="text-xs text-gray-600 font-medium">
-            Elevate your Brand, GROVV with us
-          </span>
-        </motion.div>
-
-        {/* HEADLINE */}
-        <div className="relative mb-6 md:mb-8 w-full">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+        <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
+          
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            aria-label="Grovv Studios"
-            // FIX 2: Typography Scaling
-            // Mobile: whitespace-normal (Wraps text so it fits screen)
-            // Desktop: whitespace-nowrap (Keeps it on one line)
-            className="font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 md:mb-8"
             style={{
-              fontFamily: "'Poppins', sans-serif",
-              // Scaled down min-size to 2.5rem to fit Samsung A35 width
-              fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
-              // The "Real Stories" Gradient
-              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
+              background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
+              border: "1px solid rgba(102, 126, 234, 0.2)",
             }}
           >
-            <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
-            <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
-          </motion.h1>
-
-          <div 
-            className="absolute inset-0 w-full h-full pointer-events-none animate-shine"
-            style={{
-              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent)",
-              mixBlendMode: "overlay", 
-            }}
-          />
-        </div>
-
-        {/* Subheading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-8 md:mb-12 mx-auto max-w-2xl text-gray-600 px-2"
-          style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
-        >
-          We assist brands with professional <strong className="font-semibold text-gray-900">Video Editing</strong>,{" "}
-          <strong className="font-semibold text-gray-900">AI Automation</strong>, and{" "}
-          <strong className="font-semibold text-gray-900">Social Media Growth</strong>. 
-        </motion.h2>
-
-        {/* CTA buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto px-4"
-        >
-          <button
-            onClick={() => {
-              const contactSection = document.getElementById("contact");
-              contactSection?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="group animate-btn-pulse-wait w-full sm:w-auto px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl flex justify-center items-center"
-            style={{
-              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-              color: "white",
-              fontWeight: 600
-            }}
-          >
-            <span className="flex items-center gap-2">
-              Start Your Project
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <Sparkles className="w-3 h-3" style={{ color: "#667eea" }} />
+            <span className="text-xs text-gray-600 font-medium">
+              Elevate your Brand, GROVV with us
             </span>
-          </button>
+          </motion.div>
 
-          <button
-            onClick={() => {
-              const workSection = document.getElementById("work"); 
-              workSection?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="w-full sm:w-auto px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200"
-            style={{
-              background: "rgba(255, 255, 255, 0.8)",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            View Our Work
-          </button>
-        </motion.div>
-
-        {/* Stats cards */}
-        {/* FIX 3: Margin Top and Grid Spacing optimized for mobile */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-2 pb-8"
-        >
-          {[
-            { value: 150, suffix: "+", label: "Projects Delivered" },
-            { value: 50, suffix: "+", label: "Happy Clients" },
-            { value: 15, suffix: "+", label: "Team Members" },
-          ].map((stat, index) => (
-            <div
-              key={index}
-              className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
+          {/* HEADLINE */}
+          <div className="relative mb-6 md:mb-8 w-full">
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              aria-label="Grovv Studios"
+              // MOBILE OPTIMIZATION:
+              // - whitespace-normal: Allows wrapping on phones so G/S don't cut off
+              // - md:whitespace-nowrap: Forces single line on laptop
+              className="font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
               style={{
-                background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
-                border: "1px solid rgba(102, 126, 234, 0.2)",
-                boxShadow: "0 10px 20px -10px rgba(0,0,0,0.05)"
+                fontFamily: "'Poppins', sans-serif",
+                // Responsive Font Size: Smaller start point for mobile safety
+                fontSize: "clamp(2.8rem, 8vw, 5.5rem)", 
+                // The "Real Stories" Gradient
+                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+                filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
               }}
             >
+              <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
+              <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
+            </motion.h1>
+
+            {/* Shine Overlay */}
+            <div 
+              className="absolute inset-0 w-full h-full pointer-events-none animate-shine"
+              style={{
+                background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent)",
+                mixBlendMode: "overlay", 
+              }}
+            />
+          </div>
+
+          {/* Subheading */}
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="mb-8 md:mb-12 mx-auto max-w-2xl text-gray-600 px-2"
+            style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
+          >
+            We assist brands with professional <strong className="font-semibold text-gray-900">Video Editing</strong>,{" "}
+            <strong className="font-semibold text-gray-900">AI Automation</strong>, and{" "}
+            <strong className="font-semibold text-gray-900">Social Media Growth</strong>. 
+          </motion.h2>
+
+          {/* CTA buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto px-4"
+          >
+            <button
+              onClick={() => {
+                const contactSection = document.getElementById("contact");
+                contactSection?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="group animate-btn-pulse-wait w-full sm:w-auto px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl flex justify-center items-center"
+              style={{
+                background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                color: "white",
+                fontWeight: 600
+              }}
+            >
+              <span className="flex items-center gap-2">
+                Start Your Project
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </button>
+
+            <button
+              onClick={() => {
+                const workSection = document.getElementById("work"); 
+                workSection?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="w-full sm:w-auto px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200"
+              style={{
+                background: "rgba(255, 255, 255, 0.8)",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              View Our Work
+            </button>
+          </motion.div>
+
+          {/* Stats cards */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            // Mobile: mt-12 (closer). Desktop: mt-20 (spaced out).
+            className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-2"
+          >
+            {[
+              { value: 150, suffix: "+", label: "Projects Delivered" },
+              { value: 50, suffix: "+", label: "Happy Clients" },
+              { value: 15, suffix: "+", label: "Team Members" },
+            ].map((stat, index) => (
               <div
-                className="mb-1"
+                key={index}
+                className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
                 style={{
-                  fontSize: "2.5rem", 
-                  fontWeight: "700",
-                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
+                  background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
+                  border: "1px solid rgba(102, 126, 234, 0.2)",
+                  boxShadow: "0 10px 20px -10px rgba(0,0,0,0.05)"
                 }}
               >
-                <NumberTicker value={stat.value} />
-                {stat.suffix}
+                <div
+                  className="mb-1"
+                  style={{
+                    fontSize: "2.5rem", 
+                    fontWeight: "700",
+                    background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
+                  }}
+                >
+                  <NumberTicker value={stat.value} />
+                  {stat.suffix}
+                </div>
+                <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
               </div>
-              <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
