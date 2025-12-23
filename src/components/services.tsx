@@ -2,6 +2,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { TrendingUp, Video, Search, Brain, Globe, Film, Award, ArrowRight, Star, LucideIcon } from "lucide-react";
 import { useRef } from "react";
 
+// --- THE PREMIUM GRADIENT (Reusable) ---
+const ROYAL_GRADIENT = "linear-gradient(135deg, rgb(26, 26, 46) 0%, rgb(102, 126, 234) 50%, rgb(118, 75, 162) 100%)";
+
 // --- Types ---
 interface ServiceItem {
   icon: LucideIcon;
@@ -260,6 +263,7 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
                 ))}
               </div>
 
+              {/* FIX 2: Button uses the Royal Gradient */}
               <button
                 onClick={() => {
                   const contactSection = document.getElementById('contact');
@@ -267,7 +271,7 @@ function ServiceCard({ service, index }: { service: ServiceItem, index: number }
                 }}
                 className="inline-flex items-center gap-2 px-6 py-3 text-white rounded-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 group/btn"
                 style={{
-                  background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                  background: ROYAL_GRADIENT,
                 }}
               >
                 <span>Get Started</span>
@@ -323,34 +327,38 @@ export function Services() {
           viewport={{ once: true }}
           className="text-center mb-16 max-w-3xl mx-auto"
         >
+          {/* FIX 3: Badge styling matches Hero box */}
           <div 
-            className="inline-block mb-4 px-4 py-2 rounded-full text-sm text-white"
+            className="inline-block mb-4 px-4 py-2 rounded-full text-sm font-medium"
             style={{
-              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-              boxShadow: "0 4px 15px rgba(102, 126, 234, 0.3)",
+              background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
+              border: "1px solid rgba(102, 126, 234, 0.2)",
+              color: "#4b5563"
             }}
           >
-            Transparent Pricing • No Hidden Fees
+            <span className="flex items-center gap-2">
+              <Star className="w-3 h-3 text-[#667eea]" />
+              Transparent Pricing • No Hidden Fees
+            </span>
           </div>
           
-          {/* --- UPDATED HEADLINE START --- */}
+          {/* FIX 1: Headline "Services That Scale" with correct styling */}
           <h2 
             className="text-4xl md:text-5xl lg:text-6xl mb-6"
             style={{ 
               fontFamily: "'Poppins', sans-serif",
-              fontWeight: "400", // Regular
-              // Dark Royal Gradient applied to the whole text
-              background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              // Soft Vertical Shadow
-              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
+              fontWeight: "400", // Regular Black
+              color: "#1f2937", 
             }}
           >
-            Services That <span style={{ fontWeight: "700" }}>Scale</span>
+            Services That <span style={{ 
+              fontWeight: "700", // Bold Gradient
+              background: ROYAL_GRADIENT,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(rgba(0, 0, 0, 0.15) 0px 10px 8px)"
+            }}>Scale</span>
           </h2>
-          {/* --- UPDATED HEADLINE END --- */}
           
           <p className="text-gray-600 text-lg md:text-xl">
             Choose the service that fits your goals. All packages include dedicated support and proven strategies.
@@ -376,30 +384,39 @@ export function Services() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
+        {/* FIX 4: Bottom CTA Redesign (Glass Card) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mt-20 p-10 rounded-2xl text-white"
+          className="text-center mt-20 p-10 rounded-3xl relative overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+            background: "rgba(255, 255, 255, 0.8)",
+            border: "1px solid rgba(102, 126, 234, 0.2)",
+            boxShadow: "0 20px 40px -10px rgba(102, 126, 234, 0.1)",
+            backdropFilter: "blur(10px)"
           }}
         >
-          <h3 className="text-2xl md:text-3xl mb-4" style={{ fontWeight: "600" }}>
+          {/* Subtle gradient accent in background */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#667eea] to-transparent opacity-50" />
+          
+          <h3 className="text-2xl md:text-3xl mb-4 text-gray-900" style={{ fontWeight: "700" }}>
             Not sure which service is right for you?
           </h3>
-          <p className="text-indigo-100 mb-6 text-lg">
-            Book a free 15-minute consultation and we'll create a custom plan for your business.
+          <p className="text-gray-600 mb-8 text-lg max-w-2xl mx-auto">
+            Book a free 15-minute consultation and we'll create a custom plan tailored to your business needs.
           </p>
           <button
             onClick={() => {
               const contactSection = document.getElementById('contact');
               contactSection?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="px-8 py-4 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105 inline-flex items-center gap-2"
-            style={{ fontWeight: "600" }}
+            className="px-8 py-4 rounded-xl text-white hover:scale-105 transition-all duration-300 inline-flex items-center gap-2 shadow-xl"
+            style={{ 
+              background: ROYAL_GRADIENT,
+              fontWeight: "600" 
+            }}
           >
             <span>Book Free Consultation</span>
             <ArrowRight className="w-5 h-5" />
