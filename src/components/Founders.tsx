@@ -7,6 +7,9 @@ import { Linkedin } from "lucide-react";
 import tafheemImg from "../assets/tafheem.jpg";
 import ayaanImg from "../assets/ayaan.jpeg";
 
+// --- THE ROYAL GRADIENT (Reusable) ---
+const ROYAL_GRADIENT = "linear-gradient(135deg, rgb(26, 26, 46) 0%, rgb(102, 126, 234) 50%, rgb(118, 75, 162) 100%)";
+
 const founders = [
   {
     name: "Tafheem Irshad",
@@ -28,6 +31,18 @@ export function Founders() {
   return (
     <section className="py-24 relative overflow-hidden">
       
+      {/* CSS for the "Breathing" Border Animation */}
+      <style>{`
+        @keyframes border-breathe {
+          0% { border-color: rgba(102, 126, 234, 0.2); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+          50% { border-color: rgba(102, 126, 234, 0.5); box-shadow: 0 0 15px rgba(102, 126, 234, 0.15); }
+          100% { border-color: rgba(102, 126, 234, 0.2); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+        }
+        .animate-border-breathe {
+          animation: border-breathe 4s ease-in-out infinite;
+        }
+      `}</style>
+
       {/* BACKGROUND BLOBS */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
          <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-300/30 blur-[120px] rounded-full mix-blend-multiply" />
@@ -45,22 +60,25 @@ export function Founders() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
+            {/* --- FIX 1: Headline Styling --- */}
             <h2 
-              className="mb-6"
+              className="mb-6 text-4xl md:text-5xl lg:text-6xl"
               style={{ 
                 fontFamily: "'Poppins', sans-serif",
-                fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-                fontWeight: "400", 
-                background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
+                fontWeight: "400", // Regular
+                color: "#1f2937", // Black Text
                 letterSpacing: "-0.02em",
-                filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" 
               }}
             >
-              The Minds Behind <span style={{ fontWeight: "700" }}>Grovv</span>
+              The Minds Behind <span style={{ 
+                fontWeight: "700", // Bold
+                background: ROYAL_GRADIENT, // Gradient only on "Grovv"
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
+              }}>Grovv</span>
             </h2>
+            {/* ------------------------------- */}
             
             <p 
               className="max-w-2xl mx-auto text-gray-600"
@@ -84,39 +102,37 @@ export function Founders() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.7, ease: "easeOut" }}
-              whileHover={{ y: -10 }} 
-              className="group relative flex flex-col items-center text-center transition-all duration-500 h-full"
+              // FIX 2: Removed 'whileHover={{ y: -10 }}' which was causing lag with other animations
+              className="group relative flex flex-col items-center text-center transition-all duration-500 h-full animate-border-breathe" // Added animation class
               style={{
                 fontFamily: "'Poppins', sans-serif",
                 
-                // FIX: Subtle Bluish Gradient to separate from background
-                // Starts White -> Fades to Very Pale Blue
-                background: "linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(239, 246, 255, 0.9) 100%)",
-                
+                // FIX 3: Clean White Background
+                background: "rgba(255, 255, 255, 0.9)", 
                 backdropFilter: "blur(24px)", 
                 WebkitBackdropFilter: "blur(24px)",
                 
-                // Crisp White Border
-                border: "1px solid rgba(255, 255, 255, 0.8)", 
+                // Initial border style (animated by CSS class)
+                border: "2px solid rgba(102, 126, 234, 0.2)", 
                 
                 borderRadius: "2.5rem",
                 padding: "3rem 2rem",
                 
-                // Slightly deeper shadow with a hint of blue
-                boxShadow: "0 20px 50px -10px rgba(30, 64, 175, 0.1)"
+                // Soft base shadow
+                boxShadow: "0 20px 50px -10px rgba(30, 64, 175, 0.05)"
               }}
             >
               
               <div className="relative mb-8">
-                {/* Glow behind image */}
-                <div className="absolute -inset-4 bg-gradient-to-tr from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
+                {/* Glow behind image on hover */}
+                <div className="absolute -inset-6 bg-gradient-to-tr from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-70 blur-2xl transition-opacity duration-500" />
                 
-                {/* Image Container with White Border */}
-                <div className="relative w-44 h-44 rounded-full overflow-hidden shadow-lg z-10 border-[6px] border-white">
+                {/* FIX 4: Image Container - Removed thick border, smoother scale */}
+                <div className="relative w-48 h-48 rounded-full overflow-hidden shadow-lg z-10 transition-transform duration-500 group-hover:scale-105">
                   <img 
                     src={founder.image} 
                     alt={founder.name} 
-                    className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </div>
@@ -128,21 +144,37 @@ export function Founders() {
                 {founder.name}
               </h3>
               
+              {/* FIX 5: Role Badge uses Royal Gradient colors */}
               <div className="mb-6 relative z-10">
-                <span className="px-4 py-1.5 rounded-full bg-white/80 border border-white text-purple-700 text-xs font-bold uppercase tracking-wider shadow-sm">
+                <span 
+                  className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
+                    color: "#667eea",
+                    border: "1px solid rgba(102, 126, 234, 0.2)"
+                  }}
+                >
                   {founder.role}
                 </span>
               </div>
 
-              <p className="text-gray-600 text-sm leading-relaxed mb-8 relative z-10 flex-grow">
+              <p className="text-gray-600 text-sm leading-relaxed mb-8 relative z-10 flex-grow max-w-sm">
                 {founder.bio}
               </p>
 
+              {/* FIX 6: LinkedIn Button uses Royal Gradient on hover */}
               <a 
                 href={founder.linkedin} 
-                className="relative z-10 text-gray-400 hover:text-blue-600 transition-colors p-3 hover:bg-white rounded-full hover:shadow-md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative z-10 text-gray-400 transition-all duration-300 p-3 rounded-full hover:shadow-md group/icon"
+                style={{
+                  background: "transparent",
+                }}
               >
-                <Linkedin size={22} />
+                <div className="absolute inset-0 rounded-full opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300"
+                     style={{ background: ROYAL_GRADIENT }} />
+                <Linkedin size={22} className="relative z-10 group-hover/icon:text-white transition-colors duration-300" />
               </a>
 
             </motion.div>
