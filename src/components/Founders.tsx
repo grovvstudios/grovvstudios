@@ -26,10 +26,9 @@ const founders = [
 
 export function Founders() {
   return (
-    // Removed 'bg-slate-50' to ensure transparency for the global background
     <section className="py-24 relative overflow-hidden">
       
-      {/* BACKGROUND BLOBS - Keeping these as they add local flavor */}
+      {/* BACKGROUND BLOBS */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
          <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-300/30 blur-[120px] rounded-full mix-blend-multiply" />
          <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-fuchsia-300/30 blur-[120px] rounded-full mix-blend-multiply" />
@@ -46,26 +45,22 @@ export function Founders() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            {/* --- UPDATED HEADLINE: Dark Royal Gradient + Soft Shadow --- */}
             <h2 
               className="mb-6"
               style={{ 
                 fontFamily: "'Poppins', sans-serif",
                 fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-                fontWeight: "400", // Regular start
-                // Dark Royal Gradient (Blackish -> Royal Blue -> Indigo)
+                fontWeight: "400", 
                 background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
                 letterSpacing: "-0.02em",
-                // Soft Vertical Drop Shadow (No Glow)
                 filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))" 
               }}
             >
               The Minds Behind <span style={{ fontWeight: "700" }}>Grovv</span>
             </h2>
-            {/* ----------------------------------------------------------- */}
             
             <p 
               className="max-w-2xl mx-auto text-gray-600"
@@ -93,26 +88,34 @@ export function Founders() {
               className="group relative flex flex-col items-center text-center transition-all duration-500 h-full"
               style={{
                 fontFamily: "'Poppins', sans-serif",
-                // FIX 1: Increased opacity for better visibility
-                background: "rgba(255, 255, 255, 0.85)", 
+                
+                // FIX: Subtle Bluish Gradient to separate from background
+                // Starts White -> Fades to Very Pale Blue
+                background: "linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(239, 246, 255, 0.9) 100%)",
+                
                 backdropFilter: "blur(24px)", 
                 WebkitBackdropFilter: "blur(24px)",
-                border: "1px solid rgba(255, 255, 255, 0.6)", 
+                
+                // Crisp White Border
+                border: "1px solid rgba(255, 255, 255, 0.8)", 
+                
                 borderRadius: "2.5rem",
                 padding: "3rem 2rem",
-                // FIX 2: Stronger shadow for separation
-                boxShadow: "0 20px 40px -10px rgba(0,0,0,0.1)"
+                
+                // Slightly deeper shadow with a hint of blue
+                boxShadow: "0 20px 50px -10px rgba(30, 64, 175, 0.1)"
               }}
             >
               
               <div className="relative mb-8">
+                {/* Glow behind image */}
                 <div className="absolute -inset-4 bg-gradient-to-tr from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
-                {/* FIX 3: Solid white border to remove "blackish" artifact */}
+                
+                {/* Image Container with White Border */}
                 <div className="relative w-44 h-44 rounded-full overflow-hidden shadow-lg z-10 border-[6px] border-white">
                   <img 
                     src={founder.image} 
                     alt={founder.name} 
-                    // FIX 4: subtler scale on hover
                     className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
