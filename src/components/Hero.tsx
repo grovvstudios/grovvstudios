@@ -23,26 +23,26 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: Increased pt-48 -> pt-64. Massive space at the top now.
-    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-64 pb-32">
+    // FIX 1: Increased pt-64 -> pt-80 for maximum spacing from Navbar
+    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-80 pb-32">
       
       <style>{`
-        /* Shine Animation - Slowed down significantly */
+        /* Shine Animation */
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
-          40% { transform: translateX(150%) skewX(-25deg); } 
-          100% { transform: translateX(150%) skewX(-25deg); } 
+          30% { transform: translateX(150%) skewX(-25deg); } /* Sweep takes 30% of time */
+          100% { transform: translateX(150%) skewX(-25deg); } /* Waits for 70% of time */
         }
         .animate-shine {
-          /* FIX 2: 5s duration for a very slow, premium sweep */
-          animation: shine-sweep 5s ease-in-out infinite;
+          /* FIX 2: Slowed down to 8s for a very elegant, rare shine */
+          animation: shine-sweep 8s ease-in-out infinite;
         }
 
         /* Pulse Animation */
         @keyframes pulse-wait {
-          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
-          10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
-          20% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
+          10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
+          20% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
           100% { transform: scale(1); }
         }
         .animate-btn-pulse-wait {
@@ -81,9 +81,9 @@ export function Hero() {
               fontFamily: "'Poppins', sans-serif",
               fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
               lineHeight: 1.1,
-              // FIX 3: "Middle Ground" Gradient
-              // Dark Indigo (#312e81) -> Vibrant Violet (#8b5cf6)
-              background: "linear-gradient(135deg, #312e81 0%, #6366f1 50%, #8b5cf6 100%)",
+              // FIX 3: The "Real Stories" Gradient
+              // Dark (#1a1a2e) -> Soft Purple (#667eea) -> Deep Purple (#764ba2)
+              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -97,7 +97,7 @@ export function Hero() {
           <div 
             className="absolute inset-0 w-full h-full pointer-events-none animate-shine"
             style={{
-              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent)",
               mixBlendMode: "overlay", 
             }}
           />
@@ -130,8 +130,8 @@ export function Hero() {
             }}
             className="group animate-btn-pulse-wait px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl"
             style={{
-              // FIX 4: Exact same gradient direction as Headline (Dark Left -> Light Right)
-              background: "linear-gradient(135deg, #312e81 0%, #6366f1 50%, #8b5cf6 100%)",
+              // FIX 4: Button matches Headline Gradient EXACTLY (Dark Left -> Light Right)
+              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               color: "white",
               fontWeight: 600
             }}
@@ -175,7 +175,7 @@ export function Hero() {
               className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
               style={{
                 background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
-                border: "1px solid rgba(49, 46, 129, 0.15)", // Indigo border
+                border: "1px solid rgba(102, 126, 234, 0.2)",
                 boxShadow: "0 10px 20px -10px rgba(0,0,0,0.05)"
               }}
             >
@@ -184,8 +184,8 @@ export function Hero() {
                 style={{
                   fontSize: "2.5rem", 
                   fontWeight: "700",
-                  // Consistent Gradient for Stats
-                  background: "linear-gradient(135deg, #312e81 0%, #6366f1 50%, #8b5cf6 100%)",
+                  // FIX 5: Stats match the "Real Stories" Gradient too
+                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
