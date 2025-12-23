@@ -23,13 +23,12 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: Responsive Layout Strategy
-    // Mobile (Default): 'justify-start', 'pt-36'. Starts at top so nothing is hidden behind navbar.
-    // Desktop (md:): 'md:justify-center', 'md:pt-80'. Restores exactly the "Huge Gap" center look you liked.
-    <section className="relative min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center overflow-hidden px-4 pt-36 pb-12 md:px-6 md:pt-80 md:pb-32">
+    // MASTER LAYOUT FIX:
+    // 1. Mobile (Default): 'pt-32' (lower start), 'h-auto' (allows scrolling), 'justify-start'
+    // 2. Laptop (md:): 'md:pt-80' (huge gap), 'md:min-h-screen' (full height), 'md:justify-center' (vertically centered)
+    <section className="relative w-full overflow-hidden flex flex-col items-center px-6 pt-32 pb-20 justify-start min-h-[auto] md:min-h-screen md:pt-80 md:pb-32 md:justify-center">
       
       <style>{`
-        /* Shine Animation */
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
           30% { transform: translateX(150%) skewX(-25deg); } 
@@ -38,8 +37,6 @@ export function Hero() {
         .animate-shine {
           animation: shine-sweep 8s ease-in-out infinite;
         }
-
-        /* Pulse Animation */
         @keyframes pulse-wait {
           0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
           10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
@@ -51,14 +48,14 @@ export function Hero() {
         }
       `}</style>
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
+      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
         
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 md:mb-8"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
           style={{
             background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
             border: "1px solid rgba(102, 126, 234, 0.2)",
@@ -71,19 +68,19 @@ export function Hero() {
         </motion.div>
 
         {/* HEADLINE */}
-        <div className="relative mb-6 md:mb-8 w-full">
+        <div className="relative mb-8 inline-block max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            // FIX 2: Text Wrapping
-            // Mobile: 'whitespace-normal' allows wrapping so "G" and "S" don't cut off on phone screens.
-            // Desktop (md): 'whitespace-nowrap' forces it to be one big line, exactly as you wanted.
-            className="font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
+            // TEXT FIX: 
+            // Mobile: 'whitespace-normal' (Wraps text so it fits screen)
+            // Laptop (md): 'md:whitespace-nowrap' (One big line, exactly as you wanted)
+            className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
-              // Adjusted clamp slightly to ensure it fits on Samsung A35 width
+              // Responsive Font Size: 2.5rem on phone -> 5.5rem on laptop
               fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
@@ -92,7 +89,7 @@ export function Hero() {
               filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
             }}
           >
-            {/* Added span wrapper to ensure proper break on mobile */}
+            {/* Span wrapper prevents word-break issues on mobile */}
             <span className="inline-block">
               <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
               <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
@@ -113,7 +110,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-8 md:mb-12 mx-auto max-w-2xl text-gray-600 px-2"
+          className="mb-12 mx-auto max-w-2xl text-gray-600 px-2"
           style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
         >
           We assist brands with professional <strong className="font-semibold text-gray-900">Video Editing</strong>,{" "}
@@ -126,17 +123,17 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          // FIX 3: Button Layout
-          // Mobile: 'flex-col', 'w-full' (Stacked & wide for touch)
-          // Desktop (sm): 'flex-row', 'w-auto' (Side-by-side, normal size)
-          className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto px-4"
+          // BUTTON LAYOUT:
+          // Mobile: 'flex-col' (Stacks buttons vertically)
+          // Laptop (md): 'md:flex-row' (Side-by-side, normal look)
+          className="flex flex-col md:flex-row gap-4 justify-center w-full md:w-auto px-4"
         >
           <button
             onClick={() => {
               const contactSection = document.getElementById("contact");
               contactSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="group animate-btn-pulse-wait w-full sm:w-auto px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl flex justify-center items-center"
+            className="group animate-btn-pulse-wait px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl flex justify-center items-center"
             style={{
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               color: "white",
@@ -154,7 +151,7 @@ export function Hero() {
               const workSection = document.getElementById("work"); 
               workSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="w-full sm:w-auto px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200"
+            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200"
             style={{
               background: "rgba(255, 255, 255, 0.8)",
               backdropFilter: "blur(10px)",
@@ -169,9 +166,9 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // FIX 4: Stats Grid
-          // Mobile: 'mt-12', 'grid-cols-1' (Stacked vertically so they fit screen width)
-          // Desktop (md): 'md:mt-20', 'md:grid-cols-3' (Original 3-column layout)
+          // STATS LAYOUT:
+          // Mobile: 'mt-12', 'grid-cols-1' (Stacked vertically)
+          // Laptop (md): 'md:mt-20', 'md:grid-cols-3' (Original 3-column layout)
           className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-2"
         >
           {[
