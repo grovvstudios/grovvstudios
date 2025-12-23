@@ -2,8 +2,15 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { TrendingUp, Video, Search, Brain, Globe, Film, Award, ArrowRight, Star, LucideIcon } from "lucide-react";
 import { useRef } from "react";
 
-// --- THE PREMIUM GRADIENT (Reusable) ---
+// --- THE PREMIUM GRADIENT ---
 const ROYAL_GRADIENT = "linear-gradient(135deg, rgb(26, 26, 46) 0%, rgb(102, 126, 234) 50%, rgb(118, 75, 162) 100%)";
+
+// --- THE GLASS STYLE (Used for Badges & Bottom Box) ---
+const GLASS_STYLE = {
+  background: "linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)",
+  border: "1px solid rgba(102, 126, 234, 0.15)",
+  backdropFilter: "blur(10px)"
+};
 
 // --- Types ---
 interface ServiceItem {
@@ -327,12 +334,11 @@ export function Services() {
           viewport={{ once: true }}
           className="text-center mb-16 max-w-3xl mx-auto"
         >
-          {/* FIX 3: Badge styling matches Hero box */}
+          {/* FIX 3: Badge styling matched to Hero (Glassy) */}
           <div 
             className="inline-block mb-4 px-4 py-2 rounded-full text-sm font-medium"
             style={{
-              background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
-              border: "1px solid rgba(102, 126, 234, 0.2)",
+              ...GLASS_STYLE, // Use the glass style constant
               color: "#4b5563"
             }}
           >
@@ -384,7 +390,7 @@ export function Services() {
           ))}
         </div>
 
-        {/* FIX 4: Bottom CTA Redesign (Glass Card) */}
+        {/* FIX 4: Bottom CTA matched to Transparent Pricing badge (Glassy) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -392,10 +398,8 @@ export function Services() {
           viewport={{ once: true }}
           className="text-center mt-20 p-10 rounded-3xl relative overflow-hidden"
           style={{
-            background: "rgba(255, 255, 255, 0.8)",
-            border: "1px solid rgba(102, 126, 234, 0.2)",
+            ...GLASS_STYLE, // Use the glass style constant
             boxShadow: "0 20px 40px -10px rgba(102, 126, 234, 0.1)",
-            backdropFilter: "blur(10px)"
           }}
         >
           {/* Subtle gradient accent in background */}
