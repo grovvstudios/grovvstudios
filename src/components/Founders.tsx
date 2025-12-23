@@ -5,7 +5,7 @@ import { Linkedin } from "lucide-react";
 // Imports
 // ---------------------------------------------------------
 import tafheemImg from "../assets/tafheem.jpg";
-import ayaanImg from "../assets/ayaan.jpeg";
+import ayaanImg from "../assets/ayaan.jpg";
 
 // --- THE ROYAL GRADIENT (Reusable) ---
 const ROYAL_GRADIENT = "linear-gradient(135deg, rgb(26, 26, 46) 0%, rgb(102, 126, 234) 50%, rgb(118, 75, 162) 100%)";
