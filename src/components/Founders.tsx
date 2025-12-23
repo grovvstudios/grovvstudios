@@ -55,8 +55,6 @@ export function Founders() {
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
-        {/* HEADLINE */}
-        // Restored larger margin (mb-20)
         <div className="text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
