@@ -5,21 +5,20 @@ import { Linkedin } from "lucide-react";
 // Imports
 // ---------------------------------------------------------
 import tafheemImg from "../assets/tafheem.jpg";
-import ayaanImg from "../assets/ayaan.jpeg"; 
+import ayaanImg from "../assets/ayaan.jpeg";
 
 const founders = [
   {
     name: "Tafheem Irshad",
     role: "Co-Founder & Director",
-    image: tafheemImg, 
+    image: tafheemImg,
     bio: "The strategic visionary behind Grovv Studios. Tafheem bridges the gap between creative concepts and scalable business growth.",
     linkedin: "https://www.linkedin.com/in/rathertafheem"
   },
-  
   {
     name: "Ayaan Umer",
     role: "Creative Director",
-    image: ayaanImg, 
+    image: ayaanImg,
     bio: "Leading the design philosophy and ensuring our visual output resonates on a psychological level.",
     linkedin: "https://www.linkedin.com/in/ayaan-bhat-423546310/"
   }
@@ -27,9 +26,10 @@ const founders = [
 
 export function Founders() {
   return (
-    <section className="py-24 relative overflow-hidden bg-slate-50">
+    // Removed 'bg-slate-50' to ensure transparency for the global background
+    <section className="py-24 relative overflow-hidden">
       
-      {/* BACKGROUND BLOBS */}
+      {/* BACKGROUND BLOBS - Keeping these as they add local flavor */}
       <div className="absolute inset-0 w-full h-full pointer-events-none">
          <div className="absolute top-[-10%] left-[-10%] w-[600px] h-[600px] bg-indigo-300/30 blur-[120px] rounded-full mix-blend-multiply" />
          <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-fuchsia-300/30 blur-[120px] rounded-full mix-blend-multiply" />
@@ -93,23 +93,27 @@ export function Founders() {
               className="group relative flex flex-col items-center text-center transition-all duration-500 h-full"
               style={{
                 fontFamily: "'Poppins', sans-serif",
-                background: "rgba(255, 255, 255, 0.60)", 
+                // FIX 1: Increased opacity for better visibility
+                background: "rgba(255, 255, 255, 0.85)", 
                 backdropFilter: "blur(24px)", 
                 WebkitBackdropFilter: "blur(24px)",
                 border: "1px solid rgba(255, 255, 255, 0.6)", 
                 borderRadius: "2.5rem",
                 padding: "3rem 2rem",
-                boxShadow: "0 10px 40px -10px rgba(0,0,0,0.05)"
+                // FIX 2: Stronger shadow for separation
+                boxShadow: "0 20px 40px -10px rgba(0,0,0,0.1)"
               }}
             >
               
               <div className="relative mb-8">
                 <div className="absolute -inset-4 bg-gradient-to-tr from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500" />
-                <div className="relative w-44 h-44 rounded-full overflow-hidden shadow-lg z-10 border-[6px] border-white/50">
+                {/* FIX 3: Solid white border to remove "blackish" artifact */}
+                <div className="relative w-44 h-44 rounded-full overflow-hidden shadow-lg z-10 border-[6px] border-white">
                   <img 
                     src={founder.image} 
                     alt={founder.name} 
-                    className="w-full h-full object-cover transform scale-100 group-hover:scale-110 transition-transform duration-700"
+                    // FIX 4: subtler scale on hover
+                    className="w-full h-full object-cover transform scale-100 group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
               </div>
