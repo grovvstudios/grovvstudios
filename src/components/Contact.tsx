@@ -1,6 +1,9 @@
 import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { useState } from "react";
+
+// --- THE PREMIUM GRADIENT ---
+const ROYAL_GRADIENT = "linear-gradient(135deg, rgb(26, 26, 46) 0%, rgb(102, 126, 234) 50%, rgb(118, 75, 162) 100%)";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -66,23 +69,26 @@ export function Contact() {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
+          {/* --- UPDATED HEADLINE START --- */}
           <h2 
-            className="mb-4"
+            className="mb-4 text-4xl md:text-5xl lg:text-6xl"
             style={{ 
               fontFamily: "'Poppins', sans-serif",
-              fontSize: "clamp(2.5rem, 5vw, 4rem)", 
-              fontWeight: "400", 
-              background: "linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #312e81 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
+              fontWeight: "400", // Regular
+              color: "#1f2937", // Dark Gray
             }}
           >
-            Let's <span style={{ fontWeight: "700" }}>Grovv Together.</span>
+            Let's <span style={{ 
+              fontWeight: "700", // Bold
+              background: ROYAL_GRADIENT,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(rgba(0, 0, 0, 0.15) 0px 10px 8px)"
+            }}>Grovv Together.</span>
           </h2>
+          {/* --- UPDATED HEADLINE END --- */}
 
-          <p className="text-gray-600 max-w-2xl mx-auto" style={{ fontSize: "1.125rem" }}>
+          <p className="text-gray-600 max-w-2xl mx-auto text-lg md:text-xl">
             Ready to start your next project? Get in touch and let's make something amazing.
           </p>
         </motion.div>
@@ -98,7 +104,7 @@ export function Contact() {
             style={{
               background: "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%)",
               border: "1px solid rgba(30, 64, 175, 0.1)", 
-              boxShadow: "0 20px 60px rgba(30, 64, 175, 0.05)", // Reduced shadow intensity
+              boxShadow: "0 20px 60px rgba(30, 64, 175, 0.05)",
             }}
           >
             <form className="space-y-6" onSubmit={handleSubmit}>
@@ -141,7 +147,7 @@ export function Contact() {
                 type="submit" 
                 disabled={isSubmitting} 
                 className="w-full py-4 rounded-xl text-white transition-all duration-300 hover:shadow-2xl hover:scale-105 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed" 
-                style={{ background: "linear-gradient(135deg, #1e40af 0%, #312e81 100%)" }}
+                style={{ background: ROYAL_GRADIENT }}
               >
                 {isSubmitting ? "Sending..." : "Send Message"}
                 <Send className="w-5 h-5" />
