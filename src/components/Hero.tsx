@@ -23,12 +23,13 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // MASTER LAYOUT FIX:
-    // 1. Mobile (Default): 'pt-32' (lower start), 'h-auto' (allows scrolling), 'justify-start'
-    // 2. Laptop (md:): 'md:pt-80' (huge gap), 'md:min-h-screen' (full height), 'md:justify-center' (vertically centered)
-    <section className="relative w-full overflow-hidden flex flex-col items-center px-6 pt-32 pb-20 justify-start min-h-[auto] md:min-h-screen md:pt-80 md:pb-32 md:justify-center">
+    // FIX 1: Responsive Layout Engine
+    // Mobile (Default): 'justify-start', 'pt-36'. Starts content at the top so nothing hides behind navbar.
+    // Desktop (md): 'md:justify-center', 'md:pt-80'. Preserves your EXACT laptop look (vertically centered + big top gap).
+    <section className="relative w-full overflow-hidden min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-36 pb-12 md:px-6 md:pt-80 md:pb-32">
       
       <style>{`
+        /* Shine Animation */
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
           30% { transform: translateX(150%) skewX(-25deg); } 
@@ -37,6 +38,8 @@ export function Hero() {
         .animate-shine {
           animation: shine-sweep 8s ease-in-out infinite;
         }
+
+        /* Pulse Animation */
         @keyframes pulse-wait {
           0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
           10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
@@ -48,14 +51,19 @@ export function Hero() {
         }
       `}</style>
 
-      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
+      {/* FIX 2: Visual Hierarchy Container 
+          Using a flex-col with 'gap' ensures perfectly equal spacing between all elements as requested.
+          gap-6 on mobile, gap-10 on desktop.
+      */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center gap-6 md:gap-10">
         
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
+          // Removed individual margin-bottom (mb-8) in favor of parent 'gap' for consistency
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full"
           style={{
             background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
             border: "1px solid rgba(102, 126, 234, 0.2)",
@@ -68,19 +76,19 @@ export function Hero() {
         </motion.div>
 
         {/* HEADLINE */}
-        <div className="relative mb-8 inline-block max-w-full">
+        <div className="relative inline-block max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            // TEXT FIX: 
-            // Mobile: 'whitespace-normal' (Wraps text so it fits screen)
-            // Laptop (md): 'md:whitespace-nowrap' (One big line, exactly as you wanted)
-            className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
+            // FIX 3: Text Wrapping
+            // Mobile: 'whitespace-normal' (Allows wrapping so "G" and "S" stay on screen)
+            // Desktop (md): 'whitespace-nowrap' (Keeps it on one line, preserving your laptop look)
+            className="font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
-              // Responsive Font Size: 2.5rem on phone -> 5.5rem on laptop
+              // Responsive size: 2.5rem on Phone -> 5.5rem on Laptop
               fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
@@ -89,7 +97,7 @@ export function Hero() {
               filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
             }}
           >
-            {/* Span wrapper prevents word-break issues on mobile */}
+            {/* Span wrapper helps mobile browsers break lines correctly */}
             <span className="inline-block">
               <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
               <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
@@ -110,7 +118,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-12 mx-auto max-w-2xl text-gray-600 px-2"
+          className="max-w-2xl text-gray-600 px-2"
           style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
         >
           We assist brands with professional <strong className="font-semibold text-gray-900">Video Editing</strong>,{" "}
@@ -123,9 +131,9 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          // BUTTON LAYOUT:
-          // Mobile: 'flex-col' (Stacks buttons vertically)
-          // Laptop (md): 'md:flex-row' (Side-by-side, normal look)
+          // FIX 4: Button Stack
+          // Mobile: 'flex-col' (Stacked vertically for ease of use)
+          // Desktop: 'md:flex-row' (Side-by-side)
           className="flex flex-col md:flex-row gap-4 justify-center w-full md:w-auto px-4"
         >
           <button
@@ -166,10 +174,11 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // STATS LAYOUT:
-          // Mobile: 'mt-12', 'grid-cols-1' (Stacked vertically)
-          // Laptop (md): 'md:mt-20', 'md:grid-cols-3' (Original 3-column layout)
-          className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-2"
+          // FIX 5: Stats Grid
+          // Mobile: 'grid-cols-1' (Stacked vertically to fit screen)
+          // Desktop: 'md:grid-cols-3' (Original 3-column)
+          // Added 'mt-4' to separate slightly from buttons group
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-2 mt-4"
         >
           {[
             { value: 150, suffix: "+", label: "Projects Delivered" },
