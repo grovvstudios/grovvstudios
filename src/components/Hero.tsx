@@ -25,7 +25,6 @@ export function Hero() {
   return (
     <section className="relative w-full overflow-hidden">
       
-      {/* GLOBAL STYLES FOR ANIMATIONS */}
       <style>{`
         /* Shine Animation */
         @keyframes shine-sweep {
@@ -49,11 +48,13 @@ export function Hero() {
         }
       `}</style>
 
-      {/* Responsive Container Logic:
-         - Mobile: min-h-[100dvh] (Full viewport height minimum), pt-36 (Clear navbar), justify-start (Stack from top)
-         - Desktop (md+): min-h-screen, pt-80 (Your requested huge gap), justify-center (Center vertically)
+      {/* LAYOUT STRATEGY:
+         1. Mobile (Default): min-h-[100dvh], pt-32, justify-start. 
+            This forces content to start BELOW the navbar and scroll naturally.
+         2. Laptop (md:): min-h-screen, pt-80, justify-center.
+            This restores the exact look you liked on your laptop.
       */}
-      <div className="min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-36 pb-16 md:px-6 md:pt-80 md:pb-32">
+      <div className="min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-32 pb-16 md:px-6 md:pt-80 md:pb-32">
         
         <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
           
@@ -81,14 +82,12 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               aria-label="Grovv Studios"
-              // MOBILE OPTIMIZATION:
-              // - whitespace-normal: Allows wrapping on phones so G/S don't cut off
-              // - md:whitespace-nowrap: Forces single line on laptop
+              // MOBILE FIX: whitespace-normal allows wrapping so "G" & "S" don't cut off.
+              // DESKTOP RESTORE: whitespace-nowrap keeps it on one line as you liked.
               className="font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
               style={{
                 fontFamily: "'Poppins', sans-serif",
-                // Responsive Font Size: Smaller start point for mobile safety
-                fontSize: "clamp(2.8rem, 8vw, 5.5rem)", 
+                fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
                 // The "Real Stories" Gradient
                 background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
                 WebkitBackgroundClip: "text",
@@ -101,7 +100,6 @@ export function Hero() {
               <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
             </motion.h1>
 
-            {/* Shine Overlay */}
             <div 
               className="absolute inset-0 w-full h-full pointer-events-none animate-shine"
               style={{
@@ -129,6 +127,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
+            // Mobile: Vertical stack (flex-col). Desktop: Horizontal (flex-row).
             className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto px-4"
           >
             <button
@@ -169,7 +168,10 @@ export function Hero() {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.8 }}
-            // Mobile: mt-12 (closer). Desktop: mt-20 (spaced out).
+            // MOBILE FIX: 
+            // - grid-cols-1 on mobile: Stacks them vertically so they fit perfectly.
+            // - md:grid-cols-3 on laptop: Keeps the 3-column layout you like.
+            // - mt-12 (mobile) vs mt-20 (laptop).
             className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-2"
           >
             {[
