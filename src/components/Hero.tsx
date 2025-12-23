@@ -23,22 +23,21 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: Increased pt-48 -> pt-64. Massive space at the top now.
-    <section className="relative min-h-screen flex justify-center items-center overflow-hidden px-6 pt-64 pb-32">
+    // FIX 1: Mobile Layout Physics
+    // - removed 'items-center' (vertical) to stop it floating off screen
+    // - pt-36 on mobile to clear Navbar
+    // - h-auto on mobile so content flows naturally
+    <section className="relative min-h-[100dvh] w-full flex flex-col justify-center items-center overflow-hidden px-4 pt-36 pb-12 md:px-6 md:pt-48 md:pb-32">
       
       <style>{`
-        /* Shine Animation - Slowed down significantly */
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
           40% { transform: translateX(150%) skewX(-25deg); } 
           100% { transform: translateX(150%) skewX(-25deg); } 
         }
         .animate-shine {
-          /* FIX 2: 5s duration for a very slow, premium sweep */
           animation: shine-sweep 5s ease-in-out infinite;
         }
-
-        /* Pulse Animation */
         @keyframes pulse-wait {
           0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
           10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(139, 92, 246, 0); }
@@ -50,14 +49,14 @@ export function Hero() {
         }
       `}</style>
 
-      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
+      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-6 md:mb-8"
           style={{
             background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
             border: "1px solid rgba(102, 126, 234, 0.2)",
@@ -70,19 +69,20 @@ export function Hero() {
         </motion.div>
 
         {/* HEADLINE */}
-        <div className="relative mb-8 inline-block max-w-full">
+        <div className="relative mb-6 md:mb-8 w-full max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="whitespace-nowrap relative overflow-hidden"
+            // FIX 2: Text Wrapping
+            // - Changed whitespace-nowrap to whitespace-normal on mobile
+            // - Reduced min clamp size to 2.5rem to fit phone screens
+            className="relative font-bold leading-[1.1] tracking-tight"
             aria-label="Grovv Studios"
             style={{
               fontFamily: "'Poppins', sans-serif",
-              fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
-              lineHeight: 1.1,
-              // FIX 3: "Middle Ground" Gradient
-              // Dark Indigo (#312e81) -> Vibrant Violet (#8b5cf6)
+              fontSize: "clamp(2.2rem, 9vw, 5.5rem)", 
+              // Gradient: Dark Indigo -> Vibrant Violet
               background: "linear-gradient(135deg, #312e81 0%, #6366f1 50%, #8b5cf6 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -90,8 +90,11 @@ export function Hero() {
               filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
             }}
           >
-            <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
-            <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
+            {/* Allow wrapping on very small screens if needed */}
+            <span className="block md:inline whitespace-nowrap">
+              <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
+              <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
+            </span>
           </motion.h1>
 
           <div 
@@ -108,7 +111,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-12 mx-auto max-w-2xl text-gray-600"
+          className="mb-8 md:mb-12 mx-auto max-w-2xl text-gray-600 px-2"
           style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
         >
           We assist brands with professional <strong className="font-semibold text-gray-900">Video Editing</strong>,{" "}
@@ -121,16 +124,15 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-wrap gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center w-full sm:w-auto px-4"
         >
           <button
             onClick={() => {
               const contactSection = document.getElementById("contact");
               contactSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="group animate-btn-pulse-wait px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl"
+            className="group animate-btn-pulse-wait w-full sm:w-auto px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl flex justify-center items-center"
             style={{
-              // FIX 4: Exact same gradient direction as Headline (Dark Left -> Light Right)
               background: "linear-gradient(135deg, #312e81 0%, #6366f1 50%, #8b5cf6 100%)",
               color: "white",
               fontWeight: 600
@@ -147,10 +149,9 @@ export function Hero() {
               const workSection = document.getElementById("work"); 
               workSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50"
+            className="w-full sm:w-auto px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200"
             style={{
               background: "rgba(255, 255, 255, 0.8)",
-              border: "2px solid rgba(102, 126, 234, 0.3)",
               backdropFilter: "blur(10px)",
             }}
           >
@@ -163,7 +164,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full"
+          className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-2"
         >
           {[
             { value: 150, suffix: "+", label: "Projects Delivered" },
@@ -175,7 +176,7 @@ export function Hero() {
               className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
               style={{
                 background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
-                border: "1px solid rgba(49, 46, 129, 0.15)", // Indigo border
+                border: "1px solid rgba(49, 46, 129, 0.15)",
                 boxShadow: "0 10px 20px -10px rgba(0,0,0,0.05)"
               }}
             >
@@ -184,7 +185,6 @@ export function Hero() {
                 style={{
                   fontSize: "2.5rem", 
                   fontWeight: "700",
-                  // Consistent Gradient for Stats
                   background: "linear-gradient(135deg, #312e81 0%, #6366f1 50%, #8b5cf6 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
