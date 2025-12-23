@@ -23,11 +23,10 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: Layout & Padding
-    // - 'overflow-visible': Prevents hover effects from being cut off at the bottom
-    // - 'pt-44': Increased mobile padding to clear Navbar
-    // - 'md:pt-80': Kept your preferred desktop spacing
-    <section className="relative w-full overflow-visible min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-44 pb-20 md:px-6 md:pt-80 md:pb-32">
+    // FIX 1: Aggressive Padding Adjustments
+    // Mobile: 'pt-48' (Huge gap to clear navbar), 'justify-start', 'h-auto' (Enables scrolling)
+    // Laptop: 'md:pt-96' (Increased per request), 'md:justify-center' (Centered)
+    <section className="relative w-full overflow-visible min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-48 pb-20 md:px-6 md:pt-96 md:pb-32">
       
       <style>{`
         /* Shine Animation */
@@ -51,7 +50,7 @@ export function Hero() {
           animation: pulse-wait 5s infinite;
         }
 
-        /* FIX 3: Spinning Gradient Border Animation */
+        /* Spinning Gradient Border */
         @keyframes border-spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
@@ -87,7 +86,9 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            // Mobile: wraps text. Desktop: one line.
+            // TEXT FIX: 
+            // Mobile: 'whitespace-normal' (Wraps text so it fits screen)
+            // Laptop (md): 'md:whitespace-nowrap' (One big line, exactly as you wanted)
             className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
@@ -167,13 +168,14 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* FIX 3: SQUARE STATS with ANIMATED BORDER */}
+        {/* Stats cards (SQUARE + ANIMATED BORDER) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // Grid layout: Stacks on mobile, 3-column on desktop
-          // Increased 'gap-6' to separate the squares nicely
+          // FIX 2: Restored Stats Layout
+          // Mobile: 'mt-16', 'grid-cols-1' (Stacked)
+          // Laptop: 'md:mt-24', 'md:grid-cols-3' (Side-by-side)
           className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
         >
           {[
@@ -183,10 +185,9 @@ export function Hero() {
           ].map((stat, index) => (
             <div
               key={index}
-              // 'aspect-square' forces it to be a box
               className="relative aspect-square flex items-center justify-center rounded-3xl overflow-hidden group hover:scale-105 transition-transform duration-300"
             >
-              {/* THE ANIMATED BORDER: Spinning Gradient Layer */}
+              {/* Spinning Border Layer */}
               <div 
                 className="absolute inset-[-50%] animate-border-spin"
                 style={{
@@ -195,7 +196,7 @@ export function Hero() {
                 }}
               />
               
-              {/* THE WHITE CARD CONTENT (Sits on top of spinner) */}
+              {/* White Content Card */}
               <div 
                 className="absolute inset-[2px] bg-white rounded-[22px] flex flex-col items-center justify-center p-6 z-10"
                 style={{
