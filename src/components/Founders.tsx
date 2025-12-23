@@ -9,7 +9,8 @@ import ayaanImg from "../assets/ayaan.jpeg";
 
 // --- THE ROYAL GRADIENT (Reusable) ---
 const ROYAL_GRADIENT = "linear-gradient(135deg, rgb(26, 26, 46) 0%, rgb(102, 126, 234) 50%, rgb(118, 75, 162) 100%)";
-const ROYAL_BLUE = "#667eea"; // Single color for hover states
+// Single color for hover state
+const HOVER_COLOR = "#667eea"; 
 
 const founders = [
   {
@@ -30,8 +31,8 @@ const founders = [
 
 export function Founders() {
   return (
-    // FIX 3: Reduced vertical padding (py-16) to fit screen better
-    <section className="py-16 relative overflow-hidden">
+    // Restored larger padding (py-24)
+    <section className="py-24 relative overflow-hidden">
       
       {/* CSS for the "Breathing" Border Animation */}
       <style>{`
@@ -55,8 +56,8 @@ export function Founders() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* HEADLINE */}
-        // FIX 3: Reduced margin bottom (mb-12)
-        <div className="text-center mb-12">
+        // Restored larger margin (mb-20)
+        <div className="text-center mb-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +96,7 @@ export function Founders() {
         </div>
 
         {/* FOUNDERS GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch justify-center max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch justify-center max-w-4xl mx-auto">
           {founders.map((founder, index) => (
             <motion.div
               key={index}
@@ -103,6 +104,7 @@ export function Founders() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.7, ease: "easeOut" }}
+              // Restored the breathing animation class and larger padding
               className="group relative flex flex-col items-center text-center transition-all duration-500 h-full animate-border-breathe"
               style={{
                 fontFamily: "'Poppins', sans-serif",
@@ -111,39 +113,37 @@ export function Founders() {
                 WebkitBackdropFilter: "blur(24px)",
                 border: "2px solid rgba(102, 126, 234, 0.2)", 
                 borderRadius: "2.5rem",
-                // FIX 3: Reduced card padding to make it more compact
-                padding: "2.5rem 1.5rem",
+                padding: "3rem 2rem",
                 boxShadow: "0 20px 50px -10px rgba(30, 64, 175, 0.05)"
               }}
             >
               
-              <div className="relative mb-6">
+              <div className="relative mb-8">
                 <div className="absolute -inset-6 bg-gradient-to-tr from-blue-200 to-purple-200 rounded-full opacity-0 group-hover:opacity-70 blur-2xl transition-opacity duration-500" />
                 
-                {/* FIX 3 & 2: Slightly smaller container (w-40 h-40), and image is zoomed in (scale-110) */}
-                <div className="relative w-40 h-40 rounded-full overflow-hidden shadow-lg z-10 transition-transform duration-500 group-hover:scale-105">
+                {/* Restored larger image container size (w-48 h-48) and normal scale */}
+                <div className="relative w-48 h-48 rounded-full overflow-hidden shadow-lg z-10 transition-transform duration-500 group-hover:scale-105">
                   <img 
                     src={founder.image} 
                     alt={founder.name} 
-                    // Added scale-110 to zoom image inside the circle
-                    className="w-full h-full object-cover scale-110"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </div>
 
               <h3 
-                className="text-2xl font-bold mb-2 text-gray-900 relative z-10"
+                className="text-2xl font-bold mb-3 text-gray-900 relative z-10"
                 style={{ letterSpacing: "-0.01em" }}
               >
                 {founder.name}
               </h3>
               
-              <div className="mb-5 relative z-10">
+              <div className="mb-6 relative z-10">
                 <span 
                   className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm"
                   style={{
                     background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
-                    color: ROYAL_BLUE,
+                    color: HOVER_COLOR,
                     border: "1px solid rgba(102, 126, 234, 0.2)"
                   }}
                 >
@@ -151,17 +151,15 @@ export function Founders() {
                 </span>
               </div>
 
-              {/* FIX 3: Reduced margin bottom (mb-6) */}
-              <p className="text-gray-600 text-sm leading-relaxed mb-6 relative z-10 flex-grow max-w-sm">
+              <p className="text-gray-600 text-sm leading-relaxed mb-8 relative z-10 flex-grow max-w-sm">
                 {founder.bio}
               </p>
 
-              {/* FIX 1: Clean, minimalist LinkedIn button */}
+              {/* FIX: Simplified LinkedIn Button (No background circle) */}
               <a 
                 href={founder.linkedin} 
                 target="_blank"
                 rel="noopener noreferrer"
-                // Gray by default, Royal Blue on hover. No background box.
                 className="relative z-10 text-gray-400 transition-colors duration-300 hover:text-[#667eea] p-2"
               >
                 <Linkedin size={24} />
