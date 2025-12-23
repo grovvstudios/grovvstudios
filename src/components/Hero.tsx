@@ -23,10 +23,11 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: Responsive Layout Engine
-    // Mobile (Default): 'justify-start', 'pt-36'. Starts content at the top so nothing hides behind navbar.
-    // Desktop (md): 'md:justify-center', 'md:pt-80'. Preserves your EXACT laptop look (vertically centered + big top gap).
-    <section className="relative w-full overflow-hidden min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-36 pb-12 md:px-6 md:pt-80 md:pb-32">
+    // FIX 1: Layout & Padding
+    // - 'overflow-visible': Prevents hover effects from being cut off at the bottom
+    // - 'pt-44': Increased mobile padding to clear Navbar
+    // - 'md:pt-80': Kept your preferred desktop spacing
+    <section className="relative w-full overflow-visible min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-44 pb-20 md:px-6 md:pt-80 md:pb-32">
       
       <style>{`
         /* Shine Animation */
@@ -49,21 +50,25 @@ export function Hero() {
         .animate-btn-pulse-wait {
           animation: pulse-wait 5s infinite;
         }
+
+        /* FIX 3: Spinning Gradient Border Animation */
+        @keyframes border-spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .animate-border-spin {
+          animation: border-spin 4s linear infinite;
+        }
       `}</style>
 
-      {/* FIX 2: Visual Hierarchy Container 
-          Using a flex-col with 'gap' ensures perfectly equal spacing between all elements as requested.
-          gap-6 on mobile, gap-10 on desktop.
-      */}
-      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center gap-6 md:gap-10">
+      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         
         {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          // Removed individual margin-bottom (mb-8) in favor of parent 'gap' for consistency
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full"
+          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
           style={{
             background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
             border: "1px solid rgba(102, 126, 234, 0.2)",
@@ -76,19 +81,16 @@ export function Hero() {
         </motion.div>
 
         {/* HEADLINE */}
-        <div className="relative inline-block max-w-full">
+        <div className="relative mb-8 inline-block max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            // FIX 3: Text Wrapping
-            // Mobile: 'whitespace-normal' (Allows wrapping so "G" and "S" stay on screen)
-            // Desktop (md): 'whitespace-nowrap' (Keeps it on one line, preserving your laptop look)
-            className="font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
+            // Mobile: wraps text. Desktop: one line.
+            className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
-              // Responsive size: 2.5rem on Phone -> 5.5rem on Laptop
               fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
@@ -97,7 +99,6 @@ export function Hero() {
               filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
             }}
           >
-            {/* Span wrapper helps mobile browsers break lines correctly */}
             <span className="inline-block">
               <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
               <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
@@ -118,7 +119,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="max-w-2xl text-gray-600 px-2"
+          className="mb-12 mx-auto max-w-2xl text-gray-600 px-2"
           style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
         >
           We assist brands with professional <strong className="font-semibold text-gray-900">Video Editing</strong>,{" "}
@@ -131,9 +132,6 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          // FIX 4: Button Stack
-          // Mobile: 'flex-col' (Stacked vertically for ease of use)
-          // Desktop: 'md:flex-row' (Side-by-side)
           className="flex flex-col md:flex-row gap-4 justify-center w-full md:w-auto px-4"
         >
           <button
@@ -169,16 +167,14 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* Stats cards */}
+        {/* FIX 3: SQUARE STATS with ANIMATED BORDER */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // FIX 5: Stats Grid
-          // Mobile: 'grid-cols-1' (Stacked vertically to fit screen)
-          // Desktop: 'md:grid-cols-3' (Original 3-column)
-          // Added 'mt-4' to separate slightly from buttons group
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full px-2 mt-4"
+          // Grid layout: Stacks on mobile, 3-column on desktop
+          // Increased 'gap-6' to separate the squares nicely
+          className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
         >
           {[
             { value: 150, suffix: "+", label: "Projects Delivered" },
@@ -187,29 +183,42 @@ export function Hero() {
           ].map((stat, index) => (
             <div
               key={index}
-              className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
-              style={{
-                background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
-                border: "1px solid rgba(102, 126, 234, 0.2)",
-                boxShadow: "0 10px 20px -10px rgba(0,0,0,0.05)"
-              }}
+              // 'aspect-square' forces it to be a box
+              className="relative aspect-square flex items-center justify-center rounded-3xl overflow-hidden group hover:scale-105 transition-transform duration-300"
             >
-              <div
-                className="mb-1"
+              {/* THE ANIMATED BORDER: Spinning Gradient Layer */}
+              <div 
+                className="absolute inset-[-50%] animate-border-spin"
                 style={{
-                  fontSize: "2.5rem", 
-                  fontWeight: "700",
-                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
+                  background: "conic-gradient(from 0deg, transparent 0deg, #667eea 90deg, transparent 180deg, #764ba2 270deg, transparent 360deg)",
+                  opacity: 0.7
+                }}
+              />
+              
+              {/* THE WHITE CARD CONTENT (Sits on top of spinner) */}
+              <div 
+                className="absolute inset-[2px] bg-white rounded-[22px] flex flex-col items-center justify-center p-6 z-10"
+                style={{
+                  boxShadow: "inset 0 0 20px rgba(102, 126, 234, 0.05)"
                 }}
               >
-                <NumberTicker value={stat.value} />
-                {stat.suffix}
+                <div
+                  className="mb-2"
+                  style={{
+                    fontSize: "3rem", 
+                    fontWeight: "700",
+                    background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
+                  }}
+                >
+                  <NumberTicker value={stat.value} />
+                  {stat.suffix}
+                </div>
+                <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
               </div>
-              <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
             </div>
           ))}
         </motion.div>
