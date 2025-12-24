@@ -76,7 +76,7 @@ export function Hero() {
 >
   <span className="flex items-center gap-2">
     <Sparkles className="w-3 h-3 text-[#667eea]" />
-    Elevate your brand • Grow with us
+    Elevate your brand • Grovv with us
   </span>
 </div>
           <motion.h1
