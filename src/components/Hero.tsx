@@ -26,7 +26,7 @@ export function Hero() {
     // FIX 1: Aggressive Padding Adjustments
     // Mobile: 'pt-48' (Huge gap to clear navbar), 'justify-start', 'h-auto' (Enables scrolling)
     // Laptop: 'md:pt-96' (Increased per request), 'md:justify-center' (Centered)
-    <section className="relative w-full overflow-visible min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-48 pb-20 md:px-6 md:pt-96 md:pb-32">
+    <section className="relative w-full overflow-visible min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-90 pb-20 md:px-6 md:pt-96 md:pb-32">
       
       <style>{`
         /* Shine Animation */
