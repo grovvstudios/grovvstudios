@@ -23,19 +23,20 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX: Layout Strategy
-    // Mobile: 'pt-40' (Clear Navbar), 'justify-start' (Scrollable), 'overflow-visible' (Stats visible)
-    // Desktop: 'md:pt-64' (Reduced gap per feedback), 'md:justify-center' (Centered)
-    <section className="relative w-full overflow-visible min-h-[100dvh] md:min-h-screen flex flex-col justify-start items-center px-4 pt-40 pb-20 md:px-6 md:pt-64 md:pb-40 md:justify-center">
+    // Responsive Padding and Layout
+    // Mobile: pt-32 (more top padding to clear navbar), flex-col, justify-start
+    // Desktop: pt-48 (or adjusted as needed), justify-center
+    <section className="relative min-h-screen flex flex-col justify-start md:justify-center items-center overflow-hidden px-6 pt-32 pb-20 md:pt-48 md:pb-32">
       
       <style>{`
         /* Shine Animation */
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
-          30% { transform: translateX(150%) skewX(-25deg); } 
-          100% { transform: translateX(150%) skewX(-25deg); } 
+          30% { transform: translateX(150%) skewX(-25deg); } /* Sweep takes 30% of time */
+          100% { transform: translateX(150%) skewX(-25deg); } /* Waits for 70% of time */
         }
         .animate-shine {
+          /* Slowed down to 8s for a very elegant, rare shine */
           animation: shine-sweep 8s ease-in-out infinite;
         }
 
@@ -49,18 +50,9 @@ export function Hero() {
         .animate-btn-pulse-wait {
           animation: pulse-wait 5s infinite;
         }
-
-        /* Spinning Gradient Border */
-        @keyframes border-spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        .animate-border-spin {
-          animation: border-spin 4s linear infinite;
-        }
       `}</style>
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
+      <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center">
         
         {/* Badge */}
         <motion.div
@@ -85,11 +77,15 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
+            // Responsive font size: clamp adjusts between mobile and desktop sizes
+            // whitespace-normal on mobile allows text to wrap if needed
+            className="whitespace-normal md:whitespace-nowrap relative overflow-hidden font-bold leading-tight"
             aria-label="Grovv Studios"
-            className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontSize: "clamp(2.5rem, 8vw, 5.5rem)", 
+              lineHeight: 1.1,
+              // The "Real Stories" Gradient
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -97,10 +93,8 @@ export function Hero() {
               filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
             }}
           >
-            <span className="inline-block">
-              <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
-              <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
-            </span>
+            <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
+            <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
           </motion.h1>
 
           <div 
@@ -117,7 +111,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-12 mx-auto max-w-2xl text-gray-600 px-2"
+          className="mb-12 mx-auto max-w-2xl text-gray-600 px-4" // Added px-4 for mobile padding
           style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
         >
           We assist brands with professional <strong className="font-semibold text-gray-900">Video Editing</strong>,{" "}
@@ -130,15 +124,16 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col md:flex-row gap-4 justify-center w-full md:w-auto px-4"
+          className="flex flex-col md:flex-row flex-wrap gap-4 justify-center w-full md:w-auto px-4"
         >
           <button
             onClick={() => {
               const contactSection = document.getElementById("contact");
               contactSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="group animate-btn-pulse-wait px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl flex justify-center items-center"
+            className="group animate-btn-pulse-wait px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl w-full md:w-auto flex justify-center items-center"
             style={{
+              // Matches Headline Gradient
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               color: "white",
               fontWeight: 600
@@ -155,9 +150,10 @@ export function Hero() {
               const workSection = document.getElementById("work"); 
               workSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200"
+            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 w-full md:w-auto"
             style={{
               background: "rgba(255, 255, 255, 0.8)",
+              border: "2px solid rgba(102, 126, 234, 0.3)",
               backdropFilter: "blur(10px)",
             }}
           >
@@ -165,12 +161,13 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* Stats cards (SQUARE + ANIMATED BORDER + Z-INDEX FIX) */}
+        {/* Stats cards */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="relative z-20 mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
+          // Grid layout: 1 column on mobile, 3 columns on desktop
+          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-4"
         >
           {[
             { value: 150, suffix: "+", label: "Projects Delivered" },
@@ -179,41 +176,30 @@ export function Hero() {
           ].map((stat, index) => (
             <div
               key={index}
-              className="relative aspect-square flex items-center justify-center rounded-3xl overflow-hidden group hover:scale-105 transition-transform duration-300"
+              className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              style={{
+                background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
+                border: "1px solid rgba(102, 126, 234, 0.2)",
+                boxShadow: "0 10px 20px -10px rgba(0,0,0,0.05)"
+              }}
             >
-              {/* Spinning Border Layer */}
-              <div 
-                className="absolute inset-[-50%] animate-border-spin"
+              <div
+                className="mb-1"
                 style={{
-                  background: "conic-gradient(from 0deg, transparent 0deg, #667eea 90deg, transparent 180deg, #764ba2 270deg, transparent 360deg)",
-                  opacity: 0.7
-                }}
-              />
-              
-              {/* White Content Card (Sits on top) */}
-              <div 
-                className="absolute inset-[2px] bg-white rounded-[22px] flex flex-col items-center justify-center p-6 z-10"
-                style={{
-                  boxShadow: "inset 0 0 20px rgba(102, 126, 234, 0.05)"
+                  fontSize: "2.5rem", 
+                  fontWeight: "700",
+                  // Matches Headline Gradient
+                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
                 }}
               >
-                <div
-                  className="mb-2"
-                  style={{
-                    fontSize: "3rem", 
-                    fontWeight: "700",
-                    background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
-                  }}
-                >
-                  <NumberTicker value={stat.value} />
-                  {stat.suffix}
-                </div>
-                <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
+                <NumberTicker value={stat.value} />
+                {stat.suffix}
               </div>
+              <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
             </div>
           ))}
         </motion.div>
