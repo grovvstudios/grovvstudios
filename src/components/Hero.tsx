@@ -1,12 +1,3 @@
-I completely agree. "Psychological" is great for a hook, but clarity is king for conversion. If they don't know you edit videos or do marketing within 3 seconds, they might leave.
-
-I have rewritten the sub-headline to be the perfect hybrid: it explicitly lists your **Core Services** (Video Editing, Digital Marketing, Branding) first, but finishes with that **Psychological Benefit** (turning viewers into a community).
-
-Here is the updated code.
-
-### `src/components/Hero.tsx`
-
-```tsx
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, useSpring, useTransform, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
@@ -14,6 +5,7 @@ import { useEffect, useRef } from "react";
 // --- Helper: Count-Up Animation Component ---
 function NumberTicker({ value }: { value: number }) {
   const ref = useRef(null);
+  // 'once: true' ensures it runs on load.
   const isInView = useInView(ref, { once: true, margin: "0px" });
   
   const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
@@ -21,7 +13,13 @@ function NumberTicker({ value }: { value: number }) {
 
   useEffect(() => {
     if (isInView) {
-      spring.set(value);
+      // FIX: Added a 1-second delay (1000ms) before the count starts
+      // This ensures you see the animation happen after the page loads.
+      const timeoutId = setTimeout(() => {
+        spring.set(value);
+      }, 1000);
+
+      return () => clearTimeout(timeoutId);
     }
   }, [isInView, spring, value]);
 
@@ -52,29 +50,17 @@ export function Hero() {
         }
       `}</style>
 
-      {/* SPACER: Pushes content down below navbar */}
-      <div className="w-full h-28 md:h-40 flex-shrink-0" />
+      {/* SPACER: 
+         - Removed the badge, so I adjusted the spacer slightly to 
+           ensure GROVV STUDIOS sits perfectly below the navbar.
+         - Mobile: h-32 (128px)
+         - Desktop: h-48 (192px)
+      */}
+      <div className="w-full h-32 md:h-48 flex-shrink-0" />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         
-        {/* 1. BADGE (The Psychological Hook) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
-          style={{
-            background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
-            border: "1px solid rgba(102, 126, 234, 0.2)",
-          }}
-        >
-          <Sparkles className="w-4 h-4 text-[#667eea]" />
-          <span className="text-sm text-gray-600 font-medium tracking-wide">
-            We Architect Digital Influence
-          </span>
-        </motion.div>
-
-        {/* 2. HEADLINE */}
+        {/* 1. HEADLINE (GROVV STUDIOS) */}
         <div className="relative mb-8 inline-block max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -107,7 +93,7 @@ export function Hero() {
           />
         </div>
 
-        {/* 3. SUBHEADING (CLEAR SERVICES + PSYCHOLOGY) */}
+        {/* 2. SUBHEADING (Clear Services) */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,7 +104,7 @@ export function Hero() {
           We provide professional <strong className="text-gray-900 font-semibold">Video Editing</strong>, <strong className="text-gray-900 font-semibold">Digital Marketing</strong>, and <strong className="text-gray-900 font-semibold">Strategic Branding</strong>. We blend creative design with human psychology to turn passive viewers into a loyal community.
         </motion.h2>
 
-        {/* 4. BUTTONS */}
+        {/* 3. BUTTONS */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -160,7 +146,7 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* 5. STATS CARDS */}
+        {/* 4. STATS CARDS (Delayed Animation) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -192,6 +178,7 @@ export function Hero() {
                   filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
                 }}
               >
+                {/* DELAYED TICKER */}
                 <NumberTicker value={stat.value} />
                 {stat.suffix}
               </div>
@@ -203,5 +190,3 @@ export function Hero() {
     </section>
   );
 }
-
-```
