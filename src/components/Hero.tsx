@@ -23,16 +23,20 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // MASTER FIX:
-    // 1. REMOVED 'justify-center'. This stops the browser from pushing content up.
-    // 2. ADDED 'justify-start'. This forces content to respect the top padding strictly.
-    // 3. INCREASED PADDING: 
-    //    - Mobile: 'pt-44' (176px from top)
-    //    - Desktop: 'md:pt-72' (288px from top). This is a HUGE gap. The badge CANNOT be hidden now.
-    <section className="relative w-full overflow-visible min-h-screen flex flex-col justify-start items-center px-4 pt-44 pb-20 md:px-6 md:pt-72 md:pb-40">
+    // ---------------------------------------------------------------------------
+    // MANUAL ADJUSTMENT ZONE
+    // ---------------------------------------------------------------------------
+    // Look at 'md:pt-64'. This controls the Desktop Top Gap.
+    // If it is STILL hidden, change 'md:pt-64' to 'md:pt-80' or 'md:pt-96'.
+    // 
+    // Current Settings:
+    // 1. 'justify-start': Forces content to start from top (FIXES THE HIDDEN ISSUE)
+    // 2. 'pt-40': Mobile top gap.
+    // 3. 'md:pt-64': Desktop top gap (approx 250px). 
+    // ---------------------------------------------------------------------------
+    <section className="relative w-full overflow-visible min-h-screen flex flex-col justify-start items-center px-4 pt-40 pb-20 md:px-6 md:pt-64 md:pb-32">
       
       <style>{`
-        /* Shine Animation */
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
           30% { transform: translateX(150%) skewX(-25deg); } 
@@ -41,8 +45,6 @@ export function Hero() {
         .animate-shine {
           animation: shine-sweep 8s ease-in-out infinite;
         }
-
-        /* Pulse Animation */
         @keyframes pulse-wait {
           0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
           10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
@@ -51,6 +53,13 @@ export function Hero() {
         }
         .animate-btn-pulse-wait {
           animation: pulse-wait 5s infinite;
+        }
+        @keyframes border-spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        .animate-border-spin {
+          animation: border-spin 4s linear infinite;
         }
       `}</style>
 
@@ -80,8 +89,6 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            // PRESERVED BIG FONT:
-            // Mobile: wraps. Desktop: single line, huge text.
             className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
@@ -126,7 +133,6 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          // BUTTON LAYOUT: Stacked on mobile, Row on Desktop
           className="flex flex-col md:flex-row gap-4 justify-center items-center w-full md:w-auto px-4"
         >
           <button
@@ -167,10 +173,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // STATS LAYOUT:
-          // 'z-50': Forces boxes on top.
-          // 'mt-20': Space from buttons.
-          // 'grid-cols-1': Stacked mobile. 'md:grid-cols-3': Row desktop.
+          // Added 'relative' and 'z-50' to force these ON TOP of any other layers
           className="relative z-50 mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
         >
           {[
@@ -180,29 +183,41 @@ export function Hero() {
           ].map((stat, index) => (
             <div
               key={index}
-              className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl"
-              style={{
-                background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
-                border: "1px solid rgba(102, 126, 234, 0.2)",
-                boxShadow: "0 10px 20px -10px rgba(0,0,0,0.05)"
-              }}
+              className="relative aspect-square flex items-center justify-center rounded-3xl overflow-hidden group hover:scale-105 transition-transform duration-300"
             >
-              <div
-                className="mb-1"
+              {/* Spinning Border Layer */}
+              <div 
+                className="absolute inset-[-50%] animate-border-spin"
                 style={{
-                  fontSize: "2.5rem", 
-                  fontWeight: "700",
-                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
+                  background: "conic-gradient(from 0deg, transparent 0deg, #667eea 90deg, transparent 180deg, #764ba2 270deg, transparent 360deg)",
+                  opacity: 0.7
+                }}
+              />
+              
+              {/* White Content Card */}
+              <div 
+                className="absolute inset-[2px] bg-white rounded-[22px] flex flex-col items-center justify-center p-6 z-10"
+                style={{
+                  boxShadow: "inset 0 0 20px rgba(102, 126, 234, 0.05)"
                 }}
               >
-                <NumberTicker value={stat.value} />
-                {stat.suffix}
+                <div
+                  className="mb-2"
+                  style={{
+                    fontSize: "3rem", 
+                    fontWeight: "700",
+                    background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                    filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
+                  }}
+                >
+                  <NumberTicker value={stat.value} />
+                  {stat.suffix}
+                </div>
+                <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
               </div>
-              <div className="text-gray-600 text-sm font-medium">{stat.label}</div>
             </div>
           ))}
         </motion.div>
