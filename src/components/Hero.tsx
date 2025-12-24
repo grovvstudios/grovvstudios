@@ -23,10 +23,7 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // LAYOUT STRATEGY: "The Spacer Method"
-    // - overflow-visible: Ensures stats don't get cut off at the bottom.
-    // - flex-col: Stacks everything vertically.
-    // - NO justify-center: We rely on the spacer to push content down.
+    // FIX: Removed centering. We use the Spacer to push content down.
     <section className="relative w-full overflow-visible min-h-screen flex flex-col items-center px-4 md:px-6 pb-32">
       
       <style>{`
@@ -47,12 +44,12 @@ export function Hero() {
         }
       `}</style>
 
-      {/* --- THE "BULLY" SPACER --- 
-          This invisible box sits at the top and forces everything down.
-          - Mobile: 160px height (h-40)
-          - Laptop: 256px height (md:h-64) -> This guarantees the badge clears the navbar.
+      {/* --- THE FIX: SPACER CUT IN HALF --- 
+          Previous: h-40 md:h-64 (Too big)
+          Current:  h-20 md:h-32 (Perfect)
+          This pushes the badge just enough to clear the navbar.
       */}
-      <div className="w-full h-40 md:h-64 flex-shrink-0" />
+      <div className="w-full h-20 md:h-32 flex-shrink-0" />
 
       {/* MAIN CONTENT WRAPPER */}
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
@@ -81,7 +78,6 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            // Text logic: Wraps on phone, Single line on laptop
             className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
@@ -121,7 +117,7 @@ export function Hero() {
           <strong className="font-semibold text-gray-900">Social Media Growth</strong>. 
         </motion.h2>
 
-        {/* 4. BUTTONS (Sized Correctly) */}
+        {/* 4. BUTTONS */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -133,7 +129,6 @@ export function Hero() {
               const contactSection = document.getElementById("contact");
               contactSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            // 'w-auto' and 'min-w' prevents stretching
             className="group px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 flex justify-center items-center w-full md:w-auto min-w-[200px]"
             style={{
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
@@ -152,7 +147,6 @@ export function Hero() {
               const workSection = document.getElementById("work"); 
               workSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            // 'w-auto' and 'min-w' prevents stretching
             className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200 w-full md:w-auto min-w-[200px]"
             style={{
               background: "rgba(255, 255, 255, 0.8)",
@@ -163,12 +157,12 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* 5. STATS BOXES (Visible & Square) */}
+        {/* 5. STATS BOXES - VISIBILITY FIX */}
+        {/* Added z-50 to ensure they sit on top of everything and are not hidden */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // z-50 forces them on top of everything.
           className="relative z-50 mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
         >
           {[
