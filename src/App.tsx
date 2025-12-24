@@ -35,11 +35,11 @@ export default function App() {
           
           <SectionDivider />
 
-          {/* 2. TESTIMONIALS */}
-          <section id="testimonials" className="relative scroll-mt-24">
-            <Testimonials />
+           {/* 4. SERVICES (Portfolio) */}
+          <section id="services" className="relative scroll-mt-24">
+            <Services />
           </section>
-
+     
           <SectionDivider />
 
           {/* 3. PROCESS */}
@@ -48,11 +48,11 @@ export default function App() {
           </section>
 
           <SectionDivider />
-
-          {/* 4. SERVICES (Portfolio) */}
-          <section id="services" className="relative scroll-mt-24">
-            <Services />
+          {/* 2. TESTIMONIALS */}
+          <section id="testimonials" className="relative scroll-mt-24">
+            <Testimonials />
           </section>
+         
 
           <SectionDivider />
 
