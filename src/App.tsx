@@ -33,7 +33,6 @@ export default function App() {
             <Hero />
           </section>
 
-          <SectionAnchor />
           <SectionDivider />
 
            {/* 4. SERVICES (Portfolio) */}
