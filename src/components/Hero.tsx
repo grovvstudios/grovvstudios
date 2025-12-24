@@ -5,7 +5,6 @@ import { useEffect, useRef } from "react";
 // --- Helper: Count-Up Animation Component ---
 function NumberTicker({ value }: { value: number }) {
   const ref = useRef(null);
-  // FIX: 'once: true' ensures it runs immediately on load
   const isInView = useInView(ref, { once: true, margin: "0px" });
   
   const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
@@ -45,12 +44,16 @@ export function Hero() {
         }
       `}</style>
 
-      {/* SPACER: Pushes content down (112px mobile / 160px desktop) */}
-      <div className="w-full h-28 md:h-40 flex-shrink-0" />
+      {/* --- SPACER FIX --- 
+          Increased significantly to clear the Navbar for the big text.
+          - Mobile: h-40 (160px)
+          - Desktop: md:h-56 (224px)
+      */}
+      <div className="w-full h-40 md:h-56 flex-shrink-0" />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         
-        {/* 1. HEADLINE (MOVED TO TOP) */}
+        {/* 1. HEADLINE (GROVV STUDIOS) */}
         <div className="relative mb-8 inline-block max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -60,7 +63,7 @@ export function Hero() {
             className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
-              fontSize: "clamp(3.5rem, 9vw, 6rem)", // Slightly larger start size
+              fontSize: "clamp(3.5rem, 9vw, 6rem)", 
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -83,7 +86,7 @@ export function Hero() {
           />
         </div>
 
-        {/* 2. BADGE (MOVED BELOW HEADLINE) */}
+        {/* 2. BADGE (ELEVATE) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -107,7 +110,7 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex flex-col md:flex-row gap-4 justify-center items-center w-full px-4"
         >
-          {/* Button 1: Start Project (Standard) */}
+          {/* Button 1: Start Project */}
           <button
             onClick={() => {
               const contactSection = document.getElementById("contact");
@@ -126,13 +129,12 @@ export function Hero() {
             </span>
           </button>
 
-          {/* Button 2: View Our Work (BREATHING BORDER) */}
+          {/* Button 2: View Our Work (Breathing Border) */}
           <button
             onClick={() => {
               const workSection = document.getElementById("work"); 
               workSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            // Added 'animate-border-breathe'
             className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium bg-white/80 hover:bg-gray-50 w-full md:w-auto min-w-[200px] animate-border-breathe"
             style={{
               border: "2px solid rgba(102, 126, 234, 0.2)",
@@ -143,7 +145,7 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* 4. STATS CARDS (BREATHING BORDER + IMMEDIATE COUNT) */}
+        {/* 4. STATS CARDS */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -157,7 +159,6 @@ export function Hero() {
           ].map((stat, index) => (
             <div
               key={index}
-              // Added 'animate-border-breathe'
               className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl flex flex-col items-center justify-center animate-border-breathe"
               style={{
                 background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
