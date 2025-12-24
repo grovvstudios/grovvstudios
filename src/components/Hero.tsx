@@ -64,6 +64,21 @@ export function Hero() {
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         {/* 1. HEADLINE */}
         <div className="relative mb-8 inline-block max-w-full">
+       <div
+  className="inline-block mb-6 px-4 py-2 rounded-full text-sm font-medium"
+  style={{
+    background:
+      "linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)",
+    border: "1px solid rgba(102, 126, 234, 0.15)",
+    backdropFilter: "blur(10px)",
+    color: "rgb(75, 85, 99)",
+  }}
+>
+  <span className="flex items-center gap-2">
+    <Sparkles className="w-3 h-3 text-[#667eea]" />
+    Elevate your brand • Grow with us
+  </span>
+</div>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
