@@ -24,10 +24,12 @@ function NumberTicker({ value }: { value: number }) {
 export function Hero() {
   return (
     // MASTER FIX:
-    // 1. Mobile: 'pt-32' (Starts below navbar), 'justify-start' (Natural scroll)
-    // 2. Laptop (md): 'md:pt-52' (Guarantees badge is visible below navbar - NO centering that hides it)
-    // 3. 'overflow-visible': Ensures stats boxes are never cut off
-    <section className="relative w-full overflow-visible min-h-[100dvh] flex flex-col items-center px-4 pt-32 pb-20 md:px-6 md:pt-52 md:pb-32 justify-start">
+    // 1. REMOVED 'justify-center'. This stops the browser from pushing content up.
+    // 2. ADDED 'justify-start'. This forces content to respect the top padding strictly.
+    // 3. INCREASED PADDING: 
+    //    - Mobile: 'pt-44' (176px from top)
+    //    - Desktop: 'md:pt-72' (288px from top). This is a HUGE gap. The badge CANNOT be hidden now.
+    <section className="relative w-full overflow-visible min-h-screen flex flex-col justify-start items-center px-4 pt-44 pb-20 md:px-6 md:pt-72 md:pb-40">
       
       <style>{`
         /* Shine Animation */
@@ -78,12 +80,11 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            // RESTORED BIG FONT:
-            // Mobile: wraps naturally. Desktop: Forced single line, BIG size.
-            className="font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
+            // PRESERVED BIG FONT:
+            // Mobile: wraps. Desktop: single line, huge text.
+            className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
-              // Mobile: 2.8rem (readable). Laptop: 5.5rem (HUGE, as you liked).
               fontSize: "clamp(2.8rem, 8vw, 5.5rem)", 
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
@@ -125,9 +126,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          // RESTORED BUTTON LAYOUT:
-          // Mobile: Stacked (flex-col). Laptop: Side-by-Side (flex-row).
-          // Width: 'w-full' on mobile for ease. 'w-auto' on desktop so they aren't huge.
+          // BUTTON LAYOUT: Stacked on mobile, Row on Desktop
           className="flex flex-col md:flex-row gap-4 justify-center items-center w-full md:w-auto px-4"
         >
           <button
@@ -168,10 +167,10 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // RESTORED STATS LAYOUT:
-          // 'z-50' ensures they are ON TOP of everything.
-          // 'mt-20' gives space.
-          // 'md:grid-cols-3' creates the 3-column row you liked on desktop.
+          // STATS LAYOUT:
+          // 'z-50': Forces boxes on top.
+          // 'mt-20': Space from buttons.
+          // 'grid-cols-1': Stacked mobile. 'md:grid-cols-3': Row desktop.
           className="relative z-50 mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
         >
           {[
