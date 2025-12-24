@@ -23,10 +23,9 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: Aggressive Padding Adjustments
-    // Mobile: 'pt-48' (Huge gap to clear navbar), 'justify-start', 'h-auto' (Enables scrolling)
-    // Laptop: 'md:pt-96' (Increased per request), 'md:justify-center' (Centered)
-    <section className="relative w-full overflow-visible min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-48 pb-20 md:px-6 md:pt-96 md:pb-32">
+    // FIX 1: 'overflow-visible' allows the stats boxes to hang down without being cut off.
+    // FIX 2: 'pt-40' (Mobile) & 'md:pt-64' (Desktop) pushes the badge clearly below the navbar.
+    <section className="relative w-full overflow-visible min-h-[100dvh] md:min-h-screen flex flex-col justify-start items-center px-4 pt-40 pb-20 md:px-6 md:pt-64 md:pb-32 md:justify-center">
       
       <style>{`
         /* Shine Animation */
@@ -86,9 +85,7 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            // TEXT FIX: 
-            // Mobile: 'whitespace-normal' (Wraps text so it fits screen)
-            // Laptop (md): 'md:whitespace-nowrap' (One big line, exactly as you wanted)
+            // TEXT FIX: Wraps on mobile, single line on desktop
             className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
@@ -168,14 +165,14 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* Stats cards (SQUARE + ANIMATED BORDER) */}
+        {/* FIX 3: SQUARE STATS with ANIMATED BORDER */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // FIX 2: Restored Stats Layout
-          // Mobile: 'mt-16', 'grid-cols-1' (Stacked)
-          // Laptop: 'md:mt-24', 'md:grid-cols-3' (Side-by-side)
+          // Mobile: Stacked (grid-cols-1)
+          // Laptop: 3 Columns (md:grid-cols-3)
+          // Spacing: mt-16 to give breathing room from buttons
           className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
         >
           {[
@@ -185,6 +182,7 @@ export function Hero() {
           ].map((stat, index) => (
             <div
               key={index}
+              // aspect-square forces box shape
               className="relative aspect-square flex items-center justify-center rounded-3xl overflow-hidden group hover:scale-105 transition-transform duration-300"
             >
               {/* Spinning Border Layer */}
@@ -196,7 +194,7 @@ export function Hero() {
                 }}
               />
               
-              {/* White Content Card */}
+              {/* White Content Card (Sits on top) */}
               <div 
                 className="absolute inset-[2px] bg-white rounded-[22px] flex flex-col items-center justify-center p-6 z-10"
                 style={{
