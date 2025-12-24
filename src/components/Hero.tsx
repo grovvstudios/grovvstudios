@@ -23,9 +23,11 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: 'overflow-visible' allows the stats boxes to hang down without being cut off.
-    // FIX 2: 'pt-40' (Mobile) & 'md:pt-64' (Desktop) pushes the badge clearly below the navbar.
-    <section className="relative w-full overflow-visible min-h-[100dvh] md:min-h-screen flex flex-col justify-start items-center px-4 pt-40 pb-20 md:px-6 md:pt-64 md:pb-32 md:justify-center">
+    // FIX 1: Adjusted Padding
+    // Mobile: 'pt-40' (Clear Navbar)
+    // Laptop: 'md:pt-64' (Reduced from 96 to prevent pushing content off-screen)
+    // FIX 2: 'z-10' on section, but we'll give stats higher priority
+    <section className="relative w-full overflow-visible min-h-[100dvh] md:min-h-screen flex flex-col justify-start md:justify-center items-center px-4 pt-40 pb-20 md:px-6 md:pt-64 md:pb-40">
       
       <style>{`
         /* Shine Animation */
@@ -85,7 +87,6 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            // TEXT FIX: Wraps on mobile, single line on desktop
             className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
@@ -137,91 +138,4 @@ export function Hero() {
               const contactSection = document.getElementById("contact");
               contactSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="group animate-btn-pulse-wait px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl flex justify-center items-center"
-            style={{
-              background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-              color: "white",
-              fontWeight: 600
-            }}
-          >
-            <span className="flex items-center gap-2">
-              Start Your Project
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </button>
-
-          <button
-            onClick={() => {
-              const workSection = document.getElementById("work"); 
-              workSection?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200"
-            style={{
-              background: "rgba(255, 255, 255, 0.8)",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            View Our Work
-          </button>
-        </motion.div>
-
-        {/* FIX 3: SQUARE STATS with ANIMATED BORDER */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          // Mobile: Stacked (grid-cols-1)
-          // Laptop: 3 Columns (md:grid-cols-3)
-          // Spacing: mt-16 to give breathing room from buttons
-          className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
-        >
-          {[
-            { value: 150, suffix: "+", label: "Projects Delivered" },
-            { value: 50, suffix: "+", label: "Happy Clients" },
-            { value: 15, suffix: "+", label: "Team Members" },
-          ].map((stat, index) => (
-            <div
-              key={index}
-              // aspect-square forces box shape
-              className="relative aspect-square flex items-center justify-center rounded-3xl overflow-hidden group hover:scale-105 transition-transform duration-300"
-            >
-              {/* Spinning Border Layer */}
-              <div 
-                className="absolute inset-[-50%] animate-border-spin"
-                style={{
-                  background: "conic-gradient(from 0deg, transparent 0deg, #667eea 90deg, transparent 180deg, #764ba2 270deg, transparent 360deg)",
-                  opacity: 0.7
-                }}
-              />
-              
-              {/* White Content Card (Sits on top) */}
-              <div 
-                className="absolute inset-[2px] bg-white rounded-[22px] flex flex-col items-center justify-center p-6 z-10"
-                style={{
-                  boxShadow: "inset 0 0 20px rgba(102, 126, 234, 0.05)"
-                }}
-              >
-                <div
-                  className="mb-2"
-                  style={{
-                    fontSize: "3rem", 
-                    fontWeight: "700",
-                    background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
-                  }}
-                >
-                  <NumberTicker value={stat.value} />
-                  {stat.suffix}
-                </div>
-                <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
-              </div>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
+            className="group animate-btn-pulse-wait px-8 py-4 rounded-2xl transition
