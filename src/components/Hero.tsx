@@ -1,3 +1,12 @@
+I completely agree. "Psychological" is great for a hook, but clarity is king for conversion. If they don't know you edit videos or do marketing within 3 seconds, they might leave.
+
+I have rewritten the sub-headline to be the perfect hybrid: it explicitly lists your **Core Services** (Video Editing, Digital Marketing, Branding) first, but finishes with that **Psychological Benefit** (turning viewers into a community).
+
+Here is the updated code.
+
+### `src/components/Hero.tsx`
+
+```tsx
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, useSpring, useTransform, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
@@ -5,7 +14,6 @@ import { useEffect, useRef } from "react";
 // --- Helper: Count-Up Animation Component ---
 function NumberTicker({ value }: { value: number }) {
   const ref = useRef(null);
-  // FIX: 'once: true' ensures it runs immediately on load
   const isInView = useInView(ref, { once: true, margin: "0px" });
   
   const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
@@ -22,9 +30,6 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // MASTER LAYOUT:
-    // 1. 'justify-start': Content starts from top (pushed by spacer).
-    // 2. 'overflow-visible': Stats boxes will never be cut off.
     <section className="relative w-full overflow-visible min-h-screen flex flex-col items-center px-4 md:px-6 pb-32">
       
       <style>{`
@@ -37,7 +42,6 @@ export function Hero() {
           animation: shine-sweep 8s ease-in-out infinite;
         }
 
-        /* THE "BREATHING" BORDER ANIMATION */
         @keyframes border-breathe {
           0% { border-color: rgba(102, 126, 234, 0.2); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
           50% { border-color: rgba(102, 126, 234, 0.5); box-shadow: 0 0 15px rgba(102, 126, 234, 0.15); }
@@ -48,16 +52,12 @@ export function Hero() {
         }
       `}</style>
 
-      {/* --- THE SPACER --- 
-          - Mobile: h-28 (112px)
-          - Desktop: md:h-40 (160px)
-          Guarantees content starts below navbar, but not too far down.
-      */}
+      {/* SPACER: Pushes content down below navbar */}
       <div className="w-full h-28 md:h-40 flex-shrink-0" />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         
-        {/* 1. THE PSYCHOLOGIST LINE (BADGE) */}
+        {/* 1. BADGE (The Psychological Hook) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -107,7 +107,7 @@ export function Hero() {
           />
         </div>
 
-        {/* 3. THE HOOK (SUB-HEADLINE) */}
+        {/* 3. SUBHEADING (CLEAR SERVICES + PSYCHOLOGY) */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -115,7 +115,7 @@ export function Hero() {
           className="mb-12 mx-auto max-w-3xl text-gray-600 px-4"
           style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
         >
-          We turn passive viewers into a loyal community. By blending <strong className="text-gray-900 font-semibold">Human Psychology</strong> with <strong className="text-gray-900 font-semibold">AI Automation</strong>, we scale your brand without the chaos.
+          We provide professional <strong className="text-gray-900 font-semibold">Video Editing</strong>, <strong className="text-gray-900 font-semibold">Digital Marketing</strong>, and <strong className="text-gray-900 font-semibold">Strategic Branding</strong>. We blend creative design with human psychology to turn passive viewers into a loyal community.
         </motion.h2>
 
         {/* 4. BUTTONS */}
@@ -160,7 +160,7 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* 5. STATS CARDS (Breathing Border + Immediate Count) */}
+        {/* 5. STATS CARDS */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -203,3 +203,5 @@ export function Hero() {
     </section>
   );
 }
+
+```
