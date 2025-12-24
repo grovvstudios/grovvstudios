@@ -7,19 +7,16 @@ function NumberTicker({ value }: { value: number }) {
   const ref = useRef(null);
   const motionValue = useMotionValue(0);
   const springValue = useTransform(motionValue, (value) => Math.round(value));
-  // Removed 'once: true' so it triggers EVERY time you scroll to it
   const isInView = useInView(ref, { margin: "0px" });
 
   useEffect(() => {
     if (isInView) {
-      // Animate from 0 to value over 1.5 seconds
       const controls = animate(motionValue, value, {
         duration: 1.5,
         ease: "easeOut",
       });
       return () => controls.stop();
     } else {
-      // Reset to 0 instantly when scrolled out of view
       motionValue.set(0);
     }
   }, [isInView, value, motionValue]);
@@ -51,12 +48,13 @@ export function Hero() {
         }
       `}</style>
 
-      {/* --- BIG SPACER BOX --- 
-          Pushes content down from the Navbar.
-          Mobile: h-32 (128px)
-          Desktop: h-56 (224px)
+      {/* --- THE "BIG BOX" SPACER --- 
+          I have increased this significantly to force content down.
+          Mobile: h-48 (192px) 
+          Desktop: h-72 (288px)
+          This acts as a physical barrier so the text CANNOT hide behind the navbar.
       */}
-      <div className="w-full h-32 md:h-56 flex-shrink-0" />
+      <div className="w-full h-48 md:h-72 flex-shrink-0" />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         
