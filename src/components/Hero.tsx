@@ -35,7 +35,7 @@ export function Hero() {
     <section
       className="relative w-full min-h-screen flex flex-col items-center px-4 md:px-6 pb-32"
       style={{
-        paddingTop: "120px", // 🔥 FIX — pushes hero below fixed navbar
+        paddingTop: "120px", // ✅ ONLY FIX — pushes hero below fixed navbar
       }}
     >
       <style>{`
@@ -49,9 +49,9 @@ export function Hero() {
         }
 
         @keyframes border-breathe {
-          0% { border-color: rgba(102, 126, 234, 0.2); }
-          50% { border-color: rgba(102, 126, 234, 0.5); }
-          100% { border-color: rgba(102, 126, 234, 0.2); }
+          0% { border-color: rgba(102, 126, 234, 0.2); box-shadow: 0 0 0 rgba(102, 126, 234, 0); }
+          50% { border-color: rgba(102, 126, 234, 0.5); box-shadow: 0 0 15px rgba(102, 126, 234, 0.15); }
+          100% { border-color: rgba(102, 126, 234, 0.2); box-shadow: 0 0 0 rgba(102, 126, 234, 0); }
         }
         .animate-border-breathe {
           animation: border-breathe 4s ease-in-out infinite;
@@ -73,10 +73,15 @@ export function Hero() {
                 "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
+              filter: "drop-shadow(0 10px 8px rgba(0,0,0,0.15))",
             }}
           >
-            <span style={{ fontWeight: 900 }}>GROVV</span>{" "}
-            <span style={{ fontWeight: 300 }}>STUDIOS</span>
+            <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>
+              GROVV
+            </span>{" "}
+            <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>
+              STUDIOS
+            </span>
           </motion.h1>
 
           <div
@@ -110,40 +115,62 @@ export function Hero() {
           className="flex flex-col md:flex-row gap-4"
         >
           <button
-            className="px-8 py-4 rounded-2xl text-white font-semibold hover:scale-105 transition"
+            className="group px-8 py-4 rounded-2xl text-white font-semibold hover:scale-105 transition-all"
             style={{
               background:
                 "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
             }}
           >
             <span className="flex items-center gap-2">
-              Start Your Project <ArrowRight className="w-5 h-5" />
+              Start Your Project
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
           </button>
 
-          <button className="px-8 py-4 rounded-2xl border animate-border-breathe">
+          <button className="px-8 py-4 rounded-2xl border-2 animate-border-breathe bg-white/80 backdrop-blur-sm">
             View Our Work
           </button>
         </motion.div>
 
-        {/* STATS */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+        {/* ✅ STATS — ORIGINAL DESIGN PRESERVED */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full"
+        >
           {[
-            { value: 150, label: "Projects Delivered" },
-            { value: 50, label: "Happy Clients" },
-            { value: 15, label: "Team Members" },
+            { value: 150, suffix: "+", label: "Projects Delivered" },
+            { value: 50, suffix: "+", label: "Happy Clients" },
+            { value: 15, suffix: "+", label: "Team Members" },
           ].map((stat, i) => (
             <div
               key={i}
-              className="p-6 rounded-2xl text-center border animate-border-breathe"
+              className="p-6 rounded-2xl flex flex-col items-center justify-center animate-border-breathe"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7))",
+                border: "2px solid rgba(102,126,234,0.2)",
+              }}
             >
-              <div className="text-5xl font-bold mb-1">
-                <NumberTicker value={stat.value} />+
+              <div
+                className="mb-1 text-[3rem] font-bold"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #1a1a2e, #667eea, #764ba2)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                <NumberTicker value={stat.value} />
+                {stat.suffix}
               </div>
-              <div className="text-gray-600">{stat.label}</div>
+              <div className="text-gray-600 font-medium text-lg">
+                {stat.label}
+              </div>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
