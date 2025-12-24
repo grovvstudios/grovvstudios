@@ -5,7 +5,9 @@ import { useEffect, useRef } from "react";
 // --- Helper: Count-Up Animation Component ---
 function NumberTicker({ value }: { value: number }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-50px" });
+  // FIX: 'once: true' ensures it runs immediately on load and stays there.
+  // 'margin: "0px"' triggers it as soon as it appears on screen.
+  const isInView = useInView(ref, { once: true, margin: "0px" });
   
   const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
   const display = useTransform(spring, (current) => Math.round(current));
@@ -13,8 +15,6 @@ function NumberTicker({ value }: { value: number }) {
   useEffect(() => {
     if (isInView) {
       spring.set(value);
-    } else {
-      spring.set(0);
     }
   }, [isInView, spring, value]);
 
@@ -23,10 +23,7 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // MASTER LAYOUT:
-    // 1. 'overflow-visible': Ensures stats boxes hang down freely.
-    // 2. 'justify-start': We use the physical spacer to push content down, not flex alignment.
-    <section className="relative w-full overflow-visible min-h-screen flex flex-col justify-start items-center px-4 pb-20 md:px-6 md:pb-40">
+    <section className="relative w-full overflow-visible min-h-screen flex flex-col items-center px-4 md:px-6 pb-32">
       
       <style>{`
         @keyframes shine-sweep {
@@ -37,22 +34,19 @@ export function Hero() {
         .animate-shine {
           animation: shine-sweep 8s ease-in-out infinite;
         }
-        
-        /* SPINNING BORDER ANIMATION */
-        @keyframes border-spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+
+        /* THE "BREATHING" BORDER ANIMATION (From Founders Section) */
+        @keyframes border-breathe {
+          0% { border-color: rgba(102, 126, 234, 0.2); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
+          50% { border-color: rgba(102, 126, 234, 0.5); box-shadow: 0 0 15px rgba(102, 126, 234, 0.15); }
+          100% { border-color: rgba(102, 126, 234, 0.2); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
         }
-        .animate-border-spin {
-          animation: border-spin 4s linear infinite;
+        .animate-border-breathe {
+          animation: border-breathe 4s ease-in-out infinite;
         }
       `}</style>
 
-      {/* --- THE SPACER (The Fix for Navbar Overlap) --- 
-          - Mobile: h-28 (112px)
-          - Desktop: md:h-40 (160px)
-          This pushes the badge down safely without being "too big".
-      */}
+      {/* SPACER: Pushes content down below navbar */}
       <div className="w-full h-28 md:h-40 flex-shrink-0" />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
@@ -81,7 +75,6 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            // Mobile: wraps. Desktop: single line big text.
             className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
@@ -147,33 +140,29 @@ export function Hero() {
             </span>
           </button>
 
-          {/* Button 2: View Our Work (ANIMATED GRADIENT BORDER) */}
+          {/* Button 2: View Our Work (WITH BREATHING BORDER) */}
           <button
             onClick={() => {
               const workSection = document.getElementById("work"); 
               workSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            // 'relative group overflow-hidden' needed for the border trick
-            className="relative group p-[2px] rounded-2xl w-full md:w-auto min-w-[200px] overflow-hidden hover:scale-105 transition-transform duration-300"
+            // Added 'animate-border-breathe' class here
+            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium bg-white/80 hover:bg-gray-50 w-full md:w-auto min-w-[200px] animate-border-breathe"
+            style={{
+              border: "2px solid rgba(102, 126, 234, 0.2)",
+              backdropFilter: "blur(10px)",
+            }}
           >
-            {/* The Spinning Gradient Background */}
-            <div className="absolute inset-[-100%] animate-border-spin" 
-                 style={{ background: "conic-gradient(from 0deg, transparent 0deg, #667eea 90deg, transparent 180deg, #764ba2 270deg, transparent 360deg)" }} 
-            />
-            
-            {/* The White Button Content */}
-            <div className="relative h-full bg-white rounded-[14px] px-8 py-4 flex items-center justify-center">
-              <span className="text-gray-700 font-medium">View Our Work</span>
-            </div>
+            View Our Work
           </button>
         </motion.div>
 
-        {/* 5. STATS CARDS (SQUARE + ANIMATED BORDER + VISIBLE) */}
+        {/* 5. STATS CARDS (WITH BREATHING BORDER + IMMEDIATE COUNT UP) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // z-50 forces visibility. mt-20 gives spacing.
+          // z-50 forces visibility on top of everything
           className="relative z-50 mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
         >
           {[
@@ -183,42 +172,29 @@ export function Hero() {
           ].map((stat, index) => (
             <div
               key={index}
-              // Container for the animated border
-              className="relative aspect-square flex items-center justify-center rounded-3xl overflow-hidden group hover:scale-105 transition-transform duration-300 p-[2px]"
+              // Added 'animate-border-breathe' class here
+              className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl flex flex-col items-center justify-center animate-border-breathe"
+              style={{
+                background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
+                border: "2px solid rgba(102, 126, 234, 0.2)", // Base border for animation
+              }}
             >
-              {/* Spinning Border Layer */}
-              <div 
-                className="absolute inset-[-50%] animate-border-spin"
+              <div
+                className="mb-1"
                 style={{
-                  background: "conic-gradient(from 0deg, transparent 0deg, #667eea 90deg, transparent 180deg, #764ba2 270deg, transparent 360deg)",
-                  opacity: 0.7
-                }}
-              />
-              
-              {/* White Content Card */}
-              <div 
-                className="relative w-full h-full bg-white rounded-[22px] flex flex-col items-center justify-center p-6 z-10"
-                style={{
-                  boxShadow: "inset 0 0 20px rgba(102, 126, 234, 0.05)"
+                  fontSize: "3rem", 
+                  fontWeight: "700",
+                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
                 }}
               >
-                <div
-                  className="mb-2"
-                  style={{
-                    fontSize: "3rem", 
-                    fontWeight: "700",
-                    background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
-                  }}
-                >
-                  <NumberTicker value={stat.value} />
-                  {stat.suffix}
-                </div>
-                <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
+                <NumberTicker value={stat.value} />
+                {stat.suffix}
               </div>
+              <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
             </div>
           ))}
         </motion.div>
