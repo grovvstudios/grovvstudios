@@ -1,29 +1,63 @@
 import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, useSpring, useTransform, useInView } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-// --- Helper: Count-Up Animation Component ---
-function NumberTicker({ value }: { value: number }) {
+// --- STAT CARD COMPONENT (Handles Hover & Animation Logic) ---
+function StatCard({ stat, index }: { stat: { value: number; suffix: string; label: string }; index: number }) {
+  const [isHovered, setIsHovered] = useState(false);
   const ref = useRef(null);
-  // 'once: true' ensures it runs on load.
   const isInView = useInView(ref, { once: true, margin: "0px" });
   
+  // Spring physics for the counter
   const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
   const display = useTransform(spring, (current) => Math.round(current));
 
   useEffect(() => {
+    // 1. INITIAL LOAD ANIMATION (2.5s Delay)
     if (isInView) {
-      // FIX: Added a 1-second delay (1000ms) before the count starts
-      // This ensures you see the animation happen after the page loads.
       const timeoutId = setTimeout(() => {
-        spring.set(value);
-      }, 1000);
-
+        spring.set(stat.value);
+      }, 2500); // 2.5 second delay for site load
       return () => clearTimeout(timeoutId);
     }
-  }, [isInView, spring, value]);
+  }, [isInView, spring, stat.value]);
 
-  return <motion.span ref={ref}>{display}</motion.span>;
+  // 2. HOVER ANIMATION (Instant Replay)
+  useEffect(() => {
+    if (isHovered) {
+      spring.jump(0); // Reset instantly to 0
+      setTimeout(() => spring.set(stat.value), 50); // Trigger animation up
+    }
+  }, [isHovered, spring, stat.value]);
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl flex flex-col items-center justify-center animate-border-breathe cursor-pointer"
+      style={{
+        background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
+        border: "2px solid rgba(102, 126, 234, 0.2)",
+      }}
+    >
+      <div
+        className="mb-1"
+        style={{
+          fontSize: "3rem", 
+          fontWeight: "700",
+          background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+          filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
+        }}
+      >
+        <motion.span ref={ref}>{display}</motion.span>
+        {stat.suffix}
+      </div>
+      <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
+    </div>
+  );
 }
 
 export function Hero() {
@@ -50,13 +84,12 @@ export function Hero() {
         }
       `}</style>
 
-      {/* SPACER: 
-         - Removed the badge, so I adjusted the spacer slightly to 
-           ensure GROVV STUDIOS sits perfectly below the navbar.
-         - Mobile: h-32 (128px)
-         - Desktop: h-48 (192px)
+      {/* --- SPACER (The "Transparent Box") --- 
+          Pushes content down to clear the Navbar.
+          - Mobile: h-32 (128px)
+          - Desktop: h-56 (224px) -> Ensures GROVV STUDIOS is fully visible
       */}
-      <div className="w-full h-32 md:h-48 flex-shrink-0" />
+      <div className="w-full h-32 md:h-56 flex-shrink-0" />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         
@@ -93,15 +126,15 @@ export function Hero() {
           />
         </div>
 
-        {/* 2. SUBHEADING (Clear Services) */}
+        {/* 2. SUBHEADING (The "Wow" Hook) */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-12 mx-auto max-w-3xl text-gray-600 px-4"
-          style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
+          className="mb-12 mx-auto max-w-4xl text-gray-600 px-4"
+          style={{ fontSize: "1.25rem", lineHeight: "1.6", fontWeight: 400 }}
         >
-          We provide professional <strong className="text-gray-900 font-semibold">Video Editing</strong>, <strong className="text-gray-900 font-semibold">Digital Marketing</strong>, and <strong className="text-gray-900 font-semibold">Strategic Branding</strong>. We blend creative design with human psychology to turn passive viewers into a loyal community.
+          We don't just edit videos; we engineer influence. By fusing <strong className="text-gray-900 font-semibold">High-End Production</strong> with <strong className="text-gray-900 font-semibold">Behavioral Psychology</strong>, we turn passive scrollers into a loyal, paying community.
         </motion.h2>
 
         {/* 3. BUTTONS */}
@@ -146,7 +179,7 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* 4. STATS CARDS (Delayed Animation) */}
+        {/* 4. STATS CARDS (Interactive) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -158,32 +191,7 @@ export function Hero() {
             { value: 50, suffix: "+", label: "Happy Clients" },
             { value: 15, suffix: "+", label: "Team Members" },
           ].map((stat, index) => (
-            <div
-              key={index}
-              className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl flex flex-col items-center justify-center animate-border-breathe"
-              style={{
-                background: "linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%)",
-                border: "2px solid rgba(102, 126, 234, 0.2)",
-              }}
-            >
-              <div
-                className="mb-1"
-                style={{
-                  fontSize: "3rem", 
-                  fontWeight: "700",
-                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
-                }}
-              >
-                {/* DELAYED TICKER */}
-                <NumberTicker value={stat.value} />
-                {stat.suffix}
-              </div>
-              <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
-            </div>
+            <StatCard key={index} stat={stat} index={index} />
           ))}
         </motion.div>
       </div>
