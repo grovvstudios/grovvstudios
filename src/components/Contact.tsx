@@ -164,7 +164,7 @@ export function Contact() {
             className="flex flex-col justify-center space-y-8"
           >
             {[
-              { icon: Mail, title: "Email", content: "grovvstudios@gmail.com", gradient: "linear-gradient(135deg, #1e40af 0%, #312e81 100%)" },
+              { icon: Mail, title: "Email", content: "contact@grovvstudios.com", gradient: "linear-gradient(135deg, #1e40af 0%, #312e81 100%)" },
               { icon: Phone, title: "Phone", content: "+91 9906303013 +91 9103109107", gradient: "linear-gradient(135deg, #3730a3 0%, #4338ca 100%)" },
               { icon: MapPin, title: "Location", content: "Srinagar, J&K, 190018, India", gradient: "linear-gradient(135deg, #1e3a8a 0%, #172554 100%)" },
             ].map((item, index) => {
