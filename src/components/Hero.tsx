@@ -36,7 +36,7 @@ function NumberTicker({ value }: { value: number }) {
 export function Hero() {
   return (
     <section
-      className="relative w-full overflow-visible min-h-screen flex flex-col items-center px-4 md:px-6 pb-32"
+      className="relative w-full overflow-visible md:min-h-screen flex flex-col items-center px-4 md:px-6 pb-16 md:pb-32"
       style={{
         paddingTop: "120px", // ✅ ONLY FIX — pushes hero below fixed navbar
       }}
@@ -177,7 +177,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="relative z-50 mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
+          className="relative z-50 mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
         >
           {[
             { value: 150, suffix: "+", label: "Projects Delivered" },
