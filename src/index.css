@@ -2605,3 +2605,49 @@ body::before {
   filter: blur(40px);
   transform: translateZ(0);
 }
+/* ================================
+   PREMIUM AMBIENT SCROLL LAYER
+   (Non-destructive, additive)
+   ================================ */
+
+:root {
+  --bg-scroll: 0px;
+}
+
+/* This class is used by <PremiumBackground /> */
+.premium-ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      700px 500px at 15% 10%,
+      rgba(102, 126, 234, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      600px 450px at 85% 25%,
+      rgba(118, 75, 162, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 600px at 50% 85%,
+      rgba(102, 126, 234, 0.06),
+      transparent 65%
+    );
+
+  filter: blur(48px);
+  transform: translateY(var(--bg-scroll));
+  transition: transform 0.06s linear;
+  will-change: transform;
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .premium-ambient-bg {
+    transform: none !important;
+    transition: none !important;
+  }
+}
