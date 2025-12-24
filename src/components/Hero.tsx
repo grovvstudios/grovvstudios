@@ -13,7 +13,7 @@ function NumberTicker({ value }: { value: number }) {
   const ref = useRef(null);
   const motionValue = useMotionValue(0);
   const springValue = useTransform(motionValue, (v) => Math.round(v));
-  const isInView = useInView(ref, { margin: "0px" });
+  const isInView = useInView(ref);
 
   useEffect(() => {
     if (isInView) {
@@ -33,8 +33,8 @@ function NumberTicker({ value }: { value: number }) {
 export function Hero() {
   return (
     <section
-      className="relative w-full overflow-visible md:min-h-screen flex flex-col items-center px-4 md:px-6 pb-16 md:pb-32"
-      style={{ paddingTop: "120px" }} // navbar offset
+      className="relative w-full md:min-h-screen px-4 md:px-6 pb-16 md:pb-32"
+      style={{ paddingTop: "120px" }}
     >
       <style>{`
         @keyframes shine-sweep {
@@ -47,157 +47,135 @@ export function Hero() {
         }
 
         @keyframes border-breathe {
-          0% { border-color: rgba(102, 126, 234, 0.2); box-shadow: 0 0 0 rgba(102, 126, 234, 0); }
-          50% { border-color: rgba(102, 126, 234, 0.5); box-shadow: 0 0 15px rgba(102, 126, 234, 0.15); }
-          100% { border-color: rgba(102, 126, 234, 0.2); box-shadow: 0 0 0 rgba(102, 126, 234, 0); }
+          0% { border-color: rgba(102,126,234,.2); }
+          50% { border-color: rgba(102,126,234,.5); }
+          100% { border-color: rgba(102,126,234,.2); }
         }
         .animate-border-breathe {
           animation: border-breathe 4s ease-in-out infinite;
         }
       `}</style>
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
+      <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
 
         {/* BADGE */}
-        <div
-          className="inline-block mt-8 mb-8 px-4 py-2 rounded-full text-sm font-medium"
-          style={{
-            background:
-              "linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)",
-            border: "1px solid rgba(102, 126, 234, 0.15)",
-            backdropFilter: "blur(10px)",
-            color: "rgb(75, 85, 99)",
-          }}
-        >
-          <span className="flex items-center gap-2">
+        <div className="mb-10">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(102,126,234,.05), rgba(118,75,162,.05))",
+              border: "1px solid rgba(102,126,234,.15)",
+              backdropFilter: "blur(10px)",
+              color: "rgb(75,85,99)",
+            }}
+          >
             <Sparkles className="w-3 h-3 text-[#667eea]" />
             Elevate your brand • Grovv with us
-          </span>
+          </div>
         </div>
 
-        {/* HEADLINE */}
-        <div className="relative mb-6 inline-block max-w-full">
+        {/* HEADING */}
+        <div className="mb-8 relative">
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
+            transition={{ duration: 0.8 }}
+            className="font-bold leading-[1.05]"
             style={{
               fontFamily: "'Poppins', sans-serif",
               fontSize: "clamp(3.5rem, 9vw, 6rem)",
               background:
-                "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                "linear-gradient(135deg, #1a1a2e, #667eea, #764ba2)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              filter: "drop-shadow(0 10px 8px rgba(0,0,0,0.15))",
             }}
           >
-            <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>
-              GROVV
-            </span>{" "}
-            <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>
-              STUDIOS
-            </span>
+            <span style={{ fontWeight: 900 }}>GROVV</span>{" "}
+            <span style={{ fontWeight: 300 }}>STUDIOS</span>
           </motion.h1>
 
           <div
             className="absolute inset-0 pointer-events-none animate-shine"
             style={{
               background:
-                "linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent)",
+                "linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent)",
               mixBlendMode: "overlay",
             }}
           />
         </div>
 
-        {/* SUBHEADING */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
+        {/* SUBTEXT */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-10 max-w-3xl text-gray-600 px-4"
-          style={{ fontSize: "1.25rem", lineHeight: "1.6", fontWeight: 400 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="mb-14 max-w-3xl text-gray-600 text-lg"
         >
           We assist brands with professional{" "}
-          <strong className="text-gray-900 font-semibold">Video Editing</strong>,{" "}
-          <strong className="text-gray-900 font-semibold">AI Automation</strong>, and{" "}
-          <strong className="text-gray-900 font-semibold">Social Media Growth</strong>.
-        </motion.h2>
+          <strong className="text-gray-900">Video Editing</strong>,{" "}
+          <strong className="text-gray-900">AI Automation</strong>, and{" "}
+          <strong className="text-gray-900">Social Media Growth</strong>.
+        </motion.p>
 
-        {/* BUTTONS */}
+        {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-10 flex flex-col md:flex-row gap-4 justify-center items-center w-full px-4"
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="mb-16 flex flex-col md:flex-row gap-4 w-full justify-center"
         >
           <button
-            className="group px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 flex justify-center items-center w-full md:w-auto min-w-[200px]"
+            className="px-8 py-4 rounded-2xl text-white font-semibold hover:scale-105 transition"
             style={{
               background:
-                "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-              color: "white",
-              fontWeight: 600,
+                "linear-gradient(135deg, #1a1a2e, #667eea, #764ba2)",
             }}
           >
             <span className="flex items-center gap-2">
-              Start Your Project
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              Start Your Project <ArrowRight className="w-5 h-5" />
             </span>
           </button>
 
-          <button
-            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium bg-white/80 hover:bg-gray-50 w-full md:w-auto min-w-[200px] animate-border-breathe"
-            style={{
-              border: "2px solid rgba(102, 126, 234, 0.2)",
-              backdropFilter: "blur(10px)",
-            }}
-          >
+          <button className="px-8 py-4 rounded-2xl bg-white/80 border animate-border-breathe">
             View Our Work
           </button>
         </motion.div>
 
         {/* STATS */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           {[
-            { value: 150, suffix: "+", label: "Projects Delivered" },
-            { value: 50, suffix: "+", label: "Happy Clients" },
-            { value: 15, suffix: "+", label: "Team Members" },
-          ].map((stat, index) => (
+            { value: 150, label: "Projects Delivered" },
+            { value: 50, label: "Happy Clients" },
+            { value: 15, label: "Team Members" },
+          ].map((stat, i) => (
             <div
-              key={index}
-              className="p-6 rounded-2xl backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:shadow-xl flex flex-col items-center justify-center animate-border-breathe"
+              key={i}
+              className="p-6 rounded-2xl text-center animate-border-breathe"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7))",
-                border: "2px solid rgba(102,126,234,0.2)",
+                  "linear-gradient(135deg, rgba(255,255,255,.9), rgba(255,255,255,.7))",
+                border: "2px solid rgba(102,126,234,.2)",
               }}
             >
               <div
-                className="mb-1"
+                className="text-5xl font-bold mb-1"
                 style={{
-                  fontSize: "3rem",
-                  fontWeight: 700,
                   background:
                     "linear-gradient(135deg, #1a1a2e, #667eea, #764ba2)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                <NumberTicker value={stat.value} />
-                {stat.suffix}
+                <NumberTicker value={stat.value} />+
               </div>
-              <div className="text-gray-600 font-medium text-lg">
+              <div className="text-gray-600 font-medium">
                 {stat.label}
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
+
       </div>
     </section>
   );
