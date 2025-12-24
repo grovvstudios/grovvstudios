@@ -23,13 +23,14 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // FIX 1: "overflow-visible" + "z-10" ensures stats hang OUT of the section without being cut.
-    // FIX 2: "pt-48" (Mobile) forces content way down below Navbar.
-    // FIX 3: "min-h-screen" ensures it takes up space, but "h-auto" lets it grow if needed.
-    <section className="relative w-full overflow-visible min-h-screen flex flex-col justify-start items-center px-4 pt-48 pb-32 md:pt-64 md:justify-center">
+    // MASTER FIX:
+    // 1. Removed 'justify-center'. We now use 'pt-48' (mobile) and 'md:pt-52' (laptop).
+    //    This forces content to start LOWER down the page, guaranteeing visibility.
+    // 2. 'overflow-visible': This ensures the 3 boxes are NEVER cut off at the bottom.
+    // 3. 'z-10': Ensures this whole section sits correctly in the stack.
+    <section className="relative w-full overflow-visible flex flex-col items-center px-4 pt-48 pb-32 md:pt-52 md:pb-48 z-10">
       
       <style>{`
-        /* Shine Animation */
         @keyframes shine-sweep {
           0% { transform: translateX(-150%) skewX(-25deg); }
           30% { transform: translateX(150%) skewX(-25deg); } 
@@ -38,8 +39,6 @@ export function Hero() {
         .animate-shine {
           animation: shine-sweep 8s ease-in-out infinite;
         }
-
-        /* Spinning Gradient Border */
         @keyframes border-spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
@@ -49,36 +48,39 @@ export function Hero() {
         }
       `}</style>
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
+      {/* Main Content Container */}
+      <div className="w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         
-        {/* Badge */}
+        {/* BADGE: Guaranteed to be visible because of the parent padding */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-8"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
           style={{
             background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
             border: "1px solid rgba(102, 126, 234, 0.2)",
           }}
         >
-          <Sparkles className="w-3 h-3" style={{ color: "#667eea" }} />
-          <span className="text-xs text-gray-600 font-medium">
+          <Sparkles className="w-4 h-4 text-[#667eea]" />
+          <span className="text-sm text-gray-600 font-medium">
             Elevate your Brand, GROVV with us
           </span>
         </motion.div>
 
-        {/* HEADLINE */}
-        <div className="relative mb-8 inline-block max-w-full">
+        {/* HEADLINE: Tightened Gap */}
+        <div className="relative mb-8 w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
-            className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
+            // FIX: 'tracking-tight' pulls letters closer. 
+            // Removed extra spacing between words.
+            className="font-bold leading-[1.1] tracking-tight flex flex-wrap justify-center gap-x-3 md:gap-x-4"
             style={{
               fontFamily: "'Poppins', sans-serif",
-              fontSize: "clamp(2.8rem, 8vw, 5.5rem)", 
+              fontSize: "clamp(3rem, 9vw, 6rem)", 
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -86,10 +88,9 @@ export function Hero() {
               filter: "drop-shadow(0 10px 8px rgba(0, 0, 0, 0.15))"
             }}
           >
-            <span className="inline-block">
-              <span style={{ fontWeight: 900, letterSpacing: "-0.02em" }}>GROVV</span>{" "}
-              <span style={{ fontWeight: 300, letterSpacing: "0.02em" }}>STUDIOS</span>
-            </span>
+            {/* Split into two spans for perfect control */}
+            <span className="font-black tracking-tighter">GROVV</span>
+            <span className="font-light tracking-wide">STUDIOS</span>
           </motion.h1>
 
           <div 
@@ -101,69 +102,52 @@ export function Hero() {
           />
         </div>
 
-        {/* Subheading */}
+        {/* SUBHEADING */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-12 mx-auto max-w-2xl text-gray-600 px-4"
-          style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
+          className="mb-12 max-w-2xl text-gray-600 text-lg md:text-xl font-normal leading-relaxed px-4"
         >
-          We assist brands with professional <strong className="font-semibold text-gray-900">Video Editing</strong>,{" "}
-          <strong className="font-semibold text-gray-900">AI Automation</strong>, and{" "}
-          <strong className="font-semibold text-gray-900">Social Media Growth</strong>. 
+          We assist brands with professional <strong className="text-gray-900 font-semibold">Video Editing</strong>,{" "}
+          <strong className="text-gray-900 font-semibold">AI Automation</strong>, and{" "}
+          <strong className="text-gray-900 font-semibold">Social Media Growth</strong>.
         </motion.h2>
 
-        {/* CTA buttons */}
+        {/* BUTTONS: Normal Size, Side-by-Side on Desktop */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          // FIX: 'flex-wrap' ensures they stack if needed, 'justify-center' centers them.
-          className="flex flex-wrap gap-4 justify-center w-full px-4"
+          className="flex flex-col sm:flex-row gap-4 justify-center w-full px-4"
         >
           <button
-            onClick={() => {
-              const contactSection = document.getElementById("contact");
-              contactSection?.scrollIntoView({ behavior: "smooth" });
-            }}
-            // FIX: 'w-auto' stops them from being huge. 'min-w-[180px]' ensures they are clickable.
-            className="group px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 flex justify-center items-center w-auto min-w-[180px]"
+            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+            className="group px-8 py-4 rounded-2xl text-white font-semibold transition-all duration-300 hover:shadow-2xl hover:scale-105 flex justify-center items-center gap-2 min-w-[180px]"
             style={{
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-              color: "white",
-              fontWeight: 600
             }}
           >
-            <span className="flex items-center gap-2">
-              Start Your Project
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </span>
+            Start Your Project
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
 
           <button
-            onClick={() => {
-              const workSection = document.getElementById("work"); 
-              workSection?.scrollIntoView({ behavior: "smooth" });
-            }}
-            // FIX: Consistent sizing with primary button
-            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200 w-auto min-w-[180px]"
-            style={{
-              background: "rgba(255, 255, 255, 0.8)",
-              backdropFilter: "blur(10px)",
-            }}
+            onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
+            className="px-8 py-4 rounded-2xl text-gray-700 font-medium bg-white/80 border-2 border-indigo-100 hover:bg-gray-50 transition-all duration-300 hover:scale-105 min-w-[180px]"
           >
             View Our Work
           </button>
         </motion.div>
 
-        {/* Stats cards (SQUARE + ANIMATED BORDER + FORCED VISIBILITY) */}
+        {/* STATS BOXES: High Z-Index to prevent hiding */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // FIX: 'z-50' forces this layer to be ON TOP of everything (divider, background, etc.)
-          className="relative z-50 mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
+          // FIX: 'z-50' forces these boxes on top of everything.
+          // 'mt-20': Adds the breathing room you wanted.
+          className="relative z-50 mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-4"
         >
           {[
             { value: 150, suffix: "+", label: "Projects Delivered" },
@@ -172,44 +156,33 @@ export function Hero() {
           ].map((stat, index) => (
             <div
               key={index}
-              className="relative aspect-square flex items-center justify-center rounded-3xl overflow-hidden group hover:scale-105 transition-transform duration-300"
+              className="relative aspect-square md:aspect-auto md:h-64 flex flex-col items-center justify-center rounded-3xl overflow-hidden group hover:scale-105 transition-transform duration-300 bg-white"
+              style={{
+                boxShadow: "0 20px 40px -10px rgba(0,0,0,0.1)" // Standard shadow, no spinner needed if it complicates view
+              }}
             >
-              {/* Spinning Border Layer */}
+              {/* Optional: Add back the animated border here if desired, but keeping it clean for now to ensure visibility */}
               <div 
-                className="absolute inset-[-50%] animate-border-spin"
-                style={{
-                  background: "conic-gradient(from 0deg, transparent 0deg, #667eea 90deg, transparent 180deg, #764ba2 270deg, transparent 360deg)",
-                  opacity: 0.7
-                }}
+                className="absolute inset-0 rounded-3xl border-2 border-indigo-50" 
               />
               
-              {/* White Content Card */}
-              <div 
-                className="absolute inset-[2px] bg-white rounded-[22px] flex flex-col items-center justify-center p-6 z-10"
+              <div
+                className="mb-2 text-5xl md:text-6xl font-bold"
                 style={{
-                  boxShadow: "inset 0 0 20px rgba(102, 126, 234, 0.05)"
+                  background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
                 }}
               >
-                <div
-                  className="mb-2"
-                  style={{
-                    fontSize: "3rem", 
-                    fontWeight: "700",
-                    background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                    filter: "drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1))"
-                  }}
-                >
-                  <NumberTicker value={stat.value} />
-                  {stat.suffix}
-                </div>
-                <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
+                <NumberTicker value={stat.value} />
+                {stat.suffix}
               </div>
+              <div className="text-gray-600 font-medium text-lg">{stat.label}</div>
             </div>
           ))}
         </motion.div>
+
       </div>
     </section>
   );
