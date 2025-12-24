@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 // --- Helper: Count-Up Animation Component ---
 function NumberTicker({ value }: { value: number }) {
   const ref = useRef(null);
+  // FIX: 'once: true' ensures it runs immediately on load
   const isInView = useInView(ref, { once: true, margin: "0px" });
   
   const spring = useSpring(0, { mass: 0.8, stiffness: 75, damping: 15 });
@@ -21,6 +22,9 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
+    // MASTER LAYOUT:
+    // 1. 'justify-start': Content starts from top (pushed by spacer).
+    // 2. 'overflow-visible': Stats boxes will never be cut off.
     <section className="relative w-full overflow-visible min-h-screen flex flex-col items-center px-4 md:px-6 pb-32">
       
       <style>{`
@@ -44,16 +48,33 @@ export function Hero() {
         }
       `}</style>
 
-      {/* --- SPACER FIX --- 
-          Increased significantly to clear the Navbar for the big text.
-          - Mobile: h-40 (160px)
-          - Desktop: md:h-56 (224px)
+      {/* --- THE SPACER --- 
+          - Mobile: h-28 (112px)
+          - Desktop: md:h-40 (160px)
+          Guarantees content starts below navbar, but not too far down.
       */}
-      <div className="w-full h-40 md:h-56 flex-shrink-0" />
+      <div className="w-full h-28 md:h-40 flex-shrink-0" />
 
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         
-        {/* 1. HEADLINE (GROVV STUDIOS) */}
+        {/* 1. THE PSYCHOLOGIST LINE (BADGE) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
+          style={{
+            background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
+            border: "1px solid rgba(102, 126, 234, 0.2)",
+          }}
+        >
+          <Sparkles className="w-4 h-4 text-[#667eea]" />
+          <span className="text-sm text-gray-600 font-medium tracking-wide">
+            We Architect Digital Influence
+          </span>
+        </motion.div>
+
+        {/* 2. HEADLINE */}
         <div className="relative mb-8 inline-block max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -86,31 +107,25 @@ export function Hero() {
           />
         </div>
 
-        {/* 2. BADGE (ELEVATE) */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-12"
-          style={{
-            background: "linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)",
-            border: "1px solid rgba(102, 126, 234, 0.2)",
-          }}
-        >
-          <Sparkles className="w-4 h-4 text-[#667eea]" />
-          <span className="text-sm text-gray-600 font-medium">
-            Elevate your Brand, GROVV with us
-          </span>
-        </motion.div>
-
-        {/* 3. BUTTONS */}
-        <motion.div
+        {/* 3. THE HOOK (SUB-HEADLINE) */}
+        <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
+          className="mb-12 mx-auto max-w-3xl text-gray-600 px-4"
+          style={{ fontSize: "1.125rem", lineHeight: "1.6", fontWeight: 400 }}
+        >
+          We turn passive viewers into a loyal community. By blending <strong className="text-gray-900 font-semibold">Human Psychology</strong> with <strong className="text-gray-900 font-semibold">AI Automation</strong>, we scale your brand without the chaos.
+        </motion.h2>
+
+        {/* 4. BUTTONS */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col md:flex-row gap-4 justify-center items-center w-full px-4"
         >
-          {/* Button 1: Start Project */}
+          {/* Start Project */}
           <button
             onClick={() => {
               const contactSection = document.getElementById("contact");
@@ -129,7 +144,7 @@ export function Hero() {
             </span>
           </button>
 
-          {/* Button 2: View Our Work (Breathing Border) */}
+          {/* View Work (Breathing Border) */}
           <button
             onClick={() => {
               const workSection = document.getElementById("work"); 
@@ -145,11 +160,11 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* 4. STATS CARDS */}
+        {/* 5. STATS CARDS (Breathing Border + Immediate Count) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
+          transition={{ duration: 1, delay: 0.8 }}
           className="relative z-50 mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
         >
           {[
