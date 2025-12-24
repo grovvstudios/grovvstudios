@@ -23,18 +23,11 @@ function NumberTicker({ value }: { value: number }) {
 
 export function Hero() {
   return (
-    // ---------------------------------------------------------------------------
-    // MANUAL ADJUSTMENT ZONE
-    // ---------------------------------------------------------------------------
-    // Look at 'md:pt-64'. This controls the Desktop Top Gap.
-    // If it is STILL hidden, change 'md:pt-64' to 'md:pt-80' or 'md:pt-96'.
-    // 
-    // Current Settings:
-    // 1. 'justify-start': Forces content to start from top (FIXES THE HIDDEN ISSUE)
-    // 2. 'pt-40': Mobile top gap.
-    // 3. 'md:pt-64': Desktop top gap (approx 250px). 
-    // ---------------------------------------------------------------------------
-    <section className="relative w-full overflow-visible min-h-screen flex flex-col justify-start items-center px-4 pt-40 pb-20 md:px-6 md:pt-64 md:pb-32">
+    // LAYOUT STRATEGY: "The Spacer Method"
+    // - overflow-visible: Ensures stats don't get cut off at the bottom.
+    // - flex-col: Stacks everything vertically.
+    // - NO justify-center: We rely on the spacer to push content down.
+    <section className="relative w-full overflow-visible min-h-screen flex flex-col items-center px-4 md:px-6 pb-32">
       
       <style>{`
         @keyframes shine-sweep {
@@ -45,15 +38,6 @@ export function Hero() {
         .animate-shine {
           animation: shine-sweep 8s ease-in-out infinite;
         }
-        @keyframes pulse-wait {
-          0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4); }
-          10% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(102, 126, 234, 0); }
-          20% { transform: scale(1); box-shadow: 0 0 0 0 rgba(102, 126, 234, 0); }
-          100% { transform: scale(1); }
-        }
-        .animate-btn-pulse-wait {
-          animation: pulse-wait 5s infinite;
-        }
         @keyframes border-spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
@@ -63,9 +47,17 @@ export function Hero() {
         }
       `}</style>
 
+      {/* --- THE "BULLY" SPACER --- 
+          This invisible box sits at the top and forces everything down.
+          - Mobile: 160px height (h-40)
+          - Laptop: 256px height (md:h-64) -> This guarantees the badge clears the navbar.
+      */}
+      <div className="w-full h-40 md:h-64 flex-shrink-0" />
+
+      {/* MAIN CONTENT WRAPPER */}
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         
-        {/* Badge */}
+        {/* 1. BADGE */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -82,13 +74,14 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* HEADLINE */}
+        {/* 2. HEADLINE */}
         <div className="relative mb-8 inline-block max-w-full">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             aria-label="Grovv Studios"
+            // Text logic: Wraps on phone, Single line on laptop
             className="relative overflow-hidden font-bold leading-[1.1] tracking-tight whitespace-normal md:whitespace-nowrap"
             style={{
               fontFamily: "'Poppins', sans-serif",
@@ -115,7 +108,7 @@ export function Hero() {
           />
         </div>
 
-        {/* Subheading */}
+        {/* 3. SUBHEADING */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -128,19 +121,20 @@ export function Hero() {
           <strong className="font-semibold text-gray-900">Social Media Growth</strong>. 
         </motion.h2>
 
-        {/* CTA buttons */}
+        {/* 4. BUTTONS (Sized Correctly) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col md:flex-row gap-4 justify-center items-center w-full md:w-auto px-4"
+          className="flex flex-col md:flex-row gap-4 justify-center items-center w-full px-4"
         >
           <button
             onClick={() => {
               const contactSection = document.getElementById("contact");
               contactSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="group animate-btn-pulse-wait w-full md:w-auto px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl flex justify-center items-center min-w-[200px]"
+            // 'w-auto' and 'min-w' prevents stretching
+            className="group px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 flex justify-center items-center w-full md:w-auto min-w-[200px]"
             style={{
               background: "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
               color: "white",
@@ -158,7 +152,8 @@ export function Hero() {
               const workSection = document.getElementById("work"); 
               workSection?.scrollIntoView({ behavior: "smooth" });
             }}
-            className="w-full md:w-auto px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200 min-w-[200px]"
+            // 'w-auto' and 'min-w' prevents stretching
+            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium hover:bg-gray-50 border border-gray-200 w-full md:w-auto min-w-[200px]"
             style={{
               background: "rgba(255, 255, 255, 0.8)",
               backdropFilter: "blur(10px)",
@@ -168,12 +163,12 @@ export function Hero() {
           </button>
         </motion.div>
 
-        {/* Stats cards */}
+        {/* 5. STATS BOXES (Visible & Square) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          // Added 'relative' and 'z-50' to force these ON TOP of any other layers
+          // z-50 forces them on top of everything.
           className="relative z-50 mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 w-full px-2"
         >
           {[
@@ -185,7 +180,7 @@ export function Hero() {
               key={index}
               className="relative aspect-square flex items-center justify-center rounded-3xl overflow-hidden group hover:scale-105 transition-transform duration-300"
             >
-              {/* Spinning Border Layer */}
+              {/* Spinning Border */}
               <div 
                 className="absolute inset-[-50%] animate-border-spin"
                 style={{
@@ -194,7 +189,7 @@ export function Hero() {
                 }}
               />
               
-              {/* White Content Card */}
+              {/* Card Content */}
               <div 
                 className="absolute inset-[2px] bg-white rounded-[22px] flex flex-col items-center justify-center p-6 z-10"
                 style={{
