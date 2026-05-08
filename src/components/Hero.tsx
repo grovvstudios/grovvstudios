@@ -38,7 +38,7 @@ export function Hero() {
     <section
       className="relative w-full overflow-visible min-h-screen flex flex-col items-center px-4 md:px-6 pb-32"
       style={{
-        paddingTop: "120px", // ✅ ONLY FIX — pushes hero below fixed navbar
+        paddingTop: "120px",
       }}
     >
       <style>{`
@@ -64,21 +64,21 @@ export function Hero() {
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center text-center">
         {/* 1. HEADLINE */}
         <div className="relative mb-8 inline-block max-w-full">
-       <div
-  className="inline-block mb-6 px-4 py-2 rounded-full text-sm font-medium"
-  style={{
-    background:
-      "linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)",
-    border: "1px solid rgba(102, 126, 234, 0.15)",
-    backdropFilter: "blur(10px)",
-    color: "rgb(75, 85, 99)",
-  }}
->
-  <span className="flex items-center gap-2">
-    <Sparkles className="w-3 h-3 text-[#667eea]" />
-    Elevate your brand • Grow with us
-  </span>
-</div>
+          <div
+            className="inline-block mb-6 px-4 py-2 rounded-full text-sm font-medium"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)",
+              border: "1px solid rgba(102, 126, 234, 0.15)",
+              backdropFilter: "blur(10px)",
+              color: "rgb(75, 85, 99)",
+            }}
+          >
+            <span className="flex items-center gap-2">
+              <Sparkles className="w-3 h-3 text-[#667eea]" />
+              Elevate your brand • Grow with us
+            </span>
+          </div>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -139,40 +139,55 @@ export function Hero() {
           .
         </motion.h2>
 
-        {/* 3. BUTTONS */}
+        {/* 3. BUTTONS - UPDATED WITH CASE STUDY */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex flex-col md:flex-row gap-4 justify-center items-center w-full px-4"
+          className="flex flex-col gap-4 justify-center items-center w-full px-4 mb-8"
         >
-          <button
-            className="group px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 flex justify-center items-center w-full md:w-auto min-w-[200px]"
-            style={{
-              background:
-                "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
-              color: "white",
-              fontWeight: 600,
-            }}
+          <div className="flex flex-col md:flex-row gap-4 w-full justify-center">
+            <button
+              className="group px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-2xl hover:scale-105 flex justify-center items-center w-full md:w-auto min-w-[200px]"
+              style={{
+                background:
+                  "linear-gradient(135deg, #1a1a2e 0%, #667eea 50%, #764ba2 100%)",
+                color: "white",
+                fontWeight: 600,
+              }}
+            >
+              <span className="flex items-center gap-2">
+                Start Your Project
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </span>
+            </button>
+
+            <button
+              className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium bg-white/80 hover:bg-gray-50 w-full md:w-auto min-w-[200px] animate-border-breathe"
+              style={{
+                border: "2px solid rgba(102, 126, 234, 0.2)",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              View Our Work
+            </button>
+          </div>
+
+          {/* FEATURED CASE STUDY - NEW */}
+          <a
+            href="/case-study/renault-duster"
+            className="group px-8 py-4 rounded-2xl transition-all duration-300 hover:shadow-xl hover:scale-105 flex justify-center items-center w-full md:w-auto min-w-[300px] bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold"
           >
             <span className="flex items-center gap-2">
-              Start Your Project
+              📊 Read Featured Case Study: Renault Duster
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </span>
-          </button>
-
-          <button
-            className="px-8 py-4 rounded-2xl transition-all duration-300 hover:scale-105 text-gray-700 font-medium bg-white/80 hover:bg-gray-50 w-full md:w-auto min-w-[200px] animate-border-breathe"
-            style={{
-              border: "2px solid rgba(102, 126, 234, 0.2)",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            View Our Work
-          </button>
+          </a>
         </motion.div>
 
-        {/* 4. STATS — UNTOUCHED */}
+        <p className="text-sm text-gray-500 mb-16">How we created 108% growth in 60 days through strategic positioning</p>
+
+        {/* 4. STATS */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
