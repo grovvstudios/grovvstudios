@@ -49,8 +49,8 @@ const services: ServiceItem[] = [
   {
     icon: Video,
     title: "Video Production",
-    price: "₹7,000",
-    originalPrice: "₹9,000",
+    price: "₹8,000",
+    originalPrice: "₹10,000",
     period: "/ video",
     tagline: "Viral content that sells",
     description: "Reels & Shorts that stop the scroll. Fast turnaround, unlimited revisions, trending effects.",
@@ -68,8 +68,8 @@ const services: ServiceItem[] = [
   {
     icon: Film,
     title: "Video Editing",
-    price: "₹600",
-    originalPrice: "₹800",
+    price: "₹1500",
+    originalPrice: "₹2000",
     period: "/ minute",
     tagline: "Professional polish, affordable price",
     description: "Transform raw footage into polished content. Color grading, audio mixing, effects included.",
@@ -86,7 +86,7 @@ const services: ServiceItem[] = [
   {
     icon: Search,
     title: "SEO Optimization",
-    price: "₹35,000",
+    price: "₹45,000",
     originalPrice: null,
     period: "/ month",
     tagline: "Rank higher, grow faster",
@@ -104,7 +104,7 @@ const services: ServiceItem[] = [
   {
     icon: Brain,
     title: "AI Workflow Automation",
-    price: "₹40,000",
+    price: "₹40,000-₹5,00,000",
     originalPrice: null,
     period: "starting",
     tagline: "Work smarter, not harder",
@@ -128,10 +128,10 @@ const services: ServiceItem[] = [
     tagline: "Your digital storefront",
     description: "Fast, beautiful, conversion-focused websites. From landing pages to full e-commerce platforms.",
     features: [
-      "Single Page Website: ₹21,000",
+      "Single Page Website(AI): ₹21,000",
       "5-7 Pages Website: ₹45,000",
       "Super Dynamic Website: ₹75,000",
-      "E-Commerce Website: Starting from ₹85,000",
+      "E-Commerce Website: Starting from ₹25,000",
       "Mobile responsive & SEO optimized"
     ],
     badge: "Best Value",
