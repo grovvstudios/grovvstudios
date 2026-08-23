@@ -104,7 +104,7 @@ const services: ServiceItem[] = [
   {
     icon: Brain,
     title: "AI Workflow Automation",
-    price: "₹40,000-₹5,00,000",
+    price: "₹40,000 to ₹5,00,000",
     originalPrice: null,
     period: "starting",
     tagline: "Work smarter, not harder",
